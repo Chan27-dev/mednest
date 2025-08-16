@@ -275,4 +275,4 @@
         <?php endif; ?>
     </body>
 </html>
-<?php /**PATH D:\mednest\resources\views/welcome.blade.php ENDPATH**/ ?>
+<?php /**PATH E:\4th yr 1st sem\mednest\resources\views/welcome.blade.php ENDPATH**/ ?>
