@@ -29,7 +29,7 @@ class DashboardController extends Controller
                     'time' => '10:15 AM',
                     'activity' => 'Labor Monitoring',
                     'patient' => 'Ana Cruz',
-                    'branch' => 'Daraga ',
+                    'branch' => 'Daraga',
                     'status' => 'Active',
                     'status_class' => 'active'
                 ],
@@ -62,28 +62,76 @@ class DashboardController extends Controller
         // Demo data for patients page
         $patients = [
             [
-                'id' => 1,
+                'id' => 'P - 001',
                 'name' => 'Maria Santos',
-                'age' => 28,
-                'due_date' => '2025-09-15',
-                'branch' => 'Sto. Domingo',
-                'status' => 'Active'
+                'age' => 31,
+                'contact' => '0917-123-4567',
+                'last_visit' => 'May 26, 2025',
+                'status' => 'Active',
+                'actions' => ['View', 'Edit']
             ],
             [
-                'id' => 2,
+                'id' => 'P - 002',
                 'name' => 'Ana Cruz',
-                'age' => 32,
-                'due_date' => '2025-08-22',
-                'branch' => 'Daraga ',
-                'status' => 'In Labor'
+                'age' => 35,
+                'contact' => '0918-765-4321',
+                'last_visit' => 'May 24, 2025',
+                'status' => 'In Labor',
+                'actions' => ['View', 'Monitor']
             ],
             [
-                'id' => 3,
+                'id' => 'P - 003',
+                'name' => 'Lisa Tan',
+                'age' => 28,
+                'contact' => '0919-456-7890',
+                'last_visit' => 'May 23, 2025',
+                'status' => 'Scheduled',
+                'actions' => ['View', 'Edit']
+            ],
+            [
+                'id' => 'P - 004',
                 'name' => 'Carmen Lopez',
                 'age' => 25,
-                'due_date' => '2025-10-03',
-                'branch' => 'Arimbay',
-                'status' => 'Scheduled'
+                'contact' => '0917-234-5678',
+                'last_visit' => 'May 20, 2025',
+                'status' => 'Active',
+                'actions' => ['View', 'Edit']
+            ],
+            [
+                'id' => 'P - 005',
+                'name' => 'Grace Villanueva',
+                'age' => 33,
+                'contact' => '0920-567-8901',
+                'last_visit' => 'May 18, 2025',
+                'status' => 'Completed',
+                'actions' => ['View', 'Archive']
+            ],
+            [
+                'id' => 'P - 006',
+                'name' => 'Jennifer Reyes',
+                'age' => 29,
+                'contact' => '0921-345-6789',
+                'last_visit' => 'May 15, 2025',
+                'status' => 'Active',
+                'actions' => ['View', 'Edit']
+            ],
+            [
+                'id' => 'P - 007',
+                'name' => 'Sarah Johnson',
+                'age' => 27,
+                'contact' => '0922-456-7890',
+                'last_visit' => 'May 12, 2025',
+                'status' => 'Scheduled',
+                'actions' => ['View', 'Edit']
+            ],
+            [
+                'id' => 'P - 008',
+                'name' => 'Michelle Davis',
+                'age' => 32,
+                'contact' => '0923-567-8901',
+                'last_visit' => 'May 10, 2025',
+                'status' => 'Active',
+                'actions' => ['View', 'Edit']
             ]
         ];
 
@@ -94,22 +142,48 @@ class DashboardController extends Controller
     {
         $appointments = [
             [
-                'id' => 1,
-                'patient' => 'Maria Santos',
-                'date' => '2025-08-17',
-                'time' => '09:00 AM',
-                'type' => 'Prenatal Checkup',
-                'doctor' => 'Dr. Smith',
-                'branch' => 'Sto. Domingo'
+                'patient' => 'Joven',
+                'email' => 'joven@email.com',
+                'date_time' => '10:00 AM',
+                'date' => 'March 25, 2025',
+                'service' => 'Consultation',
+                'assigned_staff' => 'Dr. Sarah Wilson',
+                'payment' => '₱1,500.00',
+                'status' => 'CONFIRMED',
+                'actions' => ['edit', 'delete']
             ],
             [
-                'id' => 2,
-                'patient' => 'Carmen Lopez',
-                'date' => '2025-08-18',
-                'time' => '02:30 PM',
-                'type' => 'Ultrasound',
-                'doctor' => 'Dr. Johnson',
-                'branch' => 'Arimbay'
+                'patient' => 'Christian',
+                'email' => 'john.Chris@email.com',
+                'date_time' => '10:00 AM',
+                'date' => 'March 25, 2025',
+                'service' => 'Consultation',
+                'assigned_staff' => 'Dr. Sarah Wilson',
+                'payment' => '₱1,500.00',
+                'status' => 'CONFIRMED',
+                'actions' => ['edit', 'delete']
+            ],
+            [
+                'patient' => 'John Errole',
+                'email' => 'john.errole@email.com',
+                'date_time' => '10:00 AM',
+                'date' => 'March 25, 2025',
+                'service' => 'Consultation',
+                'assigned_staff' => 'Dr. Sarah Wilson',
+                'payment' => '₱1,500.00',
+                'status' => 'CONFIRMED',
+                'actions' => ['edit', 'delete']
+            ],
+            [
+                'patient' => 'Kim',
+                'email' => 'Kim.antonette@email.com',
+                'date_time' => '10:00 AM',
+                'date' => 'March 25, 2025',
+                'service' => 'Consultation',
+                'assigned_staff' => 'Dr. Sarah Wilson',
+                'payment' => '₱1,500.00',
+                'status' => 'CONFIRMED',
+                'actions' => ['edit', 'delete']
             ]
         ];
 
@@ -143,7 +217,7 @@ class DashboardController extends Controller
                 'amount' => '₱15,500',
                 'date' => '2025-08-16',
                 'status' => 'Paid',
-                'branch' => 'Daraga'
+                'branch' => 'Sto. Domingo'
             ],
             [
                 'id' => 'INV-002',
@@ -151,7 +225,7 @@ class DashboardController extends Controller
                 'amount' => '₱8,200',
                 'date' => '2025-08-15',
                 'status' => 'Pending',
-                'branch' => 'Daraga'
+                'branch' => 'Arimbay'
             ]
         ];
 
@@ -214,8 +288,8 @@ class DashboardController extends Controller
             'email' => 'admin@mednest.com',
             'role' => 'System Administrator',
             'branch' => 'All Branches',
-            'phone' => '+63 917 123 4567',
-            'address' => '123 Medical Center Drive, Tabaco City, Albay',
+            'phone' => '+63 909 250 9851',
+            'address' => '118 Sampaguita St, Bagumbayan,Daraga,Albay,',
             'last_login' => '2025-08-22 08:00:00',
             'joined_date' => '2024-01-15',
             'permissions' => ['view_all', 'edit_patients', 'manage_appointments', 'billing_access'],
@@ -263,7 +337,7 @@ class DashboardController extends Controller
             [
                 'id' => 1,
                 'title' => 'New Patient Registration',
-                'message' => 'Maria Santos has been registered in Sinag branch',
+                'message' => 'Maria Santos has been registered in Sto. Domingo branch',
                 'type' => 'patient',
                 'time' => '2 minutes ago',
                 'read' => false,
@@ -273,7 +347,7 @@ class DashboardController extends Controller
             [
                 'id' => 2,
                 'title' => 'Labor Alert',
-                'message' => 'Ana Cruz is in active labor - Bill Dayandog branch',
+                'message' => 'Ana Cruz is in active labor - Daraga branch',
                 'type' => 'emergency',
                 'time' => '15 minutes ago',
                 'read' => false,
