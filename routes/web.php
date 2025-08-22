@@ -34,13 +34,26 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('/settings', function() {
         return redirect()->route('dashboard.index')->with('message', 'Settings section - Frontend demo');
     })->name('settings');
+    
+    // Profile routes
+    Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
+    Route::get('/settings', [DashboardController::class, 'accountSettings'])->name('settings');
+    Route::get('/notifications', [DashboardController::class, 'notificationsPage'])->name('notifications');
 });
+
+// Authentication Routes (Demo)
+Route::post('/logout', [DashboardController::class, 'logout'])->name('logout');
+
+Route::get('/login', function() {
+    return redirect()->route('dashboard.index')->with('message', 'Demo: Login page - redirected to dashboard');
+})->name('login');
 
 // API Routes for AJAX calls
 Route::prefix('api')->name('api.')->group(function () {
     Route::get('/stats', [DashboardController::class, 'getStats'])->name('stats');
     Route::post('/search', [DashboardController::class, 'search'])->name('search');
     Route::post('/quick-action', [DashboardController::class, 'quickAction'])->name('quick-action');
+    Route::get('/notifications', [DashboardController::class, 'notifications'])->name('notifications');
 });
 
 // Fallback route

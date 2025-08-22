@@ -783,8 +783,32 @@
 <div class="sidebar">
     <div class="logo">
         <div class="logo-image">
-        <img src="<?php echo e(asset('images/mednest-logo.png')); ?>" alt="MedNest Logo"> 
+            <!-- Option 1: Use your uploaded logo (save the image as public/images/mednest-logo.png) -->
+            <!-- <img src="<?php echo e(asset('images/mednest-logo.png')); ?>" alt="MedNest Logo"> -->
             
+            <!-- Option 2: SVG version inspired by your logo -->
+            <svg width="35" height="35" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#d63384;stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:#e91e63;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#ff6b9d;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                
+                <!-- Heart background -->
+                <path d="M50,85 C50,85 20,60 20,40 C20,25 30,15 45,20 C50,10 70,10 75,20 C90,15 100,25 100,40 C100,60 70,85 50,85 Z" 
+                      fill="url(#heartGradient)" opacity="0.9"/>
+                
+                <!-- Mother silhouette -->
+                <path d="M35,30 C35,25 40,20 45,25 C45,30 42,35 40,40 C38,45 35,50 35,50" 
+                      fill="white" opacity="0.8"/>
+                
+                <!-- Baby silhouette -->
+                <circle cx="55" cy="40" r="8" fill="white" opacity="0.9"/>
+                <path d="M55,48 C55,48 50,52 55,55 C60,52 55,48 55,48" 
+                      fill="white" opacity="0.8"/>
+            </svg>
         </div>
         <div class="logo-text">
             <h5>MedNest</h5>
@@ -875,19 +899,19 @@
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                    <a class="dropdown-item" href="#" data-action="profile">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.profile')); ?>">
                         <i class="fas fa-user me-2"></i>
                         My Profile
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="#" data-action="settings">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.settings')); ?>">
                         <i class="fas fa-cog me-2"></i>
                         Account Settings
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="#" data-action="notifications">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.notifications')); ?>">
                         <i class="fas fa-bell me-2"></i>
                         Notifications
                         <span class="badge bg-danger ms-auto">3</span>
@@ -1023,15 +1047,15 @@
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span>Sto. Domingo Branch</span>
+                            <span>Sinag Branch</span>
                             <span class="badge bg-success">Online</span>
                         </div>
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span>Daraga Branch</span>
+                            <span>Bill Dayandog</span>
                             <span class="badge bg-success">Online</span>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
-                            <span>Arimbay Branch</span>
+                            <span>Anthony Branch</span>
                             <span class="badge bg-warning">Maintenance</span>
                         </div>
                     </div>
@@ -1066,9 +1090,9 @@
                     <div class="col-md-3">
                         <select class="form-select form-select-lg" id="branchFilter">
                             <option value="">All Branches</option>
-                            <option value="sinag">Sto. Domingo Branch</option>
-                            <option value="bill">Daraga Branch</option>
-                            <option value="anthony">Arimbay Branch</option>
+                            <option value="sinag">Sinag Branch</option>
+                            <option value="bill">Bill Dayandog</option>
+                            <option value="anthony">Anthony Branch</option>
                         </select>
                     </div>
                     <div class="col-md-3">
