@@ -626,8 +626,8 @@
         if (e.target.matches('[data-action="logout"]')) {
             e.preventDefault();
             if (confirm('Are you sure you want to logout?')) {
-                // In a real app, redirect to logout route
-                alert('Demo: Logout functionality');
+                // Redirect to logout route
+                window.location.href = '/logout';
             }
         }
     });

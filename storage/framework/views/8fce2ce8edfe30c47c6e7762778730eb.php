@@ -783,36 +783,12 @@
 <div class="sidebar">
     <div class="logo">
         <div class="logo-image">
-            <!-- Option 1: Use your uploaded logo (save the image as public/images/mednest-logo.png) -->
-            <!-- <img src="<?php echo e(asset('images/mednest-logo.png')); ?>" alt="MedNest Logo"> -->
+            <img src="<?php echo e(asset('images/mednest-logo.png')); ?>" alt="MedNest Logo"> 
             
-            <!-- Option 2: SVG version inspired by your logo -->
-            <svg width="35" height="35" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#d63384;stop-opacity:1" />
-                        <stop offset="50%" style="stop-color:#e91e63;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#ff6b9d;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                
-                <!-- Heart background -->
-                <path d="M50,85 C50,85 20,60 20,40 C20,25 30,15 45,20 C50,10 70,10 75,20 C90,15 100,25 100,40 C100,60 70,85 50,85 Z" 
-                      fill="url(#heartGradient)" opacity="0.9"/>
-                
-                <!-- Mother silhouette -->
-                <path d="M35,30 C35,25 40,20 45,25 C45,30 42,35 40,40 C38,45 35,50 35,50" 
-                      fill="white" opacity="0.8"/>
-                
-                <!-- Baby silhouette -->
-                <circle cx="55" cy="40" r="8" fill="white" opacity="0.9"/>
-                <path d="M55,48 C55,48 50,52 55,55 C60,52 55,48 55,48" 
-                      fill="white" opacity="0.8"/>
-            </svg>
         </div>
         <div class="logo-text">
             <h5>MedNest</h5>
-            <small>THE MODERN MATERNITY CLINIC</small>
+            <small>DEL ROSARIO MATERNITY CLINIC</small>
         </div>
     </div>
 
@@ -1047,15 +1023,15 @@
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span>Sinag Branch</span>
+                            <span>Sto. Domingo Branch</span>
                             <span class="badge bg-success">Online</span>
                         </div>
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span>Bill Dayandog</span>
+                            <span>Daraga Branch</span>
                             <span class="badge bg-success">Online</span>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
-                            <span>Anthony Branch</span>
+                            <span>Arimbay Branch</span>
                             <span class="badge bg-warning">Maintenance</span>
                         </div>
                     </div>
@@ -1620,10 +1596,12 @@
                 const originalContent = logoutItem.innerHTML;
                 logoutItem.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Logging out...';
                 
-                // Simulate logout process
+                // Simple redirect to logout route which will redirect to login
                 setTimeout(() => {
-                    // In a real app, you would redirect to logout route
-                    // window.location.href = '/logout';
+                    window.location.href = '/logout';
+                }, 800);
+            }
+        } = '/logout';
                     
                     // For demo, show success and reload
                     window.MedNestDashboard.prototype.showNotification('Successfully logged out!', 'success');

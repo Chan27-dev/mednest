@@ -503,7 +503,42 @@
         .action-buttons {
             flex-direction: column;
         }
+
+    .sidebar .logo .logo-image {
+        width: 45px;
+        height: 45px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
     }
+
+    .sidebar .logo .logo-image img {
+        width: 35px;
+        height: 35px;
+        object-fit: contain;
+    }
+
+    .sidebar .logo .logo-text h5 {
+        color: white;
+        margin: 0;
+        font-weight: bold;
+        font-size: 1.2rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .sidebar .logo .logo-text small {
+        color: var(--sidebar-text-muted);
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+}
+
 </style>
 <?php $__env->stopSection(); ?>
 
@@ -512,33 +547,19 @@
 <div class="sidebar">
     <div class="logo">
         <div class="logo-image">
-            <svg width="35" height="35" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#d63384;stop-opacity:1" />
-                        <stop offset="50%" style="stop-color:#e91e63;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#ff6b9d;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                <path d="M50,85 C50,85 20,60 20,40 C20,25 30,15 45,20 C50,10 70,10 75,20 C90,15 100,25 100,40 C100,60 70,85 50,85 Z" 
-                      fill="url(#heartGradient)" opacity="0.9"/>
-                <path d="M35,30 C35,25 40,20 45,25 C45,30 42,35 40,40 C38,45 35,50 35,50" 
-                      fill="white" opacity="0.8"/>
-                <circle cx="55" cy="40" r="8" fill="white" opacity="0.9"/>
-                <path d="M55,48 C55,48 50,52 55,55 C60,52 55,48 55,48" 
-                      fill="white" opacity="0.8"/>
-            </svg>
+            <img src="<?php echo e(asset('images/mednest-logo.png')); ?>" alt="MedNest Logo"> 
+            
         </div>
         <div class="logo-text">
             <h5>MedNest</h5>
-            <small>THE MODERN MATERNITY CLINIC</small>
+            <small>DEL ROSARIO MATERNITY CLINIC</small>
         </div>
     </div>
 
     <nav class="sidebar-nav">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo e(route('dashboard.index')); ?>">
+                <a class="nav-link active" href="<?php echo e(route('dashboard.index')); ?>">
                     <i class="fas fa-th-large"></i>
                     Dashboard
                 </a>
@@ -550,7 +571,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="<?php echo e(route('dashboard.appointments')); ?>">
+                <a class="nav-link" href="<?php echo e(route('dashboard.appointments')); ?>">
                     <i class="fas fa-calendar-alt"></i>
                     Appointments
                 </a>
@@ -568,25 +589,25 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo e(route('dashboard.referrals')); ?>">
+                <a class="nav-link" href="#" data-section="referrals">
                     <i class="fas fa-share-alt"></i>
                     Referrals
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo e(route('dashboard.reports')); ?>">
+                <a class="nav-link" href="#" data-section="reports">
                     <i class="fas fa-chart-bar"></i>
                     Branch Reports
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo e(route('dashboard.staff')); ?>">
+                <a class="nav-link" href="#" data-section="staff">
                     <i class="fas fa-user-cog"></i>
                     Staff Management
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo e(route('dashboard.settings')); ?>">
+                <a class="nav-link" href="#" data-section="settings">
                     <i class="fas fa-cog"></i>
                     Settings
                 </a>
@@ -933,10 +954,8 @@
             if (e.target.matches('[data-action="logout"]')) {
                 e.preventDefault();
                 if (confirm('Are you sure you want to logout?')) {
-                    showNotification('Logging out...', 'info');
-                    setTimeout(() => {
-                        alert('Demo: In a real app, you would be redirected to the login page.');
-                    }, 1500);
+                    // Redirect to logout route
+                    window.location.href = '/logout';
                 }
             }
         });

@@ -1002,10 +1002,8 @@
             if (e.target.matches('[data-action="logout"]')) {
                 e.preventDefault();
                 if (confirm('Are you sure you want to logout?')) {
-                    showNotification('Logging out...', 'info');
-                    setTimeout(() => {
-                        alert('Demo: In a real app, you would be redirected to the login page.');
-                    }, 1500);
+                    // Redirect to logout route
+                    window.location.href = '/logout';
                 }
             }
         });

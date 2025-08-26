@@ -49,7 +49,7 @@ class DashboardController extends Controller
             ],
             'branch_status' => [
                 ['name' => 'Sto. Domingo Branch', 'status' => 'Online', 'class' => 'success'],
-                ['name' => 'Daraga Branch', 'status' => 'Online', 'class' => 'success'],
+                ['name' => 'Daraga', 'status' => 'Online', 'class' => 'success'],
                 ['name' => 'Arimbay Branch', 'status' => 'Maintenance', 'class' => 'warning']
             ]
         ];
@@ -142,8 +142,19 @@ class DashboardController extends Controller
     {
         $appointments = [
             [
-                'patient' => 'Joven',
-                'email' => 'joven@email.com',
+                'patient' => 'Antonette',
+                'email' => 'kim@email.com',
+                'date_time' => '10:00 AM',
+                'date' => 'March 25, 2025',
+                'service' => 'Consultation',
+                'assigned_staff' => 'Dr. Sarah Wilson',
+                'payment' => '₱1,500.00',
+                'status' => 'CONFIRMED',
+                'actions' => ['edit', 'delete']
+            ],
+            [
+                'patient' => 'Errole',
+                'email' => 'john.e@email.com',
                 'date_time' => '10:00 AM',
                 'date' => 'March 25, 2025',
                 'service' => 'Consultation',
@@ -154,7 +165,7 @@ class DashboardController extends Controller
             ],
             [
                 'patient' => 'Christian',
-                'email' => 'john.Chris@email.com',
+                'email' => 'john.chris@email.com',
                 'date_time' => '10:00 AM',
                 'date' => 'March 25, 2025',
                 'service' => 'Consultation',
@@ -164,19 +175,8 @@ class DashboardController extends Controller
                 'actions' => ['edit', 'delete']
             ],
             [
-                'patient' => 'John Errole',
-                'email' => 'john.errole@email.com',
-                'date_time' => '10:00 AM',
-                'date' => 'March 25, 2025',
-                'service' => 'Consultation',
-                'assigned_staff' => 'Dr. Sarah Wilson',
-                'payment' => '₱1,500.00',
-                'status' => 'CONFIRMED',
-                'actions' => ['edit', 'delete']
-            ],
-            [
-                'patient' => 'Kim',
-                'email' => 'Kim.antonette@email.com',
+                'patient' => 'Joven',
+                'email' => 'mark@email.com',
                 'date_time' => '10:00 AM',
                 'date' => 'March 25, 2025',
                 'service' => 'Consultation',
@@ -288,8 +288,8 @@ class DashboardController extends Controller
             'email' => 'admin@mednest.com',
             'role' => 'System Administrator',
             'branch' => 'All Branches',
-            'phone' => '+63 909 250 9851',
-            'address' => '118 Sampaguita St, Bagumbayan,Daraga,Albay,',
+            'phone' => '+63 917 123 4567',
+            'address' => '123 Medical Center Drive, Tabaco City, Albay',
             'last_login' => '2025-08-22 08:00:00',
             'joined_date' => '2024-01-15',
             'permissions' => ['view_all', 'edit_patients', 'manage_appointments', 'billing_access'],
@@ -337,7 +337,7 @@ class DashboardController extends Controller
             [
                 'id' => 1,
                 'title' => 'New Patient Registration',
-                'message' => 'Maria Santos has been registered in Sto. Domingo branch',
+                'message' => 'Maria Santos has been registered in Sinag branch',
                 'type' => 'patient',
                 'time' => '2 minutes ago',
                 'read' => false,
@@ -347,7 +347,7 @@ class DashboardController extends Controller
             [
                 'id' => 2,
                 'title' => 'Labor Alert',
-                'message' => 'Ana Cruz is in active labor - Daraga branch',
+                'message' => 'Ana Cruz is in active labor - Bill Dayandog branch',
                 'type' => 'emergency',
                 'time' => '15 minutes ago',
                 'read' => false,
@@ -396,7 +396,30 @@ class DashboardController extends Controller
         // $request->session()->invalidate();
         // $request->session()->regenerateToken();
 
-        return redirect('/')->with('message', 'Successfully logged out from MedNest Dashboard');
+        return redirect()->route('login')->with('success', 'You have been successfully logged out.');
+    }
+
+    public function loginPost(Request $request)
+    {
+        // Validate the login request
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+
+        // Demo login logic (replace with real authentication)
+        if ($request->email === 'admin@mednest.com' && $request->password === 'password123') {
+            // In a real app, you would authenticate the user here
+            // Auth::attempt($credentials)
+            
+            // For demo, just redirect to dashboard
+            return redirect()->route('dashboard.index')->with('success', 'Welcome back to MedNest!');
+        }
+
+        // Authentication failed
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->withInput($request->only('email'));
     }
 
     public function notifications()

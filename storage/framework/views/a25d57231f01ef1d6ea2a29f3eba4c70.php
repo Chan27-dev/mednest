@@ -875,8 +875,21 @@
         if (e.target.matches('[data-action="logout"]')) {
             e.preventDefault();
             if (confirm('Are you sure you want to logout?')) {
-                // In a real app, redirect to logout route
-                alert('Demo: Logout functionality');
+                // Create a form and submit it to handle CSRF properly
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '<?php echo e(route("logout")); ?>';
+                
+                // Add CSRF token
+                const csrfToken = document.createElement('input');
+                csrfToken.type = 'hidden';
+                csrfToken.name = '_token';
+                csrfToken.value = '<?php echo e(csrf_token()); ?>';
+                form.appendChild(csrfToken);
+                
+                // Add to document and submit
+                document.body.appendChild(form);
+                form.submit();
             }
         }
     });
