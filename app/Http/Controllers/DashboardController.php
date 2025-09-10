@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
@@ -208,31 +210,380 @@ class DashboardController extends Controller
         return view('dashboard.labor', compact('laborCases'));
     }
 
-    public function billing()
+    // =========================
+    // BILLING METHODS
+    // =========================
+
+    /**
+     * Display the main billing dashboard
+     */
+    public function billing(): View
     {
-        $bills = [
+        // Sample billing records - replace with actual database queries
+        $billingRecords = [
             [
-                'id' => 'INV-001',
-                'patient' => 'Maria Santos',
-                'amount' => '₱15,500',
-                'date' => '2025-08-16',
-                'status' => 'Paid',
-                'branch' => 'Sto. Domingo'
+                'id' => 'P-001',
+                'name' => 'Maria Santos',
+                'email' => 'maria.santos@email.com',
+                'service' => 'Consultation',
+                'date' => 'May 30, 2025',
+                'amount' => '₱1,500.00',
+                'status' => 'paid'
             ],
             [
-                'id' => 'INV-002',
-                'patient' => 'Carmen Lopez',
-                'amount' => '₱8,200',
-                'date' => '2025-08-15',
-                'status' => 'Pending',
-                'branch' => 'Arimbay'
+                'id' => 'P-002',
+                'name' => 'Ana Cruz',
+                'email' => 'ana.cruz@email.com',
+                'service' => 'Pre-natal Check Up',
+                'date' => 'May 28, 2025',
+                'amount' => '₱2,000.00',
+                'status' => 'pending'
+            ],
+            [
+                'id' => 'P-003',
+                'name' => 'Maria Garcia',
+                'email' => 'maria.garcia@email.com',
+                'service' => 'Ultrasound',
+                'date' => 'May 15, 2025',
+                'amount' => '₱2,500.00',
+                'status' => 'overdue'
+            ],
+            [
+                'id' => 'P-004',
+                'name' => 'Carmen Lopez',
+                'email' => 'carmen.lopez@email.com',
+                'service' => 'Consultation',
+                'date' => 'May 25, 2025',
+                'amount' => '₱1,500.00',
+                'status' => 'paid'
             ]
         ];
 
-        return view('dashboard.billing', compact('bills'));
+        // Sample statistics
+        $stats = [
+            'monthly_revenue' => '₱125,400',
+            'pending_payments' => 23,
+            'total_patients' => 156,
+            'overdue_count' => 5
+        ];
+
+        return view('dashboard.billing', compact('billingRecords', 'stats'));
     }
 
-    // API endpoints for AJAX calls (optional)
+    /**
+     * Show the form for creating a new invoice
+     */
+    public function billingCreate(): View
+    {
+        // Get patients for dropdown - replace with actual query
+        $patients = [
+            ['id' => 1, 'name' => 'Maria Santos'],
+            ['id' => 2, 'name' => 'Ana Cruz'],
+            ['id' => 3, 'name' => 'Maria Garcia'],
+            ['id' => 4, 'name' => 'Carmen Lopez']
+        ];
+
+        // Get services for dropdown
+        $services = [
+            ['id' => 'consultation', 'name' => 'Consultation', 'price' => 1500],
+            ['id' => 'prenatal', 'name' => 'Pre-natal Check Up', 'price' => 2000],
+            ['id' => 'ultrasound', 'name' => 'Ultrasound', 'price' => 2500],
+            ['id' => 'delivery', 'name' => 'Delivery', 'price' => 15000]
+        ];
+
+        return view('billing.create', compact('patients', 'services'));
+    }
+
+    /**
+     * Store a newly created invoice
+     */
+    public function billingStore(Request $request): RedirectResponse
+    {
+        // Validate the request
+        $validated = $request->validate([
+            'patient_name' => 'required|string|max:255',
+            'service' => 'required|string',
+            'amount' => 'required|numeric|min:0',
+            'service_date' => 'required|date',
+            'notes' => 'nullable|string|max:1000'
+        ]);
+
+        // Here you would typically save to database
+        // Example:
+        /*
+        $invoice = new Invoice();
+        $invoice->patient_name = $validated['patient_name'];
+        $invoice->service = $validated['service'];
+        $invoice->amount = $validated['amount'];
+        $invoice->service_date = $validated['service_date'];
+        $invoice->notes = $validated['notes'];
+        $invoice->status = 'pending';
+        $invoice->save();
+        */
+
+        return redirect()->route('dashboard.billing')
+            ->with('message', 'Invoice created successfully for ' . $validated['patient_name']);
+    }
+
+    /**
+     * Display patient billing details
+     */
+    public function billingShow(string $patientId): View
+    {
+        // Sample patient data - replace with actual database query
+        $patient = [
+            'id' => $patientId,
+            'name' => 'Maria Santos',
+            'email' => 'maria.santos@email.com',
+            'age' => 28,
+            'contact' => '0917-123-4567',
+            'total_amount' => 2500.00,
+            'amount_paid' => 1500.00,
+            'balance' => 1000.00,
+            'last_visit' => 'May 30, 2025'
+        ];
+
+        // Sample transactions
+        $transactions = [
+            [
+                'id' => 1,
+                'date' => 'May 30, 2025',
+                'service' => 'Consultation',
+                'amount' => 1500.00,
+                'status' => 'paid'
+            ],
+            [
+                'id' => 2,
+                'date' => 'May 15, 2025',
+                'service' => 'Ultrasound',
+                'amount' => 1000.00,
+                'status' => 'pending'
+            ]
+        ];
+
+        return view('billing.show', compact('patient', 'transactions'));
+    }
+
+    /**
+     * Show the form for editing a billing record
+     */
+    public function billingEdit(string $id): View
+    {
+        // Sample patient data - replace with actual database query
+        $patient = [
+            'id' => $id,
+            'name' => 'Maria Santos',
+            'email' => 'maria.santos@email.com',
+            'age' => 28,
+            'contact' => '0917-123-4567',
+            'status' => 'active',
+            'notes' => 'Regular patient, no complications'
+        ];
+
+        return view('billing.edit', compact('patient'));
+    }
+
+    /**
+     * Update the specified billing record
+     */
+    public function billingUpdate(Request $request, string $id): RedirectResponse
+    {
+        // Validate the request
+        $validated = $request->validate([
+            'patient_name' => 'required|string|max:255',
+            'age' => 'required|integer|min:1|max:120',
+            'contact' => 'required|string|max:20',
+            'status' => 'required|in:paid,pending,overdue,cancelled',
+            'notes' => 'nullable|string|max:1000'
+        ]);
+
+        // Here you would typically update the database
+        // Example:
+        /*
+        $patient = Patient::findOrFail($id);
+        $patient->name = $validated['patient_name'];
+        $patient->age = $validated['age'];
+        $patient->contact = $validated['contact'];
+        $patient->status = $validated['status'];
+        $patient->notes = $validated['notes'];
+        $patient->save();
+        */
+
+        return redirect()->route('dashboard.billing')
+            ->with('message', 'Patient record updated successfully for ' . $validated['patient_name']);
+    }
+
+    /**
+     * Remove the specified billing record
+     */
+    public function billingDelete(string $id): RedirectResponse
+    {
+        // Here you would typically delete from database
+        // Example:
+        /*
+        $patient = Patient::findOrFail($id);
+        $patient->delete();
+        */
+
+        return redirect()->route('dashboard.billing')
+            ->with('message', 'Billing record deleted successfully');
+    }
+
+    /**
+     * Search for patients (AJAX endpoint)
+     */
+    public function billingSearchPatients(Request $request)
+    {
+        $query = $request->get('query', '');
+        
+        // Sample search results - replace with actual database search
+        $patients = [
+            ['id' => 'P-001', 'name' => 'Maria Santos', 'contact' => '0917-123-4567'],
+            ['id' => 'P-002', 'name' => 'Ana Cruz', 'contact' => '0918-765-4321'],
+            ['id' => 'P-003', 'name' => 'Maria Garcia', 'contact' => '0919-555-1234'],
+            ['id' => 'P-004', 'name' => 'Carmen Lopez', 'contact' => '0917-123-9567']
+        ];
+
+        // Filter based on query
+        if ($query) {
+            $patients = array_filter($patients, function($patient) use ($query) {
+                return stripos($patient['name'], $query) !== false ||
+                       stripos($patient['id'], $query) !== false ||
+                       stripos($patient['contact'], $query) !== false;
+            });
+        }
+
+        return response()->json([
+            'patients' => array_values($patients)
+        ]);
+    }
+
+    /**
+     * Get billing statistics (AJAX endpoint)
+     */
+    public function billingGetStats()
+    {
+        // Calculate real-time statistics - replace with actual calculations
+        $stats = [
+            'monthly_revenue' => [
+                'value' => '₱125,400',
+                'change' => '+12.5%',
+                'trend' => 'up'
+            ],
+            'pending_payments' => [
+                'value' => 23,
+                'change' => '-3',
+                'trend' => 'down'
+            ],
+            'total_invoices' => [
+                'value' => 156,
+                'change' => '+8',
+                'trend' => 'up'
+            ],
+            'overdue_count' => [
+                'value' => 5,
+                'change' => '-2',
+                'trend' => 'down'
+            ]
+        ];
+
+        return response()->json($stats);
+    }
+
+    /**
+     * Get patient balance
+     */
+    public function billingGetPatientBalance(string $patientId)
+    {
+        // Calculate patient balance - replace with actual calculation
+        $balance = [
+            'total_amount' => 2500.00,
+            'amount_paid' => 1500.00,
+            'balance' => 1000.00,
+            'last_payment_date' => 'May 30, 2025',
+            'payment_history' => [
+                ['date' => 'May 30, 2025', 'amount' => 1500.00, 'method' => 'Cash'],
+                ['date' => 'April 15, 2025', 'amount' => 500.00, 'method' => 'Card']
+            ]
+        ];
+
+        return response()->json($balance);
+    }
+
+    /**
+     * Record a payment
+     */
+    public function billingRecordPayment(Request $request, string $patientId): RedirectResponse
+    {
+        $validated = $request->validate([
+            'amount' => 'required|numeric|min:0.01',
+            'payment_method' => 'required|in:cash,card,check,bank_transfer',
+            'payment_date' => 'required|date',
+            'notes' => 'nullable|string|max:500'
+        ]);
+
+        // Here you would record the payment in database
+        // Example:
+        /*
+        $payment = new Payment();
+        $payment->patient_id = $patientId;
+        $payment->amount = $validated['amount'];
+        $payment->payment_method = $validated['payment_method'];
+        $payment->payment_date = $validated['payment_date'];
+        $payment->notes = $validated['notes'];
+        $payment->save();
+        */
+
+        return redirect()->route('billing.patient', $patientId)
+            ->with('message', 'Payment of ₱' . number_format($validated['amount'], 2) . ' recorded successfully');
+    }
+
+    /**
+     * Generate billing reports
+     */
+    public function billingReports(Request $request): View
+    {
+        $type = $request->get('type', 'monthly');
+        $startDate = $request->get('start_date', now()->startOfMonth()->format('Y-m-d'));
+        $endDate = $request->get('end_date', now()->endOfMonth()->format('Y-m-d'));
+
+        // Generate report data based on type
+        $reportData = $this->generateBillingReportData($type, $startDate, $endDate);
+
+        return view('billing.reports', compact('reportData', 'type', 'startDate', 'endDate'));
+    }
+
+    /**
+     * Generate report data for billing
+     */
+    private function generateBillingReportData(string $type, string $startDate, string $endDate): array
+    {
+        // Sample report data - replace with actual database queries
+        return [
+            'summary' => [
+                'total_revenue' => 125400,
+                'total_invoices' => 156,
+                'paid_invoices' => 133,
+                'pending_invoices' => 18,
+                'overdue_invoices' => 5
+            ],
+            'chart_data' => [
+                'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                'revenue' => [85000, 92000, 78000, 105000, 125400],
+                'invoices' => [120, 135, 118, 142, 156]
+            ],
+            'top_services' => [
+                ['name' => 'Consultation', 'count' => 89, 'revenue' => 133500],
+                ['name' => 'Pre-natal Check Up', 'count' => 45, 'revenue' => 90000],
+                ['name' => 'Ultrasound', 'count' => 22, 'revenue' => 55000]
+            ]
+        ];
+    }
+
+    // =========================
+    // ORIGINAL API ENDPOINTS
+    // =========================
+
     public function getStats(Request $request)
     {
         return response()->json([
