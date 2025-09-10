@@ -581,6 +581,509 @@ class DashboardController extends Controller
     }
 
     // =========================
+    // STAFF METHODS
+    // =========================
+
+    /**
+     * Display the main staff management dashboard
+     */
+    public function staff(): View
+    {
+        // Sample staff records - replace with actual database queries
+        $staffRecords = [
+            [
+                'id' => 'ST-001',
+                'name' => 'Dr. Michelle Garcia',
+                'designation' => 'Obstetrician',
+                'department' => 'Labor & Delivery',
+                'contact' => '0917-123-4567',
+                'qr_gyn' => 'OB-GYN',
+                'last_visit' => 'Oct 23, 2024',
+                'status' => 'On Duty'
+            ],
+            [
+                'id' => 'ST-002',
+                'name' => 'Nurse Maria Martinez',
+                'designation' => 'Registered Nurse',
+                'department' => 'Maternity',
+                'contact' => '0918-765-4321',
+                'qr_gyn' => 'OB-GYN',
+                'last_visit' => 'Oct 23, 2024',
+                'status' => 'Off Duty'
+            ],
+            [
+                'id' => 'ST-003',
+                'name' => 'Midwife Carmen Santos',
+                'designation' => 'Licensed Midwife',
+                'department' => 'Prenatal Care',
+                'contact' => '0919-456-7890',
+                'qr_gyn' => 'OB-GYN',
+                'last_visit' => 'Oct 22, 2024',
+                'status' => 'On Duty'
+            ],
+            [
+                'id' => 'ST-004',
+                'name' => 'Dr. James Wilson',
+                'designation' => 'Gynecologist',
+                'department' => 'Gynecology',
+                'contact' => '0920-567-8901',
+                'qr_gyn' => 'OB-GYN',
+                'last_visit' => 'Oct 21, 2024',
+                'status' => 'On Duty'
+            ]
+        ];
+
+        // Sample statistics
+        $stats = [
+            'total_staff' => 12,
+            'on_duty_today' => 8,
+            'off_duty' => 4,
+            'departments' => 6
+        ];
+
+        return view('dashboard.staff', compact('staffRecords', 'stats'));
+    }
+
+    /**
+     * Show the form for creating a new staff member
+     */
+    public function staffCreate(): View
+    {
+        // Get departments for dropdown
+        $departments = [
+            ['id' => 'labor-delivery', 'name' => 'Labor & Delivery'],
+            ['id' => 'maternity', 'name' => 'Maternity'],
+            ['id' => 'prenatal', 'name' => 'Prenatal Care'],
+            ['id' => 'gynecology', 'name' => 'Gynecology'],
+            ['id' => 'pediatrics', 'name' => 'Pediatrics'],
+            ['id' => 'pharmacy', 'name' => 'Pharmacy']
+        ];
+
+        // Get designations for dropdown
+        $designations = [
+            ['id' => 'obstetrician', 'name' => 'Obstetrician'],
+            ['id' => 'gynecologist', 'name' => 'Gynecologist'],
+            ['id' => 'nurse', 'name' => 'Registered Nurse'],
+            ['id' => 'midwife', 'name' => 'Licensed Midwife'],
+            ['id' => 'assistant', 'name' => 'Medical Assistant']
+        ];
+
+        return view('staff.create', compact('departments', 'designations'));
+    }
+
+    /**
+     * Store a newly created staff member
+     */
+    public function staffStore(Request $request): RedirectResponse
+    {
+        // Validate the request
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'designation' => 'required|string|max:255',
+            'department' => 'required|string|max:255',
+            'contact' => 'required|string|max:20',
+            'qr_gyn' => 'required|string|max:10',
+            'status' => 'required|in:On Duty,Off Duty',
+            'email' => 'nullable|email|max:255',
+            'hire_date' => 'required|date',
+            'salary' => 'nullable|numeric|min:0',
+            'notes' => 'nullable|string|max:1000'
+        ]);
+
+        // Generate staff ID
+        $staffId = 'ST-' . str_pad(rand(100, 999), 3, '0', STR_PAD_LEFT);
+
+        // Here you would typically save to database
+        // Example:
+        /*
+        $staff = new Staff();
+        $staff->staff_id = $staffId;
+        $staff->name = $validated['name'];
+        $staff->designation = $validated['designation'];
+        $staff->department = $validated['department'];
+        $staff->contact = $validated['contact'];
+        $staff->qr_gyn = $validated['qr_gyn'];
+        $staff->status = $validated['status'];
+        $staff->email = $validated['email'];
+        $staff->hire_date = $validated['hire_date'];
+        $staff->salary = $validated['salary'];
+        $staff->notes = $validated['notes'];
+        $staff->save();
+        */
+
+        return redirect()->route('dashboard.staff')
+            ->with('message', 'Staff member "' . $validated['name'] . '" added successfully with ID: ' . $staffId);
+    }
+
+    /**
+     * Display staff member details
+     */
+    public function staffShow(string $staffId): View
+    {
+        // Sample staff data - replace with actual database query
+        $staff = [
+            'id' => $staffId,
+            'staff_id' => 'ST-001',
+            'name' => 'Dr. Michelle Garcia',
+            'designation' => 'Obstetrician',
+            'department' => 'Labor & Delivery',
+            'email' => 'michelle.garcia@mednest.com',
+            'contact' => '0917-123-4567',
+            'hire_date' => '2023-01-15',
+            'status' => 'On Duty',
+            'salary' => 85000.00,
+            'emergency_contact' => '0918-987-6543',
+            'address' => '123 Medical Drive, Tabaco City',
+            'last_visit' => 'Oct 23, 2024'
+        ];
+
+        // Sample activity log
+        $activities = [
+            [
+                'date' => '2024-10-23',
+                'time' => '08:00 AM',
+                'activity' => 'Clock In',
+                'location' => 'Labor & Delivery Department'
+            ],
+            [
+                'date' => '2024-10-23',
+                'time' => '10:30 AM',
+                'activity' => 'Patient Consultation',
+                'location' => 'Room 101'
+            ],
+            [
+                'date' => '2024-10-23',
+                'time' => '02:15 PM',
+                'activity' => 'Emergency Response',
+                'location' => 'Emergency Ward'
+            ]
+        ];
+
+        return view('staff.show', compact('staff', 'activities'));
+    }
+
+    /**
+     * Show the form for editing a staff member
+     */
+    public function staffEdit(string $staffId): View
+    {
+        // Sample staff data - replace with actual database query
+        $staff = [
+            'id' => $staffId,
+            'staff_id' => 'ST-001',
+            'name' => 'Dr. Michelle Garcia',
+            'designation' => 'Obstetrician',
+            'department' => 'Labor & Delivery',
+            'email' => 'michelle.garcia@mednest.com',
+            'contact' => '0917-123-4567',
+            'qr_gyn' => 'OB-GYN',
+            'status' => 'On Duty',
+            'hire_date' => '2023-01-15',
+            'salary' => 85000.00,
+            'notes' => 'Senior staff member, excellent performance record'
+        ];
+
+        // Get departments for dropdown
+        $departments = [
+            ['id' => 'labor-delivery', 'name' => 'Labor & Delivery'],
+            ['id' => 'maternity', 'name' => 'Maternity'],
+            ['id' => 'prenatal', 'name' => 'Prenatal Care'],
+            ['id' => 'gynecology', 'name' => 'Gynecology']
+        ];
+
+        // Get designations for dropdown
+        $designations = [
+            ['id' => 'obstetrician', 'name' => 'Obstetrician'],
+            ['id' => 'gynecologist', 'name' => 'Gynecologist'],
+            ['id' => 'nurse', 'name' => 'Registered Nurse'],
+            ['id' => 'midwife', 'name' => 'Licensed Midwife']
+        ];
+
+        return view('staff.edit', compact('staff', 'departments', 'designations'));
+    }
+
+    /**
+     * Update the specified staff member
+     */
+    public function staffUpdate(Request $request, string $staffId): RedirectResponse
+    {
+        // Validate the request
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'designation' => 'required|string|max:255',
+            'department' => 'required|string|max:255',
+            'contact' => 'required|string|max:20',
+            'qr_gyn' => 'required|string|max:10',
+            'status' => 'required|in:On Duty,Off Duty',
+            'email' => 'nullable|email|max:255',
+            'salary' => 'nullable|numeric|min:0',
+            'notes' => 'nullable|string|max:1000'
+        ]);
+
+        // Here you would typically update the database
+        // Example:
+        /*
+        $staff = Staff::findOrFail($staffId);
+        $staff->name = $validated['name'];
+        $staff->designation = $validated['designation'];
+        $staff->department = $validated['department'];
+        $staff->contact = $validated['contact'];
+        $staff->qr_gyn = $validated['qr_gyn'];
+        $staff->status = $validated['status'];
+        $staff->email = $validated['email'];
+        $staff->salary = $validated['salary'];
+        $staff->notes = $validated['notes'];
+        $staff->save();
+        */
+
+        return redirect()->route('dashboard.staff')
+            ->with('message', 'Staff member "' . $validated['name'] . '" updated successfully');
+    }
+
+    /**
+     * Remove the specified staff member
+     */
+    public function staffDelete(string $staffId): RedirectResponse
+    {
+        // Here you would typically delete from database
+        // Example:
+        /*
+        $staff = Staff::findOrFail($staffId);
+        $staffName = $staff->name;
+        $staff->delete();
+        */
+
+        return redirect()->route('dashboard.staff')
+            ->with('message', 'Staff member removed successfully');
+    }
+
+    /**
+     * Toggle staff member status
+     */
+    public function staffToggleStatus(Request $request, string $staffId): RedirectResponse
+    {
+        $newStatus = $request->get('status', 'Off Duty');
+        
+        // Here you would update the staff status in database
+        // Example:
+        /*
+        Staff::where('id', $staffId)->update([
+            'status' => $newStatus,
+            'last_status_change' => now()
+        ]);
+        */
+
+        return redirect()->route('dashboard.staff')
+            ->with('message', 'Staff status updated to: ' . $newStatus);
+    }
+
+    /**
+     * Search for staff members (AJAX endpoint)
+     */
+    public function staffSearchMembers(Request $request)
+    {
+        $query = $request->get('query', '');
+        $department = $request->get('department', '');
+        $status = $request->get('status', '');
+        
+        // Sample search results - replace with actual database search
+        $staff = [
+            ['id' => 'ST-001', 'name' => 'Dr. Michelle Garcia', 'designation' => 'Obstetrician', 'department' => 'Labor & Delivery', 'status' => 'On Duty'],
+            ['id' => 'ST-002', 'name' => 'Nurse Maria Martinez', 'designation' => 'Registered Nurse', 'department' => 'Maternity', 'status' => 'Off Duty'],
+            ['id' => 'ST-003', 'name' => 'Midwife Carmen Santos', 'designation' => 'Licensed Midwife', 'department' => 'Prenatal Care', 'status' => 'On Duty'],
+            ['id' => 'ST-004', 'name' => 'Dr. James Wilson', 'designation' => 'Gynecologist', 'department' => 'Gynecology', 'status' => 'On Duty']
+        ];
+
+        // Apply filters
+        if ($query) {
+            $staff = array_filter($staff, function($member) use ($query) {
+                return stripos($member['name'], $query) !== false ||
+                       stripos($member['designation'], $query) !== false ||
+                       stripos($member['id'], $query) !== false;
+            });
+        }
+
+        if ($department) {
+            $staff = array_filter($staff, function($member) use ($department) {
+                return $member['department'] === $department;
+            });
+        }
+
+        if ($status) {
+            $staff = array_filter($staff, function($member) use ($status) {
+                return $member['status'] === $status;
+            });
+        }
+
+        return response()->json([
+            'staff' => array_values($staff),
+            'total' => count($staff)
+        ]);
+    }
+
+    /**
+     * Get staff statistics (AJAX endpoint)
+     */
+    public function staffGetStats()
+    {
+        // Calculate real-time statistics - replace with actual calculations
+        $stats = [
+            'total_staff' => [
+                'value' => 12,
+                'change' => '+2',
+                'trend' => 'up'
+            ],
+            'on_duty_today' => [
+                'value' => 8,
+                'change' => '+1',
+                'trend' => 'up'
+            ],
+            'departments' => [
+                'value' => 6,
+                'change' => '0',
+                'trend' => 'stable'
+            ],
+            'performance' => [
+                'value' => '94.5%',
+                'change' => '+2.1%',
+                'trend' => 'up'
+            ]
+        ];
+
+        // Department breakdown
+        $departmentStats = [
+            'Labor & Delivery' => ['total' => 3, 'on_duty' => 2],
+            'Maternity' => ['total' => 4, 'on_duty' => 3],
+            'Prenatal Care' => ['total' => 2, 'on_duty' => 1],
+            'Gynecology' => ['total' => 2, 'on_duty' => 2],
+            'Pharmacy' => ['total' => 1, 'on_duty' => 0]
+        ];
+
+        return response()->json([
+            'stats' => $stats,
+            'department_stats' => $departmentStats,
+            'recent_activities' => [
+                ['staff' => 'Dr. Michelle Garcia', 'action' => 'Clock In', 'time' => '8:00 AM'],
+                ['staff' => 'Nurse Maria Martinez', 'action' => 'Patient Care', 'time' => '7:30 AM'],
+                ['staff' => 'Midwife Carmen Santos', 'action' => 'Consultation', 'time' => '7:15 AM']
+            ]
+        ]);
+    }
+
+    /**
+     * Get on-duty staff (AJAX endpoint)
+     */
+    public function staffGetOnDuty()
+    {
+        // Sample on-duty staff - replace with actual database query
+        $onDutyStaff = [
+            [
+                'id' => 'ST-001',
+                'name' => 'Dr. Michelle Garcia',
+                'designation' => 'Obstetrician',
+                'department' => 'Labor & Delivery',
+                'shift_start' => '08:00 AM',
+                'shift_end' => '05:00 PM'
+            ],
+            [
+                'id' => 'ST-003',
+                'name' => 'Midwife Carmen Santos',
+                'designation' => 'Licensed Midwife',
+                'department' => 'Prenatal Care',
+                'shift_start' => '02:00 PM',
+                'shift_end' => '10:00 PM'
+            ],
+            [
+                'id' => 'ST-004',
+                'name' => 'Dr. James Wilson',
+                'designation' => 'Gynecologist',
+                'department' => 'Gynecology',
+                'shift_start' => '10:00 AM',
+                'shift_end' => '07:00 PM'
+            ]
+        ];
+
+        return response()->json([
+            'on_duty_staff' => $onDutyStaff,
+            'total_on_duty' => count($onDutyStaff),
+            'departments_covered' => array_unique(array_column($onDutyStaff, 'department'))
+        ]);
+    }
+
+    /**
+     * Quick status update (AJAX endpoint)
+     */
+    public function staffQuickStatusUpdate(Request $request)
+    {
+        $staffId = $request->get('staff_id');
+        $newStatus = $request->get('status');
+        
+        $validated = $request->validate([
+            'staff_id' => 'required|string',
+            'status' => 'required|in:On Duty,Off Duty'
+        ]);
+
+        // Here you would update the database
+        // Example:
+        /*
+        Staff::where('id', $staffId)->update([
+            'status' => $newStatus,
+            'last_status_change' => now()
+        ]);
+        */
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Status updated successfully',
+            'staff_id' => $staffId,
+            'new_status' => $newStatus,
+            'updated_at' => now()->format('Y-m-d H:i:s')
+        ]);
+    }
+
+    /**
+     * Get staff schedule (AJAX endpoint)
+     */
+    public function staffGetSchedule(string $staffId)
+    {
+        // Sample schedule data - replace with actual database query
+        $schedule = [
+            [
+                'date' => '2024-10-24',
+                'shift_start' => '08:00 AM',
+                'shift_end' => '05:00 PM',
+                'department' => 'Labor & Delivery',
+                'status' => 'Scheduled'
+            ],
+            [
+                'date' => '2024-10-25',
+                'shift_start' => '08:00 AM',
+                'shift_end' => '05:00 PM',
+                'department' => 'Labor & Delivery',
+                'status' => 'Scheduled'
+            ],
+            [
+                'date' => '2024-10-26',
+                'shift_start' => 'OFF',
+                'shift_end' => 'OFF',
+                'department' => 'N/A',
+                'status' => 'Day Off'
+            ]
+        ];
+
+        return response()->json([
+            'staff_id' => $staffId,
+            'schedule' => $schedule,
+            'weekly_hours' => 40,
+            'next_shift' => [
+                'date' => '2024-10-24',
+                'start_time' => '08:00 AM',
+                'department' => 'Labor & Delivery'
+            ]
+        ]);
+    }
+
+    // =========================
     // ORIGINAL API ENDPOINTS
     // =========================
 

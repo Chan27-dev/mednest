@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BillingController;
+use App\Http\Controllers\StaffController;
 
 Route::get('/', function () {
     return redirect()->route('dashboard.index');
@@ -28,8 +29,9 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         return redirect()->route('dashboard.index')->with('message', 'Branch Reports section - Frontend demo');
     })->name('reports');
     
+    // Updated staff route - now redirects to actual staff management
     Route::get('/staff', function() {
-        return redirect()->route('dashboard.index')->with('message', 'Staff Management section - Frontend demo');
+        return redirect()->route('staff.index');
     })->name('staff');
     
     Route::get('/settings', function() {
@@ -40,6 +42,26 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
     Route::get('/account-settings', [DashboardController::class, 'accountSettings'])->name('account.settings');
     Route::get('/notifications', [DashboardController::class, 'notificationsPage'])->name('notifications');
+});
+
+// Staff Management Routes
+Route::prefix('staff')->name('staff.')->group(function () {
+    // Main staff dashboard
+    Route::get('/', [StaffController::class, 'index'])->name('index');
+    
+    // Staff CRUD operations
+    Route::get('/create', [StaffController::class, 'create'])->name('create');
+    Route::post('/store', [StaffController::class, 'store'])->name('store');
+    Route::get('/{id}', [StaffController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [StaffController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [StaffController::class, 'update'])->name('update');
+    Route::delete('/{id}', [StaffController::class, 'destroy'])->name('destroy');
+    
+    // Additional staff management features
+    Route::post('/{id}/toggle-status', [StaffController::class, 'toggleStatus'])->name('toggle.status');
+    Route::get('/department/{department}', [StaffController::class, 'byDepartment'])->name('by.department');
+    Route::get('/export/pdf', [StaffController::class, 'exportPDF'])->name('export.pdf');
+    Route::get('/export/excel', [StaffController::class, 'exportExcel'])->name('export.excel');
 });
 
 // Simplified Billing System Routes
@@ -84,6 +106,17 @@ Route::prefix('api')->name('api.')->group(function () {
     Route::prefix('billing')->name('billing.')->group(function () {
         Route::get('/search', [BillingController::class, 'searchPatients'])->name('search');
         Route::get('/stats', [BillingController::class, 'getStats'])->name('stats');
+    });
+    
+    // Staff API Routes for AJAX functionality
+    Route::prefix('staff')->name('staff.')->group(function () {
+        Route::get('/search', [StaffController::class, 'searchStaff'])->name('search');
+        Route::get('/stats', [StaffController::class, 'getStaffStats'])->name('stats');
+        Route::post('/quick-status-update', [StaffController::class, 'quickStatusUpdate'])->name('quick.status.update');
+        Route::get('/on-duty', [StaffController::class, 'getOnDutyStaff'])->name('on.duty');
+        Route::get('/departments', [StaffController::class, 'getDepartments'])->name('departments');
+        Route::get('/schedule/{id}', [StaffController::class, 'getStaffSchedule'])->name('schedule');
+        Route::post('/bulk-update', [StaffController::class, 'bulkUpdateStatus'])->name('bulk.update');
     });
 });
 
