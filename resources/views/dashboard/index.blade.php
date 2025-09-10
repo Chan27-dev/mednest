@@ -841,12 +841,6 @@
                     Staff Management
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" data-section="settings">
-                    <i class="fas fa-cog"></i>
-                    Settings
-                </a>
-            </li>
         </ul>
     </nav>
 </div>
