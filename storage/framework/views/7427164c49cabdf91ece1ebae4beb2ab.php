@@ -754,12 +754,6 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <?php echo e(request()->routeIs('dashboard.reports') ? 'active' : ''); ?>" href="<?php echo e(route('dashboard.reports')); ?>">
-                    <i class="fas fa-chart-line"></i>
-                    Branch Reports
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link <?php echo e(request()->routeIs('dashboard.staff') ? 'active' : ''); ?>" href="<?php echo e(route('dashboard.staff')); ?>">
                     <i class="fas fa-users"></i>
                     Staff Management

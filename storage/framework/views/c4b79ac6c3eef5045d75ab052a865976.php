@@ -589,24 +589,19 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-section="referrals">
+                <a class="nav-link" href="#" data-section="referral">
                     <i class="fas fa-share-alt"></i>
                     Referrals
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-section="reports">
-                    <i class="fas fa-chart-bar"></i>
-                    Branch Reports
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" data-section="staff">
+                <a class="nav-link" href="<?php echo e(route('dashboard.staff')); ?>">
                     <i class="fas fa-user-cog"></i>
                     Staff Management
                 </a>
             </li>
         </ul>
+
     </nav>
 </div>
 

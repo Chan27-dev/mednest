@@ -754,12 +754,6 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('dashboard.reports') ? 'active' : '' }}" href="{{ route('dashboard.reports') }}">
-                    <i class="fas fa-chart-line"></i>
-                    Branch Reports
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('dashboard.staff') ? 'active' : '' }}" href="{{ route('dashboard.staff') }}">
                     <i class="fas fa-users"></i>
                     Staff Management

@@ -533,12 +533,6 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.reports') }}">
-                    <i class="fas fa-chart-bar"></i>
-                    Branch Reports
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard.staff') }}">
                     <i class="fas fa-user-cog"></i>
                     Staff Management
