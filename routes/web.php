@@ -19,6 +19,7 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('/appointments', [DashboardController::class, 'appointments'])->name('appointments');
     Route::get('/labor', [DashboardController::class, 'labor'])->name('labor');
     Route::get('/billing', [DashboardController::class, 'billing'])->name('billing');
+    Route::get('/staff', [DashboardController::class, 'staff'])->name('staff');
     
     // Demo routes for other sections (redirects to main dashboard)
     Route::get('/referrals', function() {
@@ -28,11 +29,6 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('/reports', function() {
         return redirect()->route('dashboard.index')->with('message', 'Branch Reports section - Frontend demo');
     })->name('reports');
-    
-    // Updated staff route - now redirects to actual staff management
-    Route::get('/staff', function() {
-        return redirect()->route('staff.index');
-    })->name('staff');
     
     Route::get('/settings', function() {
         return redirect()->route('dashboard.index')->with('message', 'Settings section - Frontend demo');
@@ -110,13 +106,13 @@ Route::prefix('api')->name('api.')->group(function () {
     
     // Staff API Routes for AJAX functionality
     Route::prefix('staff')->name('staff.')->group(function () {
-        Route::get('/search', [StaffController::class, 'searchStaff'])->name('search');
-        Route::get('/stats', [StaffController::class, 'getStaffStats'])->name('stats');
-        Route::post('/quick-status-update', [StaffController::class, 'quickStatusUpdate'])->name('quick.status.update');
-        Route::get('/on-duty', [StaffController::class, 'getOnDutyStaff'])->name('on.duty');
-        Route::get('/departments', [StaffController::class, 'getDepartments'])->name('departments');
-        Route::get('/schedule/{id}', [StaffController::class, 'getStaffSchedule'])->name('schedule');
-        Route::post('/bulk-update', [StaffController::class, 'bulkUpdateStatus'])->name('bulk.update');
+        Route::get('/search', [DashboardController::class, 'searchStaff'])->name('search');
+        Route::get('/stats', [DashboardController::class, 'getStaffStats'])->name('stats');
+        Route::post('/quick-status-update', [DashboardController::class, 'quickStatusUpdate'])->name('quick.status.update');
+        Route::get('/on-duty', [DashboardController::class, 'getOnDutyStaff'])->name('on.duty');
+        Route::get('/departments', [DashboardController::class, 'getDepartments'])->name('departments');
+        Route::get('/schedule/{id}', [DashboardController::class, 'getStaffSchedule'])->name('schedule');
+        Route::post('/bulk-update', [DashboardController::class, 'bulkUpdateStatus'])->name('bulk.update');
     });
 });
 
