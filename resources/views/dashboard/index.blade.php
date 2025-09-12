@@ -782,12 +782,12 @@
 <div class="sidebar">
     <div class="logo">
         <div class="logo-image">
-        <img src="{{ asset('images/mednest-logo.png') }}" alt="MedNest Logo"> 
+            <img src="{{ asset('images/mednest-logo.png') }}" alt="MedNest Logo"> 
             
         </div>
         <div class="logo-text">
             <h5>MedNest</h5>
-            <small>THE MODERN MATERNITY CLINIC</small>
+            <small>DEL ROSARIO MATERNITY CLINIC</small>
         </div>
     </div>
 
@@ -824,27 +824,15 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-section="referrals">
+                <a class="nav-link" href="{{ route('dashboard.referrals') }}">
                     <i class="fas fa-share-alt"></i>
                     Referrals
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-section="reports">
-                    <i class="fas fa-chart-bar"></i>
-                    Branch Reports
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" data-section="staff">
+                <a class="nav-link" href="{{ route('dashboard.staff') }}">
                     <i class="fas fa-user-cog"></i>
                     Staff Management
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" data-section="settings">
-                    <i class="fas fa-cog"></i>
-                    Settings
                 </a>
             </li>
         </ul>
@@ -874,19 +862,19 @@
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                    <a class="dropdown-item" href="#" data-action="profile">
+                    <a class="dropdown-item" href="{{ route('dashboard.profile') }}">
                         <i class="fas fa-user me-2"></i>
                         My Profile
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="#" data-action="settings">
+                    <a class="dropdown-item" href="{{ route('dashboard.settings') }}">
                         <i class="fas fa-cog me-2"></i>
                         Account Settings
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="#" data-action="notifications">
+                    <a class="dropdown-item" href="{{ route('dashboard.notifications') }}">
                         <i class="fas fa-bell me-2"></i>
                         Notifications
                         <span class="badge bg-danger ms-auto">3</span>
@@ -1063,9 +1051,9 @@
                     <div class="col-md-3">
                         <select class="form-select form-select-lg" id="branchFilter">
                             <option value="">All Branches</option>
-                            <option value="sinag">Sto. Domingo Branch</option>
-                            <option value="bill">Daraga Branch</option>
-                            <option value="anthony">Arimbay Branch</option>
+                            <option value="sinag">Sinag Branch</option>
+                            <option value="bill">Bill Dayandog</option>
+                            <option value="anthony">Anthony Branch</option>
                         </select>
                     </div>
                     <div class="col-md-3">
@@ -1593,10 +1581,12 @@
                 const originalContent = logoutItem.innerHTML;
                 logoutItem.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Logging out...';
                 
-                // Simulate logout process
+                // Simple redirect to logout route which will redirect to login
                 setTimeout(() => {
-                    // In a real app, you would redirect to logout route
-                    // window.location.href = '/logout';
+                    window.location.href = '/logout';
+                }, 800);
+            }
+        } = '/logout';
                     
                     // For demo, show success and reload
                     window.MedNestDashboard.prototype.showNotification('Successfully logged out!', 'success');
