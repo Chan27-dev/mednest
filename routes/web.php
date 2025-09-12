@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return redirect()->route('dashboard.index');
@@ -119,4 +120,81 @@ Route::prefix('api')->name('api.')->group(function () {
 // Fallback route
 Route::fallback(function () {
     return redirect()->route('dashboard.index')->with('message', 'Page not found - redirected to dashboard');
+});
+
+// Admin Multi-Branch Management Routes
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Main admin dashboard
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard.index');
+    
+    // Branch-specific views
+    Route::get('/branch/{branch}', [AdminController::class, 'getBranchData'])->name('branch.detail');
+    
+    // AJAX API endpoints for admin
+    Route::prefix('api')->name('api.')->group(function () {
+        // Real-time statistics
+        Route::get('/stats', [AdminController::class, 'getStats'])->name('stats');
+        Route::get('/activities', [AdminController::class, 'getRecentActivities'])->name('activities');
+        Route::get('/notifications', [AdminController::class, 'getNotifications'])->name('notifications');
+        
+        // Search functionality
+        Route::get('/search', [AdminController::class, 'globalSearch'])->name('search');
+        
+        // Analytics and reporting
+        Route::get('/analytics/{branch?}', [AdminController::class, 'getBranchAnalytics'])->name('analytics');
+        Route::get('/comparison', [AdminController::class, 'getBranchComparison'])->name('comparison');
+        
+        // Notifications management
+        Route::post('/notifications/{id}/read', [AdminController::class, 'markNotificationRead'])->name('notifications.read');
+        
+        // Export functionality
+        Route::post('/export', [AdminController::class, 'exportReport'])->name('export');
+    });
+    
+    // Report downloads
+    Route::get('/reports/download', function(Request $request) {
+        // Demo download functionality
+        return response()->json([
+            'message' => 'Report download feature - Demo functionality',
+            'parameters' => $request->all()
+        ]);
+    })->name('reports.download');
+    
+    // Placeholder routes for quick actions (you can implement these later)
+    Route::prefix('patients')->name('patients.')->group(function () {
+        Route::get('/create', function() {
+            return redirect()->route('admin.dashboard')->with('message', 'Add Patient feature - Coming soon');
+        })->name('create');
+        Route::get('/{id}', function($id) {
+            return redirect()->route('admin.dashboard')->with('message', 'Patient details - Demo');
+        })->name('show');
+    });
+    
+    Route::prefix('appointments')->name('appointments.')->group(function () {
+        Route::get('/create', function() {
+            return redirect()->route('admin.dashboard')->with('message', 'Schedule Appointment feature - Coming soon');
+        })->name('create');
+        Route::get('/{id}', function($id) {
+            return redirect()->route('admin.dashboard')->with('message', 'Appointment details - Demo');
+        })->name('show');
+    });
+    
+    Route::prefix('labor')->name('labor.')->group(function () {
+        Route::get('/monitor', function() {
+            return redirect()->route('admin.dashboard')->with('message', 'Labor Monitoring feature - Coming soon');
+        })->name('monitor');
+    });
+    
+    Route::prefix('billing')->name('billing.')->group(function () {
+        Route::get('/create', function() {
+            return redirect()->route('admin.dashboard')->with('message', 'Generate Bill feature - Coming soon');
+        })->name('create');
+    });
+    
+    Route::prefix('staff')->name('staff.')->group(function () {
+        Route::get('/{id}', function($id) {
+            return redirect()->route('admin.dashboard')->with('message', 'Staff details - Demo');
+        })->name('show');
+    });
 });
