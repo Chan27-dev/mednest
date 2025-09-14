@@ -733,13 +733,13 @@
         <nav class="sidebar-nav">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#dashboard">
+                    <a class="nav-link active" href="{{ route('admin.dashboard') }}">
                         <i class="fas fa-th-large"></i>
                         Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#patients">
+                    <a class="nav-link" href="{{ route('admin.patients') }}">
                         <i class="fas fa-users"></i>
                         Patients Record
                     </a>
@@ -790,14 +790,14 @@
             
             <div class="admin-profile dropdown">
                 <div class="admin-profile-trigger" data-bs-toggle="dropdown" aria-expanded="false">
-                    <div class="admin-avatar">AC</div>
-                    <span class="user-name fw-bold">Admin Clerk</span>
+                    <div class="admin-avatar">SA</div>
+                    <span class="user-name fw-bold">Super Admin </span>
                     <i class="fas fa-chevron-down dropdown-arrow"></i>
                 </div>
                 <ul class="dropdown-menu dropdown-menu-end shadow">
                     <li>
                         <div class="dropdown-header">
-                            <strong>Admin Clerk</strong><br>
+                            <strong>Admin</strong><br>
                             <small class="text-muted">admin@mednest.com</small>
                         </div>
                     </li>
@@ -837,7 +837,6 @@
             <!-- Dashboard Header -->
             <div class="dashboard-header">
                 <h4 class="page-title">Multi-Branch Overview</h4>
-                <p class="page-subtitle">Monitor and manage operations across all clinic branches</p>
             </div>
 
             <!-- Content -->

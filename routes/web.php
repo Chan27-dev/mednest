@@ -10,7 +10,7 @@ Route::get('/', function () {
     return redirect()->route('dashboard.index');
 });
 
-// MedNest Dashboard Routes
+// MedNest Admin Clerk Routes
 Route::prefix('dashboard')->name('dashboard.')->group(function () {
     // Main dashboard
     Route::get('/', [DashboardController::class, 'index'])->name('index');
@@ -117,16 +117,17 @@ Route::prefix('api')->name('api.')->group(function () {
     });
 });
 
-// Fallback route
-Route::fallback(function () {
-    return redirect()->route('dashboard.index')->with('message', 'Page not found - redirected to dashboard');
-});
-
 // Admin Multi-Branch Management Routes
 Route::prefix('admin')->name('admin.')->group(function () {
     // Main admin dashboard
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard.index');
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    
+    // FIXED: Add the missing patient records route
+    Route::get('/patient-records', [AdminController::class, 'patients'])->name('patients');
+    
+    // Add Staff Management route
+    Route::get('/staff-management', [AdminController::class, 'staffManagement'])->name('staff.management');
     
     // Branch-specific views
     Route::get('/branch/{branch}', [AdminController::class, 'getBranchData'])->name('branch.detail');
@@ -164,10 +165,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Placeholder routes for quick actions (you can implement these later)
     Route::prefix('patients')->name('patients.')->group(function () {
         Route::get('/create', function() {
-            return redirect()->route('admin.dashboard')->with('message', 'Add Patient feature - Coming soon');
+            return redirect()->route('admin.patients')->with('message', 'Add Patient feature - Coming soon');
         })->name('create');
         Route::get('/{id}', function($id) {
-            return redirect()->route('admin.dashboard')->with('message', 'Patient details - Demo');
+            return redirect()->route('admin.patients')->with('message', 'Patient details - Demo');
         })->name('show');
     });
     
@@ -190,7 +191,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/create', function() {
             return redirect()->route('admin.dashboard')->with('message', 'Generate Bill feature - Coming soon');
         })->name('create');
-    });
+    }); 
     
     Route::prefix('staff')->name('staff.')->group(function () {
         Route::get('/{id}', function($id) {

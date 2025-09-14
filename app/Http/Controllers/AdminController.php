@@ -176,9 +176,11 @@ class AdminController extends Controller
 
     /**
      * Get recent activities for AJAX calls
+     * This method combines both static and dynamic activity data
      */
     public function getRecentActivities()
     {
+        // Generate dynamic activities with real timestamps
         $activities = [
             [
                 'time' => now()->subMinutes(5)->format('h:i A'),
@@ -203,6 +205,22 @@ class AdminController extends Controller
                 'branch' => 'Arimbay',
                 'status' => 'Active',
                 'status_class' => 'active'
+            ],
+            [
+                'time' => now()->subMinutes(25)->format('h:i A'),
+                'activity' => 'Prenatal Checkup',
+                'patient' => 'Maria Santos',
+                'branch' => 'Sto. Domingo',
+                'status' => 'Completed',
+                'status_class' => 'completed'
+            ],
+            [
+                'time' => now()->subMinutes(35)->format('h:i A'),
+                'activity' => 'Emergency Consultation',
+                'patient' => 'Jennifer Reyes',
+                'branch' => 'Daraga',
+                'status' => 'Completed',
+                'status_class' => 'completed'
             ]
         ];
 
@@ -432,6 +450,208 @@ class AdminController extends Controller
     }
 
     /**
+     * Display the patients records page
+     */
+    public function patients(): View
+    {
+        // Mock patient data - replace with actual database queries
+        $patientsData = [
+            'total_stats' => [
+                'total_patients' => 156,
+                'total_appointments' => 42,
+                'total_labor_cases' => 42,
+                'monthly_revenue' => 85420
+            ],
+            'patients' => [
+                [
+                    'id' => 1,
+                    'name' => 'Maria Santos',
+                    'email' => 'maria.santos@email.com',
+                    'phone' => '+63-912-345-6789',
+                    'age' => 28,
+                    'gender' => 'Female',
+                    'branch' => 'daraga',
+                    'lastVisit' => '2025-05-20',
+                    'status' => 'active',
+                    'insurance' => 'none'
+                ],
+                [
+                    'id' => 2,
+                    'name' => 'Anna Cruz',
+                    'email' => 'anna.cruz@email.com',
+                    'phone' => '+63-917-654-3210',
+                    'age' => 32,
+                    'gender' => 'Female',
+                    'branch' => 'stodomingo',
+                    'lastVisit' => '2025-05-18',
+                    'status' => 'active',
+                    'insurance' => 'philhealth'
+                ],
+                [
+                    'id' => 3,
+                    'name' => 'Jennifer Lopez',
+                    'email' => 'jennifer.lopez@email.com',
+                    'phone' => '+63-928-765-4321',
+                    'age' => 25,
+                    'gender' => 'Female',
+                    'branch' => 'arimbay',
+                    'lastVisit' => '2025-05-22',
+                    'status' => 'active',
+                    'insurance' => 'private'
+                ],
+                [
+                    'id' => 4,
+                    'name' => 'Lisa Garcia',
+                    'email' => 'lisa.garcia@email.com',
+                    'phone' => '+63-935-123-4567',
+                    'age' => 29,
+                    'gender' => 'Female',
+                    'branch' => 'daraga',
+                    'lastVisit' => '2025-05-15',
+                    'status' => 'inactive',
+                    'insurance' => 'none'
+                ],
+                [
+                    'id' => 5,
+                    'name' => 'Carmen Rodriguez',
+                    'email' => 'carmen.rodriguez@email.com',
+                    'phone' => '+63-942-987-6543',
+                    'age' => 35,
+                    'gender' => 'Female',
+                    'branch' => 'stodomingo',
+                    'lastVisit' => '2025-05-19',
+                    'status' => 'active',
+                    'insurance' => 'philhealth'
+                ]
+            ]
+        ];
+
+        return view('admin.patients', compact('patientsData'));
+    }
+
+    /**
+     * Display the staff management page
+     */
+    public function staffManagement(): View
+    {
+        // Mock staff data - replace with actual database queries
+        $staffData = [
+            'total_stats' => [
+                'total_staff' => 28,
+                'active_staff' => 24,
+                'on_duty_now' => 18,
+                'total_departments' => 6
+            ],
+            'staff' => [
+                [
+                    'id' => 1,
+                    'name' => 'Dr. Michelle Garcia',
+                    'email' => 'michelle.garcia@mednest.com',
+                    'phone' => '+63-917-123-4567',
+                    'age' => 34,
+                    'gender' => 'Female',
+                    'branch' => 'daraga',
+                    'department' => 'Obstetrics',
+                    'position' => 'Senior Obstetrician',
+                    'experience' => '8 years',
+                    'status' => 'active',
+                    'duty_status' => 'on-duty',
+                    'shift' => 'Day Shift',
+                    'hire_date' => '2016-03-15',
+                    'salary' => 85000
+                ],
+                [
+                    'id' => 2,
+                    'name' => 'Nurse Roselyn S. Ablon, RN, RM',
+                    'email' => 'roselyn.ablon@mednest.com',
+                    'phone' => '+63-918-765-4321',
+                    'age' => 29,
+                    'gender' => 'Female',
+                    'branch' => 'stodomingo',
+                    'department' => 'Midwifery',
+                    'position' => 'Senior Midwife',
+                    'experience' => '6 years',
+                    'status' => 'active',
+                    'duty_status' => 'on-duty',
+                    'shift' => 'Night Shift',
+                    'hire_date' => '2018-08-20',
+                    'salary' => 45000
+                ],
+                [
+                    'id' => 3,
+                    'name' => 'Muriel D. Medel, MD',
+                    'email' => 'muriel.medel@mednest.com',
+                    'phone' => '+63-919-456-7890',
+                    'age' => 42,
+                    'gender' => 'Female',
+                    'branch' => 'arimbay',
+                    'department' => 'Pediatrics',
+                    'position' => 'Pediatrician',
+                    'experience' => '12 years',
+                    'status' => 'active',
+                    'duty_status' => 'off-duty',
+                    'shift' => 'Day Shift',
+                    'hire_date' => '2012-01-10',
+                    'salary' => 90000
+                ],
+                [
+                    'id' => 4,
+                    'name' => 'Dr. Ana Martinez',
+                    'email' => 'ana.martinez@mednest.com',
+                    'phone' => '+63-920-234-5678',
+                    'age' => 38,
+                    'gender' => 'Female',
+                    'branch' => 'stodomingo',
+                    'department' => 'Obstetrics',
+                    'position' => 'Branch Manager',
+                    'experience' => '10 years',
+                    'status' => 'active',
+                    'duty_status' => 'on-duty',
+                    'shift' => 'Day Shift',
+                    'hire_date' => '2014-05-12',
+                    'salary' => 95000
+                ],
+                [
+                    'id' => 5,
+                    'name' => 'Nurse Carmen Santos',
+                    'email' => 'carmen.santos@mednest.com',
+                    'phone' => '+63-921-345-6789',
+                    'age' => 31,
+                    'gender' => 'Female',
+                    'branch' => 'daraga',
+                    'department' => 'Emergency',
+                    'position' => 'Emergency Nurse',
+                    'experience' => '5 years',
+                    'status' => 'active',
+                    'duty_status' => 'on-duty',
+                    'shift' => 'Night Shift',
+                    'hire_date' => '2019-09-15',
+                    'salary' => 42000
+                ],
+                [
+                    'id' => 6,
+                    'name' => 'Dr. James Rodriguez',
+                    'email' => 'james.rodriguez@mednest.com',
+                    'phone' => '+63-922-456-7890',
+                    'age' => 45,
+                    'gender' => 'Male',
+                    'branch' => 'arimbay',
+                    'department' => 'Anesthesiology',
+                    'position' => 'Anesthesiologist',
+                    'experience' => '15 years',
+                    'status' => 'inactive',
+                    'duty_status' => 'off-duty',
+                    'shift' => 'Day Shift',
+                    'hire_date' => '2010-02-28',
+                    'salary' => 88000
+                ]
+            ]
+        ];
+
+        return view('admin.staff-management', compact('staffData'));
+    }
+
+    /**
      * Helper method to get branch data by ID
      */
     private function getBranchDataById($branchId)
@@ -484,3 +704,4 @@ class AdminController extends Controller
         return $branches[$branchId] ?? null;
     }
 }
+
