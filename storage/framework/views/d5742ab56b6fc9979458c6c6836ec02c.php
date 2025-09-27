@@ -491,53 +491,6 @@
             color: #991b1b;
         }
 
-        .action-buttons {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .action-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .btn-view {
-            background-color: #3182ce;
-            color: white;
-        }
-
-        .btn-view:hover {
-            background-color: #2c5282;
-            transform: translateY(-1px);
-        }
-
-        .btn-edit {
-            background-color: #38a169;
-            color: white;
-        }
-
-        .btn-edit:hover {
-            background-color: #2f855a;
-            transform: translateY(-1px);
-        }
-
-        .btn-delete {
-            background-color: #e53e3e;
-            color: white;
-        }
-
-        .btn-delete:hover {
-            background-color: #c53030;
-            transform: translateY(-1px);
-        }
-
         .dropdown-menu {
             border: none;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
@@ -647,10 +600,6 @@
             .patients-table-container {
                 overflow-x: auto;
             }
-
-            .action-buttons {
-                flex-direction: column;
-            }
         }
 
         @media (max-width: 480px) {
@@ -702,21 +651,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#labor">
-                        <i class="fas fa-baby"></i>
-                        Labor Monitoring
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="#billing">
                         <i class="fas fa-file-invoice-dollar"></i>
                         Billing System
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#referral">
-                        <i class="fas fa-share-alt"></i>
-                        Referrals
                     </a>
                 </li>
                 <li class="nav-item">
@@ -795,19 +732,19 @@
                 <!-- Stats Grid -->
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-number blue" id="totalPatients"><?php echo e($patientsData['total_stats']['total_patients']); ?></div>
+                        <div class="stat-number blue" id="totalPatients">1,247</div>
                         <div class="stat-label">Total Patients (All Branches)</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number orange" id="totalAppointments"><?php echo e($patientsData['total_stats']['total_appointments']); ?></div>
+                        <div class="stat-number orange" id="totalAppointments">28</div>
                         <div class="stat-label">New Appointments</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number pink" id="totalLaborCases"><?php echo e($patientsData['total_stats']['total_labor_cases']); ?></div>
+                        <div class="stat-number pink" id="totalLaborCases">15</div>
                         <div class="stat-label">Total High-Risk Cases</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number green" id="monthlyRevenue">₱<?php echo e(number_format($patientsData['total_stats']['monthly_revenue'])); ?></div>
+                        <div class="stat-number green" id="monthlyRevenue">₱485,200</div>
                         <div class="stat-label">Total Monthly Revenue</div>
                     </div>
                 </div>
@@ -895,66 +832,134 @@
                                     <th>Last Visit</th>
                                     <th>Status</th>
                                     <th>Insurance</th>
-                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="patientsTableBody">
-                                <?php $__currentLoopData = $patientsData['patients']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $patient): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <tr data-patient-id="<?php echo e($patient['id']); ?>">
+                                <tr data-patient-id="1">
                                     <td>
                                         <div class="patient-info">
-                                            <div class="patient-name"><?php echo e($patient['name']); ?></div>
-                                            <div class="patient-contact"><?php echo e($patient['email']); ?></div>
+                                            <div class="patient-name">Maria Santos</div>
+                                            <div class="patient-contact">maria.santos@email.com</div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="age-gender">
-                                            <div class="age"><?php echo e($patient['age']); ?> years</div>
-                                            <div class="gender"><?php echo e($patient['gender']); ?></div>
+                                            <div class="age">28 years</div>
+                                            <div class="gender">Female</div>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="patient-contact"><?php echo e($patient['phone']); ?></div>
+                                        <div class="patient-contact">+63 912 345 6789</div>
                                     </td>
                                     <td>
-                                        <span class="branch-badge branch-<?php echo e($patient['branch']); ?>">
-                                            <?php switch($patient['branch']):
-                                                case ('daraga'): ?> Daraga <?php break; ?>
-                                                <?php case ('stodomingo'): ?> Sto. Domingo <?php break; ?>  
-                                                <?php case ('arimbay'): ?> Arimbay <?php break; ?>
-                                                <?php default: ?> <?php echo e(ucfirst($patient['branch'])); ?>
-
-                                            <?php endswitch; ?>
-                                        </span>
+                                        <span class="branch-badge branch-daraga">Daraga</span>
                                     </td>
-                                    <td><?php echo e(\Carbon\Carbon::parse($patient['lastVisit'])->format('M j, Y')); ?></td>
+                                    <td>Mar 15, 2024</td>
                                     <td>
-                                        <span class="status-badge status-<?php echo e($patient['status']); ?>"><?php echo e(ucfirst($patient['status'])); ?></span>
+                                        <span class="status-badge status-active">Active</span>
                                     </td>
-                                    <td>
-                                        <?php switch($patient['insurance']):
-                                            case ('none'): ?> None <?php break; ?>
-                                            <?php case ('philhealth'): ?> PhilHealth <?php break; ?>
-                                            <?php case ('private'): ?> Private <?php break; ?>
-                                            <?php default: ?> <?php echo e(ucfirst($patient['insurance'])); ?>
-
-                                        <?php endswitch; ?>
-                                    </td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button class="action-btn btn-view" data-action="view" data-patient="<?php echo e($patient['name']); ?>" data-id="<?php echo e($patient['id']); ?>" title="View Patient">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="action-btn btn-edit" data-action="edit" data-patient="<?php echo e($patient['name']); ?>" data-id="<?php echo e($patient['id']); ?>" title="Edit Patient">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="action-btn btn-delete" data-action="delete" data-patient="<?php echo e($patient['name']); ?>" data-id="<?php echo e($patient['id']); ?>" title="Delete Patient">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
+                                    <td>PhilHealth</td>
                                 </tr>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <tr data-patient-id="2">
+                                    <td>
+                                        <div class="patient-info">
+                                            <div class="patient-name">Ana Cruz</div>
+                                            <div class="patient-contact">ana.cruz@email.com</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="age-gender">
+                                            <div class="age">32 years</div>
+                                            <div class="gender">Female</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="patient-contact">+63 923 456 7890</div>
+                                    </td>
+                                    <td>
+                                        <span class="branch-badge branch-stodomingo">Sto. Domingo</span>
+                                    </td>
+                                    <td>Mar 12, 2024</td>
+                                    <td>
+                                        <span class="status-badge status-active">Active</span>
+                                    </td>
+                                    <td>Private</td>
+                                </tr>
+                                <tr data-patient-id="3">
+                                    <td>
+                                        <div class="patient-info">
+                                            <div class="patient-name">Carmen Rodriguez</div>
+                                            <div class="patient-contact">carmen.rodriguez@email.com</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="age-gender">
+                                            <div class="age">25 years</div>
+                                            <div class="gender">Female</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="patient-contact">+63 934 567 8901</div>
+                                    </td>
+                                    <td>
+                                        <span class="branch-badge branch-arimbay">Arimbay</span>
+                                    </td>
+                                    <td>Mar 10, 2024</td>
+                                    <td>
+                                        <span class="status-badge status-inactive">Inactive</span>
+                                    </td>
+                                    <td>None</td>
+                                </tr>
+                                <tr data-patient-id="4">
+                                    <td>
+                                        <div class="patient-info">
+                                            <div class="patient-name">Isabella Garcia</div>
+                                            <div class="patient-contact">isabella.garcia@email.com</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="age-gender">
+                                            <div class="age">30 years</div>
+                                            <div class="gender">Female</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="patient-contact">+63 945 678 9012</div>
+                                    </td>
+                                    <td>
+                                        <span class="branch-badge branch-daraga">Daraga</span>
+                                    </td>
+                                    <td>Mar 8, 2024</td>
+                                    <td>
+                                        <span class="status-badge status-active">Active</span>
+                                    </td>
+                                    <td>PhilHealth</td>
+                                </tr>
+                                <tr data-patient-id="5">
+                                    <td>
+                                        <div class="patient-info">
+                                            <div class="patient-name">Sofia Reyes</div>
+                                            <div class="patient-contact">sofia.reyes@email.com</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="age-gender">
+                                            <div class="age">27 years</div>
+                                            <div class="gender">Female</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="patient-contact">+63 956 789 0123</div>
+                                    </td>
+                                    <td>
+                                        <span class="branch-badge branch-stodomingo">Sto. Domingo</span>
+                                    </td>
+                                    <td>Mar 5, 2024</td>
+                                    <td>
+                                        <span class="status-badge status-active">Active</span>
+                                    </td>
+                                    <td>Private</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -962,7 +967,7 @@
                     <!-- Pagination -->
                     <div class="pagination-container">
                         <div class="pagination-info">
-                            Showing 1 to <?php echo e(count($patientsData['patients'])); ?> of <?php echo e($patientsData['total_stats']['total_patients']); ?> patients
+                            Showing 1 to 5 of 1,247 patients
                         </div>
                         <nav aria-label="Patient records pagination">
                             <ul class="pagination mb-0">
@@ -990,12 +995,18 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Pass Laravel data to JavaScript
-        const initialPatientsData = <?php echo json_encode($patientsData['patients'], 15, 512) ?>;
+        // Sample patient data
+        const samplePatients = [
+            { id: 1, name: 'Maria Santos', email: 'maria.santos@email.com', phone: '+63 912 345 6789', age: 28, gender: 'Female', branch: 'daraga', lastVisit: '2024-03-15', status: 'active', insurance: 'philhealth' },
+            { id: 2, name: 'Ana Cruz', email: 'ana.cruz@email.com', phone: '+63 923 456 7890', age: 32, gender: 'Female', branch: 'stodomingo', lastVisit: '2024-03-12', status: 'active', insurance: 'private' },
+            { id: 3, name: 'Carmen Rodriguez', email: 'carmen.rodriguez@email.com', phone: '+63 934 567 8901', age: 25, gender: 'Female', branch: 'arimbay', lastVisit: '2024-03-10', status: 'inactive', insurance: 'none' },
+            { id: 4, name: 'Isabella Garcia', email: 'isabella.garcia@email.com', phone: '+63 945 678 9012', age: 30, gender: 'Female', branch: 'daraga', lastVisit: '2024-03-08', status: 'active', insurance: 'philhealth' },
+            { id: 5, name: 'Sofia Reyes', email: 'sofia.reyes@email.com', phone: '+63 956 789 0123', age: 27, gender: 'Female', branch: 'stodomingo', lastVisit: '2024-03-05', status: 'active', insurance: 'private' }
+        ];
         
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize Patient Records Controller
-            const patientController = new PatientRecordsController(initialPatientsData);
+            const patientController = new PatientRecordsController(samplePatients);
             patientController.init();
         });
 
@@ -1066,13 +1077,6 @@
 
                 document.getElementById('exportData').addEventListener('click', () => {
                     this.exportData();
-                });
-
-                // Action buttons
-                document.addEventListener('click', (e) => {
-                    if (e.target.closest('.action-btn')) {
-                        this.handleActionClick(e);
-                    }
                 });
 
                 // Logout functionality
@@ -1212,7 +1216,7 @@
                 if (patientsToShow.length === 0) {
                     tbody.innerHTML = `
                         <tr>
-                            <td colspan="8" class="text-center py-4 text-muted">
+                            <td colspan="7" class="text-center py-4 text-muted">
                                 <i class="fas fa-users mb-2" style="font-size: 2rem; opacity: 0.5;"></i><br>
                                 No patients found matching your criteria
                             </td>
@@ -1246,19 +1250,6 @@
                             <span class="status-badge status-${patient.status}">${this.capitalizeFirst(patient.status)}</span>
                         </td>
                         <td>${this.formatInsurance(patient.insurance)}</td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="action-btn btn-view" data-action="view" data-patient="${patient.name}" data-id="${patient.id}" title="View Patient">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="action-btn btn-edit" data-action="edit" data-patient="${patient.name}" data-id="${patient.id}" title="Edit Patient">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="action-btn btn-delete" data-action="delete" data-patient="${patient.name}" data-id="${patient.id}" title="Delete Patient">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
                     </tr>
                 `).join('');
             }
@@ -1286,58 +1277,6 @@
                 const avgRevenue = 547;
                 const totalRevenue = activePatients * avgRevenue;
                 document.getElementById('monthlyRevenue').textContent = `₱${totalRevenue.toLocaleString()}`;
-            }
-
-            handleActionClick(e) {
-                const btn = e.target.closest('.action-btn');
-                const action = btn.getAttribute('data-action');
-                const patientName = btn.getAttribute('data-patient');
-                const patientId = btn.getAttribute('data-id');
-                
-                // Add loading state
-                const originalContent = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-                btn.disabled = true;
-                
-                setTimeout(() => {
-                    // Reset button
-                    btn.innerHTML = originalContent;
-                    btn.disabled = false;
-                    
-                    // Handle different actions
-                    switch(action) {
-                        case 'view':
-                            this.viewPatient(patientId, patientName);
-                            break;
-                        case 'edit':
-                            this.editPatient(patientId, patientName);
-                            break;
-                        case 'delete':
-                            this.deletePatient(patientId, patientName);
-                            break;
-                    }
-                }, 1000);
-            }
-
-            viewPatient(id, name) {
-                this.showNotification(`Opening patient profile for ${name}`, 'info');
-                console.log(`View patient: ${id} - ${name}`);
-            }
-
-            editPatient(id, name) {
-                this.showNotification(`Opening edit form for ${name}`, 'info');
-                console.log(`Edit patient: ${id} - ${name}`);
-            }
-
-            deletePatient(id, name) {
-                if (confirm(`Are you sure you want to delete ${name}'s record? This action cannot be undone.`)) {
-                    // Remove from data
-                    this.patients = this.patients.filter(p => p.id !== parseInt(id));
-                    this.applyFilters();
-                    
-                    this.showNotification(`${name}'s record has been deleted`, 'success');
-                    console.log(`Delete patient: ${id} - ${name}`);
-                }
             }
 
             exportData() {
@@ -1399,7 +1338,8 @@
                 if (confirm('Are you sure you want to logout?')) {
                     this.showNotification('Logging out...', 'info');
                     setTimeout(() => {
-                        window.location.href = '<?php echo e(route("admin.dashboard")); ?>';
+                        // Redirect to login or homepage
+                        console.log('Logout action');
                     }, 1000);
                 }
             }
