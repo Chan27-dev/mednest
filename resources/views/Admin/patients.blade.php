@@ -702,12 +702,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#labor">
-                        <i class="fas fa-baby"></i>
-                        Labor Monitoring
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="#billing">
                         <i class="fas fa-file-invoice-dollar"></i>
                         Billing System

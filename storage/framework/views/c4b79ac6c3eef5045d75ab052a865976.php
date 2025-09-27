@@ -577,12 +577,6 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo e(route('dashboard.labor')); ?>">
-                    <i class="fas fa-baby"></i>
-                    Labor Monitoring
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="<?php echo e(route('dashboard.billing')); ?>">
                     <i class="fas fa-file-invoice-dollar"></i>
                     Billing System

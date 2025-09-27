@@ -1,9 +1,9 @@
-{{-- File: resources/views/dashboard/staff.blade.php --}}
-@extends('layouts.app')
 
-@section('title', 'Staff Management - MedNest')
 
-@section('extra-css')
+
+<?php $__env->startSection('title', 'Staff Management - MedNest'); ?>
+
+<?php $__env->startSection('extra-css'); ?>
 <style>
     :root {
         --primary-color: #d63384;
@@ -611,14 +611,14 @@
         }
     }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <!-- Sidebar -->
 <div class="sidebar">
     <div class="logo">
         <div class="logo-image">
-            <img src="{{ asset('images/mednest-logo.png') }}" alt="MedNest Logo"> 
+            <img src="<?php echo e(asset('images/mednest-logo.png')); ?>" alt="MedNest Logo"> 
         </div>
         <div class="logo-text">
             <h5>MedNest</h5>
@@ -629,37 +629,37 @@
     <nav class="sidebar-nav">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.index') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.index')); ?>">
                     <i class="fas fa-th-large"></i>
                     Dashboard
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.patients') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.patients')); ?>">
                     <i class="fas fa-users"></i>
                     Patients Record
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.appointments') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.appointments')); ?>">
                     <i class="fas fa-calendar-alt"></i>
                     Appointments
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.billing') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.billing')); ?>">
                     <i class="fas fa-file-invoice-dollar"></i>
                     Billing System
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.referrals') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.referrals')); ?>">
                     <i class="fas fa-share-alt"></i>
                     Referrals
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="{{ route('dashboard.staff') }}">
+                <a class="nav-link active" href="<?php echo e(route('dashboard.staff')); ?>">
                     <i class="fas fa-user-cog"></i>
                     Staff Management
                 </a>
@@ -691,19 +691,19 @@
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.profile') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.profile')); ?>">
                         <i class="fas fa-user me-2"></i>
                         My Profile
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.account.settings') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.account.settings')); ?>">
                         <i class="fas fa-cog me-2"></i>
                         Account Settings
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.notifications') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.notifications')); ?>">
                         <i class="fas fa-bell me-2"></i>
                         Notifications
                         <span class="badge bg-danger ms-auto">3</span>
@@ -734,10 +734,10 @@
                         <i class="fas fa-download me-2"></i>Export
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('staff.export.pdf') }}">
+                        <li><a class="dropdown-item" href="<?php echo e(route('staff.export.pdf')); ?>">
                             <i class="fas fa-file-pdf me-2"></i>Export as PDF
                         </a></li>
-                        <li><a class="dropdown-item" href="{{ route('staff.export.excel') }}">
+                        <li><a class="dropdown-item" href="<?php echo e(route('staff.export.excel')); ?>">
                             <i class="fas fa-file-excel me-2"></i>Export as Excel
                         </a></li>
                     </ul>
@@ -785,21 +785,23 @@
         </div>
 
         <!-- Success/Error Messages -->
-        @if(session('success'))
+        <?php if(session('success')): ?>
         <div class="alert alert-success alert-dismissible fade show mx-3 mt-3" role="alert">
             <i class="fas fa-check-circle me-2"></i>
-            {{ session('success') }}
+            <?php echo e(session('success')); ?>
+
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
-        @endif
+        <?php endif; ?>
 
-        @if(session('error'))
+        <?php if(session('error')): ?>
         <div class="alert alert-danger alert-dismissible fade show mx-3 mt-3" role="alert">
             <i class="fas fa-exclamation-triangle me-2"></i>
-            {{ session('error') }}
+            <?php echo e(session('error')); ?>
+
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
-        @endif
+        <?php endif; ?>
 
         <!-- Staff Container -->
         <div class="staff-container">
@@ -818,54 +820,55 @@
                         </tr>
                     </thead>
                     <tbody id="staffTableBody">
-                        @forelse($staffRecords ?? [] as $staff)
-                        <tr data-staff-id="{{ $staff['id'] }}">
+                        <?php $__empty_1 = true; $__currentLoopData = $staffRecords ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $staff): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                        <tr data-staff-id="<?php echo e($staff['id']); ?>">
                             <td>
                                 <div class="staff-info">
-                                    <img src="https://via.placeholder.com/45/4CAF50/FFFFFF?text={{ substr($staff['name'], 0, 2) }}" 
-                                         alt="{{ $staff['name'] }}" class="staff-avatar">
+                                    <img src="https://via.placeholder.com/45/4CAF50/FFFFFF?text=<?php echo e(substr($staff['name'], 0, 2)); ?>" 
+                                         alt="<?php echo e($staff['name']); ?>" class="staff-avatar">
                                     <div class="staff-details">
-                                        <div class="staff-name">{{ $staff['name'] }}</div>
-                                        <div class="staff-id">{{ $staff['id'] }}</div>
+                                        <div class="staff-name"><?php echo e($staff['name']); ?></div>
+                                        <div class="staff-id"><?php echo e($staff['id']); ?></div>
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <span class="designation-badge">{{ $staff['designation'] }}</span>
+                                <span class="designation-badge"><?php echo e($staff['designation']); ?></span>
                             </td>
                             <td>
-                                <div class="department-info">{{ $staff['department'] }}</div>
+                                <div class="department-info"><?php echo e($staff['department']); ?></div>
                             </td>
                             <td>
-                                <div class="contact-info">{{ $staff['contact'] }}</div>
+                                <div class="contact-info"><?php echo e($staff['contact']); ?></div>
                             </td>
                             <td>
-                                <div class="contact-info">{{ $staff['last_visit'] }}</div>
+                                <div class="contact-info"><?php echo e($staff['last_visit']); ?></div>
                             </td>
                             <td>
-                                <span class="status-badge status-{{ strtolower(str_replace(' ', '-', $staff['status'])) }}">
+                                <span class="status-badge status-<?php echo e(strtolower(str_replace(' ', '-', $staff['status']))); ?>">
                                     <span class="status-indicator"></span>
-                                    {{ $staff['status'] }}
+                                    <?php echo e($staff['status']); ?>
+
                                 </span>
                             </td>
                             <td>
                                 <div class="action-buttons">
-                                    <a href="{{ route('staff.show', $staff['id']) }}" class="action-btn btn-view" title="View Details">
+                                    <a href="<?php echo e(route('staff.show', $staff['id'])); ?>" class="action-btn btn-view" title="View Details">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="{{ route('staff.edit', $staff['id']) }}" class="action-btn btn-edit" title="Edit">
+                                    <a href="<?php echo e(route('staff.edit', $staff['id'])); ?>" class="action-btn btn-edit" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <button class="action-btn btn-toggle" onclick="toggleStatus('{{ $staff['id'] }}')" title="Toggle Status">
+                                    <button class="action-btn btn-toggle" onclick="toggleStatus('<?php echo e($staff['id']); ?>')" title="Toggle Status">
                                         <i class="fas fa-toggle-on"></i>
                                     </button>
-                                    <button class="action-btn btn-delete" onclick="deleteStaff('{{ $staff['id'] }}', '{{ $staff['name'] }}')" title="Delete">
+                                    <button class="action-btn btn-delete" onclick="deleteStaff('<?php echo e($staff['id']); ?>', '<?php echo e($staff['name']); ?>')" title="Delete">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
                             </td>
                         </tr>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <tr>
                             <td colspan="7" class="empty-state">
                                 <i class="fas fa-users"></i>
@@ -873,7 +876,7 @@
                                 <p>Start by adding your first staff member using the "Add Staff Member" button above.</p>
                             </td>
                         </tr>
-                        @endforelse
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
@@ -889,8 +892,8 @@
                 <h5 class="modal-title"><i class="fas fa-user-plus me-2"></i>Add New Staff Member</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
-            <form action="{{ route('staff.store') }}" method="POST">
-                @csrf
+            <form action="<?php echo e(route('staff.store')); ?>" method="POST">
+                <?php echo csrf_field(); ?>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
@@ -1015,9 +1018,9 @@
 <button class="btn btn-primary d-md-none" id="sidebarToggle" style="position: fixed; top: 10px; left: 10px; z-index: 9999;">
     <i class="fas fa-bars"></i>
 </button>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('extra-js')
+<?php $__env->startSection('extra-js'); ?>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Mobile sidebar toggle
@@ -1146,12 +1149,12 @@
                     // Create a form to submit logout request
                     const form = document.createElement('form');
                     form.method = 'POST';
-                    form.action = '{{ route("logout") }}';
+                    form.action = '<?php echo e(route("logout")); ?>';
                     
                     const tokenField = document.createElement('input');
                     tokenField.type = 'hidden';
                     tokenField.name = '_token';
-                    tokenField.value = '{{ csrf_token() }}';
+                    tokenField.value = '<?php echo e(csrf_token()); ?>';
                     
                     form.appendChild(tokenField);
                     document.body.appendChild(form);
@@ -1193,7 +1196,7 @@
             const tokenField = document.createElement('input');
             tokenField.type = 'hidden';
             tokenField.name = '_token';
-            tokenField.value = '{{ csrf_token() }}';
+            tokenField.value = '<?php echo e(csrf_token()); ?>';
             
             form.appendChild(methodField);
             form.appendChild(tokenField);
@@ -1218,7 +1221,7 @@
             const tokenField = document.createElement('input');
             tokenField.type = 'hidden';
             tokenField.name = '_token';
-            tokenField.value = '{{ csrf_token() }}';
+            tokenField.value = '<?php echo e(csrf_token()); ?>';
             
             form.appendChild(methodField);
             form.appendChild(tokenField);
@@ -1279,4 +1282,5 @@
         }, 3000);
     }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH E:\4th yr 1st sem\mednest\resources\views/dashboard/staff.blade.php ENDPATH**/ ?>

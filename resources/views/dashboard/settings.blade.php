@@ -409,12 +409,6 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.labor') }}">
-                    <i class="fas fa-baby"></i>
-                    Labor Monitoring
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard.billing') }}">
                     <i class="fas fa-file-invoice-dollar"></i>
                     Billing System

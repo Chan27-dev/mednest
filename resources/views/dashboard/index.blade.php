@@ -791,7 +791,7 @@
         </div>
     </div>
 
-    <nav class="sidebar-nav">
+   <nav class="sidebar-nav">
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-link active" href="{{ route('dashboard.index') }}">
@@ -812,19 +812,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.labor') }}">
-                    <i class="fas fa-baby"></i>
-                    Labor Monitoring
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard.billing') }}">
                     <i class="fas fa-file-invoice-dollar"></i>
                     Billing System
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.referrals') }}">
+                <a class="nav-link" href="#" data-section="referral">
                     <i class="fas fa-share-alt"></i>
                     Referrals
                 </a>
