@@ -1967,4 +1967,4 @@
         });
     </script>
 </body>
-</html>
+</html><?php /**PATH E:\4th yr 1st sem\mednest\resources\views/dashboard/patients.blade.php ENDPATH**/ ?>
