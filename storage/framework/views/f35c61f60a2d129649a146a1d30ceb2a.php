@@ -715,7 +715,7 @@
         }
 
         .referral-header {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            background: linear-gradient(135deg, var(--primary-color), #ff6b9d);
             color: white;
             padding: 2rem;
             position: relative;
@@ -759,7 +759,7 @@
         .referral-section-title i {
             width: 36px;
             height: 36px;
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            background: linear-gradient(135deg, var(--primary-color), #ff6b9d);
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -816,13 +816,13 @@
         }
 
         .referral-button-purple {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            background: linear-gradient(135deg, var(--primary-color), #ff6b9d);
             color: white;
         }
 
         .referral-button-purple:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+            box-shadow: 0 8px 25px rgba(214, 51, 132, 0.3);
         }
 
         /* Responsive design */
@@ -938,12 +938,6 @@
                     <a class="nav-link" href="#">
                         <i class="fas fa-calendar-alt"></i>
                         Appointments
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-baby"></i>
-                        Labor Monitoring
                     </a>
                 </li>
                 <li class="nav-item">
@@ -1190,47 +1184,243 @@
             </div>
         </div>
 
-        <!-- Labor Monitor Form -->
+        <!-- Enhanced Labor Monitor Form -->
         <div id="monitor-form" class="page-content" style="display: none;">
-            <div class="bg-white shadow">
-                <div class="p-4 border-bottom">
+            <!-- Header -->
+            <div class="bg-white shadow-sm border-bottom mb-4">
+                <div class="p-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h2 class="h4 mb-1">
-                                <span id="monitor-patient-name">Patient Name</span> - Labor Monitoring
-                            </h2>
-                            <p class="text-muted mb-0">Simplified monitoring for near-due patients</p>
+                        <div class="d-flex align-items-center">
+                            <div class="me-3" style="width: 48px; height: 48px; background: linear-gradient(135deg, var(--primary-color), #ff6b9d); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-heart-pulse text-white" style="font-size: 1.25rem;"></i>
+                            </div>
+                            <div>
+                                <h2 class="h3 mb-1" style="color: #2d3748; font-weight: 700;">
+                                    Digital Partograph - <span id="monitor-patient-name">Patient Name</span>
+                                </h2>
+                                <p class="text-muted mb-0">Labor Progress Monitoring System</p>
+                            </div>
                         </div>
-                        <button onclick="showDashboard()" class="btn btn-danger">
-                            <i class="fas fa-home me-1"></i>Back to Dashboard
-                        </button>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="text-center">
+                                <div class="h5 mb-0" id="currentTime" style="color: var(--primary-color); font-weight: 600;"></div>
+                                <small class="text-muted">Current Time</small>
+                            </div>
+                            <div class="px-3 py-2 rounded" style="background: rgba(214, 51, 132, 0.1); border: 1px solid rgba(214, 51, 132, 0.2);">
+                                <span class="status-indicator"></span>
+                                <small class="fw-medium" style="color: var(--primary-color);">System Active</small>
+                            </div>
+                            <button onclick="showDashboard()" class="btn btn-danger fw-semibold">
+                                <i class="fas fa-home me-1"></i>Back to Dashboard
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <!-- Alert Status Panel -->
+                <div id="alertStatus" class="bg-white rounded shadow p-4 mb-4" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-danger bg-opacity-10 p-3 rounded me-3">
+                                <i class="fas fa-bell text-danger" style="font-size: 1.25rem;"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-danger mb-1 fw-bold">ACTIVE ALERT</h5>
+                                <p class="text-muted mb-0" id="alertStatusText">Critical intervention required</p>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted">Alert Time</small>
+                            <div class="fw-bold" id="alertTime"></div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="p-4">
-                    <div class="row g-4">
-                        <div class="col-md-4">
-                            <div class="bg-primary bg-opacity-10 p-4 rounded">
-                                <h3 class="h5 text-primary mb-3">
-                                    <i class="fas fa-user-nurse me-2"></i>Clinical Record
-                                </h3>
-                                <p class="text-primary mb-0">Basic patient information and vital signs</p>
+                <!-- Zone Status Indicator -->
+                <div id="zoneStatus" class="bg-white rounded shadow p-4 mb-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <div id="zoneIcon" class="bg-success bg-opacity-10 p-3 rounded me-3">
+                                <i class="fas fa-check-circle text-success" style="font-size: 1.25rem;"></i>
+                            </div>
+                            <div>
+                                <h5 id="zoneTitle" class="text-success mb-1 fw-bold">GREEN ZONE</h5>
+                                <p id="zoneDescription" class="text-muted mb-0">Labor progressing normally</p>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="bg-warning bg-opacity-10 p-4 rounded">
-                                <h3 class="h5 text-warning mb-3">
-                                    <i class="fas fa-chart-line me-2"></i>Partograph
-                                </h3>
-                                <p class="text-warning mb-0">Labor progress monitoring and tracking</p>
+                        <div class="text-end">
+                            <small class="text-muted">Red Zone Count</small>
+                            <div class="fw-bold h4 mb-0" style="color: var(--primary-color);" id="redZoneCounter">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Patient Information -->
+                    <div class="col-12">
+                        <div class="bg-white rounded shadow p-4">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-primary bg-opacity-10 p-3 rounded me-3">
+                                    <i class="fas fa-user-injured text-primary" style="font-size: 1.25rem;"></i>
+                                </div>
+                                <h4 class="mb-0 fw-bold" style="color: #2d3748;">Patient Information</h4>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.5px; color: #6b7280;">Patient Name</label>
+                                    <input type="text" id="patientName" class="form-control form-control-lg" placeholder="Enter patient name" style="border: 2px solid #e5e7eb; border-radius: 10px;">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.5px; color: #6b7280;">Age (Years)</label>
+                                    <input type="number" id="patientAge" class="form-control form-control-lg" placeholder="Age" min="15" max="50" style="border: 2px solid #e5e7eb; border-radius: 10px;">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.5px; color: #6b7280;">Labor Start Time</label>
+                                    <input type="time" id="startTime" class="form-control form-control-lg" style="border: 2px solid #e5e7eb; border-radius: 10px;">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="bg-success bg-opacity-10 p-4 rounded">
-                                <h3 class="h5 text-success mb-3">
-                                    <i class="fas fa-notes-medical me-2"></i>Nurses' Notes
-                                </h3>
-                                <p class="text-success mb-0">Care observations and interventions</p>
+                    </div>
+
+                    <!-- Data Input -->
+                    <div class="col-12">
+                        <div class="bg-white rounded shadow p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-success bg-opacity-10 p-3 rounded me-3">
+                                        <i class="fas fa-plus-circle text-success" style="font-size: 1.25rem;"></i>
+                                    </div>
+                                    <h4 class="mb-0 fw-bold" style="color: #2d3748;">Add New Measurement</h4>
+                                </div>
+                                <div class="px-3 py-2 rounded" style="background: rgba(214, 51, 132, 0.1);">
+                                    <small class="fw-medium" style="color: var(--primary-color);">Total Points: <span id="totalPoints">0</span></small>
+                                </div>
+                            </div>
+                            
+                            <div class="row g-3">
+                                <div class="col-lg-3">
+                                    <label class="form-label fw-semibold">
+                                        <i class="fas fa-clock me-2" style="color: #3b82f6;"></i>Time (Hours)
+                                    </label>
+                                    <input type="number" id="timeInput" min="0" max="12" step="0.5" placeholder="0.0" class="form-control form-control-lg text-center" style="border: 2px solid #e5e7eb; border-radius: 10px; font-size: 1.1rem;">
+                                    <small class="text-muted">Hours from labor start</small>
+                                </div>
+                                
+                                <div class="col-lg-3">
+                                    <label class="form-label fw-semibold">
+                                        <i class="fas fa-ruler-vertical me-2" style="color: #10b981;"></i>Dilation (cm)
+                                    </label>
+                                    <input type="number" id="dilationInput" min="0" max="10" step="0.5" placeholder="0.0" class="form-control form-control-lg text-center" style="border: 2px solid #e5e7eb; border-radius: 10px; font-size: 1.1rem;">
+                                    <small class="text-muted">Cervical dilation</small>
+                                </div>
+                                
+                                <div class="col-lg-3">
+                                    <label class="form-label fw-semibold">
+                                        <i class="fas fa-tag me-2" style="color: #8b5cf6;"></i>Measurement Type
+                                    </label>
+                                    <select id="measurementType" class="form-select form-select-lg" style="border: 2px solid #e5e7eb; border-radius: 10px;">
+                                        <option value="actual">📈 Actual Progress</option>
+                                        <option value="alert">⚠️ Alert Line</option>
+                                        <option value="action">🚨 Action Line</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-lg-3">
+                                    <label class="form-label fw-semibold" style="opacity: 0;">Action</label>
+                                    <button id="addButton" class="btn btn-lg w-100 fw-semibold" style="background: linear-gradient(135deg, var(--primary-color), #ff6b9d); color: white; border-radius: 10px; border: none;">
+                                        <i class="fas fa-plus me-2"></i>Add Point
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart Section -->
+                    <div class="col-12">
+                        <div class="bg-white rounded shadow p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-info bg-opacity-10 p-3 rounded me-3">
+                                        <i class="fas fa-chart-line text-info" style="font-size: 1.25rem;"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="mb-1 fw-bold" style="color: #2d3748;">Labor Progress Chart</h4>
+                                        <p class="text-muted mb-0">Real-time cervical dilation monitoring</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2" style="width: 16px; height: 4px; background: #10b981; border-radius: 2px;"></div>
+                                        <small class="fw-medium text-muted">Actual</small>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2" style="width: 16px; height: 4px; background: #f59e0b; border-radius: 2px;"></div>
+                                        <small class="fw-medium text-muted">Alert</small>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2" style="width: 16px; height: 4px; background: #ef4444; border-radius: 2px;"></div>
+                                        <small class="fw-medium text-muted">Action</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-light rounded p-3" style="height: 500px;">
+                                <canvas id="partographChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Table -->
+                    <div class="col-12">
+                        <div class="bg-white rounded shadow p-4">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-warning bg-opacity-10 p-3 rounded me-3">
+                                    <i class="fas fa-table text-warning" style="font-size: 1.25rem;"></i>
+                                </div>
+                                <div>
+                                    <h4 class="mb-1 fw-bold" style="color: #2d3748;">Measurement History</h4>
+                                    <p class="text-muted mb-0">Complete record of all measurements</p>
+                                </div>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead style="background: #f8f9fa;">
+                                        <tr>
+                                            <th class="fw-semibold text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.5px; color: #6b7280;">Time</th>
+                                            <th class="fw-semibold text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.5px; color: #6b7280;">Dilation</th>
+                                            <th class="fw-semibold text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.5px; color: #6b7280;">Type</th>
+                                            <th class="fw-semibold text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.5px; color: #6b7280;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="measurementTable">
+                                        <!-- Dynamic content -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Critical Alert Modal -->
+            <div id="criticalAlertModal" class="modal fade" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content border-0 shadow">
+                        <div class="modal-body p-5 text-center">
+                            <div class="bg-danger bg-opacity-10 p-4 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                                <i class="fas fa-exclamation-triangle text-danger" style="font-size: 2rem;"></i>
+                            </div>
+                            <h3 class="text-danger fw-bold mb-4">CRITICAL ALERT</h3>
+                            <p class="text-muted mb-4" id="alertMessage">Labor progress has reached the action line. Immediate medical intervention required.</p>
+                            <div class="d-grid gap-2">
+                                <button onclick="acknowledgeAlert()" class="btn btn-danger btn-lg fw-bold">
+                                    <i class="fas fa-check me-2"></i>Acknowledge Alert
+                                </button>
+                                <button onclick="closeAlert()" class="btn btn-outline-secondary">
+                                    Close
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -1472,11 +1662,24 @@
     </button>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script>
         // Global variables
         let currentStep = 0;
         let currentPatient = '';
         let formData = {};
+
+        // Partograph variables
+        let measurements = {
+            actual: [],
+            alert: [],
+            action: []
+        };
+        let chart = null;
+        let alertActive = false;
+        let alertAcknowledged = false;
+        let redZoneCount = 0;
+        let currentZone = 'green';
 
         const formSections = [
             { id: 'clinical', title: "Mother's Clinical Record", icon: 'fas fa-user-nurse', description: 'Complete the clinical information and medical history for the patient.' },
@@ -1492,6 +1695,431 @@
             { id: 'discharge', title: 'Discharge Plan', icon: 'fas fa-door-open', description: 'Discharge summary and follow-up care instructions.' }
         ];
 
+        // Partograph Functions
+        function updateCurrentTime() {
+            const now = new Date();
+            const timeElement = document.getElementById('currentTime');
+            if (timeElement) {
+                timeElement.textContent = now.toLocaleTimeString();
+            }
+        }
+
+        function initChart() {
+            const ctx = document.getElementById('partographChart');
+            if (!ctx) return;
+
+            try {
+                chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        datasets: [
+                            {
+                                label: 'Actual Progress',
+                                data: [],
+                                borderColor: '#10B981',
+                                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                                borderWidth: 3,
+                                pointRadius: 6,
+                                pointHoverRadius: 8,
+                                pointBackgroundColor: '#10B981',
+                                pointBorderColor: '#ffffff',
+                                pointBorderWidth: 2,
+                                tension: 0.2,
+                                fill: false
+                            },
+                            {
+                                label: 'Alert Line',
+                                data: [],
+                                borderColor: '#F59E0B',
+                                backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                                borderWidth: 3,
+                                pointRadius: 5,
+                                pointBackgroundColor: '#F59E0B',
+                                pointBorderColor: '#ffffff',
+                                pointBorderWidth: 2,
+                                borderDash: [8, 4],
+                                tension: 0.1,
+                                fill: false
+                            },
+                            {
+                                label: 'Action Line',
+                                data: [],
+                                borderColor: '#EF4444',
+                                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                                borderWidth: 3,
+                                pointRadius: 5,
+                                pointBackgroundColor: '#EF4444',
+                                pointBorderColor: '#ffffff',
+                                pointBorderWidth: 2,
+                                borderDash: [12, 6],
+                                tension: 0.1,
+                                fill: false
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top'
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                titleColor: '#ffffff',
+                                bodyColor: '#ffffff',
+                                borderColor: '#374151',
+                                borderWidth: 1,
+                                cornerRadius: 8
+                            }
+                        },
+                        scales: {
+                            x: {
+                                type: 'linear',
+                                position: 'bottom',
+                                min: 0,
+                                max: 12,
+                                title: {
+                                    display: true,
+                                    text: 'Time (hours from start of labor)',
+                                    font: { size: 14, weight: '600' },
+                                    color: '#374151'
+                                },
+                                grid: {
+                                    display: true,
+                                    color: 'rgba(156, 163, 175, 0.3)'
+                                },
+                                ticks: {
+                                    stepSize: 1,
+                                    color: '#6B7280',
+                                    font: { size: 12 }
+                                }
+                            },
+                            y: {
+                                min: 0,
+                                max: 10,
+                                title: {
+                                    display: true,
+                                    text: 'Cervical Dilation (cm)',
+                                    font: { size: 14, weight: '600' },
+                                    color: '#374151'
+                                },
+                                grid: {
+                                    display: true,
+                                    color: 'rgba(156, 163, 175, 0.3)'
+                                },
+                                ticks: {
+                                    stepSize: 1,
+                                    color: '#6B7280',
+                                    font: { size: 12 }
+                                }
+                            }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error initializing chart:', error);
+            }
+        }
+
+        function addMeasurement() {
+            const timeInput = document.getElementById('timeInput');
+            const dilationInput = document.getElementById('dilationInput');
+            const typeInput = document.getElementById('measurementType');
+
+            if (!timeInput || !dilationInput || !typeInput) {
+                showNotification('Form elements not found', 'danger');
+                return;
+            }
+
+            const timeValue = timeInput.value.trim();
+            const dilationValue = dilationInput.value.trim();
+            const type = typeInput.value;
+
+            if (!timeValue || !dilationValue) {
+                showNotification('Please enter both time and dilation values', 'warning');
+                return;
+            }
+
+            const time = parseFloat(timeValue);
+            const dilation = parseFloat(dilationValue);
+
+            if (isNaN(time) || isNaN(dilation)) {
+                showNotification('Please enter valid numbers', 'warning');
+                return;
+            }
+
+            if (time < 0 || time > 12) {
+                showNotification('Time must be between 0 and 12 hours', 'warning');
+                return;
+            }
+
+            if (dilation < 0 || dilation > 10) {
+                showNotification('Dilation must be between 0 and 10 cm', 'warning');
+                return;
+            }
+
+            const newPoint = { x: time, y: dilation, timestamp: new Date().toLocaleString() };
+            measurements[type].push(newPoint);
+            measurements[type].sort((a, b) => a.x - b.x);
+
+            checkCriticalConditions(type, time, dilation);
+            updateChart();
+            updateTable();
+            updateTotalPoints();
+
+            timeInput.value = '';
+            dilationInput.value = '';
+
+            showNotification('Measurement added successfully!', 'success');
+        }
+
+        function checkCriticalConditions(measurementType, time, dilation) {
+            if (measurementType !== 'actual') return;
+
+            const zone = determineZone(dilation, time);
+            const alertLineValue = getAlertLineValueAtTime(time);
+            const actionLineValue = getActionLineValueAtTime(time);
+            
+            updateZoneStatus(zone, dilation, time, alertLineValue, actionLineValue);
+
+            if (zone === 'red') {
+                redZoneCount++;
+                if (redZoneCount === 1) {
+                    showNotification('🔴 ENTERED RED ZONE - First dangerous measurement detected', 'danger');
+                } else if (redZoneCount === 2) {
+                    showNotification('🔴 RED ZONE - Second consecutive dangerous measurement!', 'danger');
+                } else if (redZoneCount >= 3 && !alertActive) {
+                    triggerCriticalAlert(time, dilation, actionLineValue, redZoneCount);
+                }
+            } else if (zone === 'yellow') {
+                if (redZoneCount > 0) {
+                    showNotification('🟡 YELLOW ZONE - Caution: Labor progress slowing but improved from red zone', 'warning');
+                    redZoneCount = 0;
+                } else {
+                    showNotification('🟡 YELLOW ZONE - Caution: Monitor labor progress closely', 'warning');
+                }
+            } else if (zone === 'green') {
+                if (redZoneCount > 0 || currentZone !== 'green') {
+                    showNotification('🟢 GREEN ZONE - Labor progressing normally', 'success');
+                    redZoneCount = 0;
+                }
+            }
+
+            currentZone = zone;
+        }
+
+        function updateZoneStatus(zone, dilation, time, alertLineValue, actionLineValue) {
+            const zoneIcon = document.getElementById('zoneIcon');
+            const zoneTitle = document.getElementById('zoneTitle');
+            const zoneDescription = document.getElementById('zoneDescription');
+            const redZoneCounter = document.getElementById('redZoneCounter');
+
+            if (redZoneCounter) {
+                redZoneCounter.textContent = redZoneCount;
+            }
+
+            if (!zoneIcon || !zoneTitle || !zoneDescription) return;
+
+            if (zone === 'green') {
+                zoneIcon.className = 'bg-success bg-opacity-10 p-3 rounded me-3';
+                zoneIcon.innerHTML = '<i class="fas fa-check-circle text-success" style="font-size: 1.25rem;"></i>';
+                zoneTitle.textContent = 'GREEN ZONE';
+                zoneTitle.className = 'text-success mb-1 fw-bold';
+                zoneDescription.textContent = `Labor progressing normally (${dilation}cm at ${time}h)`;
+            } else if (zone === 'yellow') {
+                zoneIcon.className = 'bg-warning bg-opacity-10 p-3 rounded me-3';
+                zoneIcon.innerHTML = '<i class="fas fa-exclamation-triangle text-warning" style="font-size: 1.25rem;"></i>';
+                zoneTitle.textContent = 'YELLOW ZONE';
+                zoneTitle.className = 'text-warning mb-1 fw-bold';
+                zoneDescription.textContent = `Caution: Labor progress slowing (${dilation}cm at ${time}h)`;
+            } else if (zone === 'red') {
+                zoneIcon.className = 'bg-danger bg-opacity-10 p-3 rounded me-3';
+                zoneIcon.innerHTML = '<i class="fas fa-exclamation-circle text-danger" style="font-size: 1.25rem;"></i>';
+                zoneTitle.textContent = 'RED ZONE';
+                zoneTitle.className = 'text-danger mb-1 fw-bold';
+                zoneDescription.textContent = `DANGER: Prolonged labor (${dilation}cm at ${time}h) - Measurement #${redZoneCount}`;
+            }
+        }
+
+        function getAlertLineValueAtTime(time) {
+            if (time <= 0) return 4;
+            if (time >= 8) return 10;
+            const slope = (10 - 4) / (8 - 0);
+            return 4 + (slope * time);
+        }
+
+        function getActionLineValueAtTime(time) {
+            if (time <= 0) return 4;
+            if (time >= 12) return 10;
+            const slope = (10 - 4) / (12 - 0);
+            return 4 + (slope * time);
+        }
+
+        function determineZone(dilation, time) {
+            const alertLineValue = getAlertLineValueAtTime(time);
+            const actionLineValue = getActionLineValueAtTime(time);
+            
+            if (dilation > alertLineValue) {
+                return 'green';
+            } else if (dilation > actionLineValue) {
+                return 'yellow';
+            } else {
+                return 'red';
+            }
+        }
+
+        function triggerCriticalAlert(time, actualDilation, actionLineValue, consecutiveRedCount) {
+            alertActive = true;
+            alertAcknowledged = false;
+            
+            const alertTime = new Date().toLocaleString();
+            
+            const modal = document.getElementById('criticalAlertModal');
+            const message = document.getElementById('alertMessage');
+            
+            message.innerHTML = `
+                <strong>🚨 LABOR EMERGENCY - RED ZONE ALERT 🚨</strong><br><br>
+                <div class="text-start bg-danger bg-opacity-10 p-4 rounded mb-4 border border-danger">
+                    <div class="fw-semibold mb-2 text-danger">⚠️ CRITICAL SITUATION DETECTED:</div>
+                    <div>• <strong>Time:</strong> ${time} hours from labor start</div>
+                    <div>• <strong>Actual dilation:</strong> ${actualDilation} cm</div>
+                    <div>• <strong>Red zone threshold:</strong> ${actionLineValue.toFixed(1)} cm</div>
+                    <div class="text-danger fw-bold mt-3">
+                        🔴 ${consecutiveRedCount} CONSECUTIVE MEASUREMENTS IN RED ZONE
+                    </div>
+                </div>
+                <div class="text-start bg-warning bg-opacity-10 p-4 rounded mb-4 border border-warning">
+                    <strong class="text-danger">⚡ IMMEDIATE ACTIONS REQUIRED:</strong><br><br>
+                    <div class="space-y-1">
+                        <div>🏥 <strong>1. CESAREAN DELIVERY - Consider immediately</strong></div>
+                        <div>🚑 <strong>2. HOSPITAL TRANSFER - If not in tertiary facility</strong></div>
+                        <div>📊 <strong>3. CONTINUOUS FETAL MONITORING - Start now</strong></div>
+                        <div>👨‍⚕️ <strong>4. SENIOR OBSTETRICIAN - Call immediately</strong></div>
+                        <div>📝 <strong>5. DOCUMENT ALL INTERVENTIONS</strong></div>
+                    </div>
+                </div>
+            `;
+            
+            const modalInstance = new bootstrap.Modal(modal);
+            modalInstance.show();
+            
+            const statusPanel = document.getElementById('alertStatus');
+            const statusText = document.getElementById('alertStatusText');
+            const alertTimeElement = document.getElementById('alertTime');
+            
+            statusText.textContent = `🚨 RED ZONE EMERGENCY: ${consecutiveRedCount} consecutive dangerous measurements - CRITICAL INTERVENTION REQUIRED`;
+            alertTimeElement.textContent = alertTime;
+            statusPanel.style.display = 'block';
+        }
+
+        function acknowledgeAlert() {
+            alertAcknowledged = true;
+            const modal = bootstrap.Modal.getInstance(document.getElementById('criticalAlertModal'));
+            modal.hide();
+            showNotification('Critical alert acknowledged. Continue monitoring patient closely.', 'warning');
+        }
+
+        function closeAlert() {
+            if (!alertAcknowledged) {
+                showNotification('Please acknowledge the alert first for patient safety', 'danger');
+                return;
+            }
+            const modal = bootstrap.Modal.getInstance(document.getElementById('criticalAlertModal'));
+            modal.hide();
+        }
+
+        function updateChart() {
+            if (!chart) return;
+            try {
+                chart.data.datasets[0].data = measurements.actual;
+                chart.data.datasets[1].data = measurements.alert;
+                chart.data.datasets[2].data = measurements.action;
+                chart.update();
+            } catch (error) {
+                console.error('Error updating chart:', error);
+            }
+        }
+
+        function updateTable() {
+            const tableBody = document.getElementById('measurementTable');
+            if (!tableBody) return;
+
+            tableBody.innerHTML = '';
+
+            const allMeasurements = [];
+            Object.keys(measurements).forEach(type => {
+                measurements[type].forEach(point => {
+                    allMeasurements.push({
+                        time: point.x,
+                        dilation: point.y,
+                        type: type,
+                        timestamp: point.timestamp
+                    });
+                });
+            });
+
+            allMeasurements.sort((a, b) => a.time - b.time);
+
+            if (allMeasurements.length === 0) {
+                const row = tableBody.insertRow();
+                row.innerHTML = `
+                    <td colspan="4" class="text-center py-4 text-muted">
+                        No measurements recorded yet
+                    </td>
+                `;
+                return;
+            }
+
+            allMeasurements.forEach(measurement => {
+                const row = tableBody.insertRow();
+                row.innerHTML = `
+                    <td class="fw-medium">${measurement.time}h</td>
+                    <td class="fw-medium">${measurement.dilation} cm</td>
+                    <td>
+                        <span class="badge ${getTypeStyle(measurement.type)}">
+                            ${measurement.type.charAt(0).toUpperCase() + measurement.type.slice(1)}
+                        </span>
+                    </td>
+                    <td>
+                        <button onclick="removeMeasurement('${measurement.type}', ${measurement.time}, ${measurement.dilation})" 
+                                class="btn btn-sm btn-outline-danger">
+                            Remove
+                        </button>
+                    </td>
+                `;
+            });
+        }
+
+        function getTypeStyle(type) {
+            const styles = {
+                actual: 'bg-success',
+                alert: 'bg-warning',
+                action: 'bg-danger'
+            };
+            return styles[type] || 'bg-secondary';
+        }
+
+        function updateTotalPoints() {
+            const total = Object.values(measurements).reduce((sum, arr) => sum + arr.length, 0);
+            const totalElement = document.getElementById('totalPoints');
+            if (totalElement) {
+                totalElement.textContent = total;
+            }
+        }
+
+        function removeMeasurement(type, time, dilation) {
+            measurements[type] = measurements[type].filter(point => 
+                !(Math.abs(point.x - time) < 0.001 && Math.abs(point.y - dilation) < 0.001)
+            );
+            updateChart();
+            updateTable();
+            updateTotalPoints();
+            showNotification('Measurement removed', 'success');
+        }
+
+        // Main application functions
         function showDashboard() {
             document.getElementById('dashboard-view').style.display = 'block';
             document.getElementById('update-form').style.display = 'none';
@@ -1522,6 +2150,32 @@
             document.getElementById('update-form').style.display = 'none';
             document.getElementById('referrals-view').style.display = 'none';
             document.getElementById('monitor-form').style.display = 'block';
+
+            // Initialize partograph when monitor is shown
+            setTimeout(() => {
+                initChart();
+                updateCurrentTime();
+                setInterval(updateCurrentTime, 1000);
+                
+                // Set default start time
+                const now = new Date();
+                const timeString = now.getHours().toString().padStart(2, '0') + ':' + 
+                                  now.getMinutes().toString().padStart(2, '0');
+                const startTimeInput = document.getElementById('startTime');
+                if (startTimeInput) {
+                    startTimeInput.value = timeString;
+                }
+                
+                updateTotalPoints();
+                updateTable();
+                
+                // Add event listener to add button
+                const addButton = document.getElementById('addButton');
+                if (addButton) {
+                    addButton.removeEventListener('click', addMeasurement); // Remove existing listener
+                    addButton.addEventListener('click', addMeasurement);
+                }
+            }, 100);
         }
 
         function showReferrals(patientName) {
@@ -1961,6 +2615,13 @@
                     }, 2000);
                 });
             }
+
+            // Add keyboard support for partograph inputs
+            document.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && (e.target.id === 'timeInput' || e.target.id === 'dilationInput')) {
+                    addMeasurement();
+                }
+            });
 
             // Initialize the application
             showDashboard();
