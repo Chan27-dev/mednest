@@ -44,15 +44,63 @@
     }
 
     .sidebar .logo .logo-image {
-        width: 45px;
-        height: 45px;
-        background: white;
-        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #ffffff 0%, #fce4ec 100%);
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(214, 51, 132, 0.4);
         overflow: hidden;
+        position: relative;
+        transition: all 0.3s ease;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .sidebar .logo .logo-image::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transform: rotate(45deg);
+        animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+        0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+        100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+
+    .sidebar .logo .logo-image:hover {
+        transform: scale(1.05) rotate(5deg);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(214, 51, 132, 0.6);
+    }
+
+    .sidebar .logo .logo-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+        position: relative;
+        z-index: 1;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        padding: 8px;
+    }
+
+    .sidebar .logo .logo-image .logo-fallback {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--primary-color);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
     }
 
     .sidebar .logo .logo-text h5 {
@@ -503,42 +551,7 @@
         .action-buttons {
             flex-direction: column;
         }
-
-    .sidebar .logo .logo-image {
-        width: 45px;
-        height: 45px;
-        background: white;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        overflow: hidden;
     }
-
-    .sidebar .logo .logo-image img {
-        width: 35px;
-        height: 35px;
-        object-fit: contain;
-    }
-
-    .sidebar .logo .logo-text h5 {
-        color: white;
-        margin: 0;
-        font-weight: bold;
-        font-size: 1.2rem;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    .sidebar .logo .logo-text small {
-        color: var(--sidebar-text-muted);
-        font-size: 0.7rem;
-        font-weight: 500;
-        letter-spacing: 0.5px;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    }
-}
-
 </style>
 <?php $__env->stopSection(); ?>
 
@@ -547,8 +560,10 @@
 <div class="sidebar">
     <div class="logo">
         <div class="logo-image">
-            <img src="<?php echo e(asset('images/mednest-logo.png')); ?>" alt="MedNest Logo"> 
-            
+            <img src="<?php echo e(asset('images/mednest-logo.png')); ?>" alt="MedNest Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"> 
+            <div class="logo-fallback">
+                <i class="fas fa-heart"></i>
+            </div>
         </div>
         <div class="logo-text">
             <h5>MedNest</h5>
@@ -559,7 +574,7 @@
     <nav class="sidebar-nav">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" href="<?php echo e(route('dashboard.index')); ?>">
+                <a class="nav-link" href="<?php echo e(route('dashboard.index')); ?>">
                     <i class="fas fa-th-large"></i>
                     Dashboard
                 </a>
@@ -571,7 +586,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo e(route('dashboard.appointments')); ?>">
+                <a class="nav-link active" href="<?php echo e(route('dashboard.appointments')); ?>">
                     <i class="fas fa-calendar-alt"></i>
                     Appointments
                 </a>
@@ -595,7 +610,6 @@
                 </a>
             </li>
         </ul>
-
     </nav>
 </div>
 
