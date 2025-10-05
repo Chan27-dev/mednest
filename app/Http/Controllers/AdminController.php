@@ -530,6 +530,100 @@ class AdminController extends Controller
     }
 
     /**
+     * Display the billing system page
+     */
+    public function billingSystem(): View
+    {
+        // Mock billing data - replace with actual database queries
+        $billingData = [
+            'total_stats' => [
+                'total_revenue' => 485200,
+                'total_payments' => 342,
+                'pending_invoices' => 28,
+                'overdue_amount' => 24500
+            ],
+            'recent_payments' => [
+                [
+                    'id' => 'PAY001',
+                    'patient' => 'John Doe',
+                    'amount' => 3500,
+                    'method' => 'Credit Card',
+                    'status' => 'Paid',
+                    'date' => '2024-03-15',
+                    'branch' => 'daraga'
+                ],
+                [
+                    'id' => 'PAY002',
+                    'patient' => 'Jane Smith',
+                    'amount' => 2800,
+                    'method' => 'Cash',
+                    'status' => 'Paid',
+                    'date' => '2024-03-14',
+                    'branch' => 'stodomingo'
+                ],
+                [
+                    'id' => 'PAY003',
+                    'patient' => 'Maria Santos',
+                    'amount' => 4200,
+                    'method' => 'Insurance',
+                    'status' => 'Pending',
+                    'date' => '2024-03-13',
+                    'branch' => 'arimbay'
+                ],
+                [
+                    'id' => 'PAY004',
+                    'patient' => 'Ana Cruz',
+                    'amount' => 1900,
+                    'method' => 'Debit Card',
+                    'status' => 'Paid',
+                    'date' => '2024-03-12',
+                    'branch' => 'daraga'
+                ]
+            ],
+            'recent_invoices' => [
+                [
+                    'id' => 'INV001',
+                    'customer' => 'Sarah Davis',
+                    'service' => 'Consultation',
+                    'total' => 3500,
+                    'status' => 'Paid',
+                    'date' => '2024-03-15',
+                    'branch' => 'daraga'
+                ],
+                [
+                    'id' => 'INV002',
+                    'customer' => 'Lisa Brown',
+                    'service' => 'Consultation',
+                    'total' => 2500,
+                    'status' => 'Paid',
+                    'date' => '2024-03-14',
+                    'branch' => 'stodomingo'
+                ],
+                [
+                    'id' => 'INV003',
+                    'customer' => 'Emma Wilson',
+                    'service' => 'Consultation',
+                    'total' => 3500,
+                    'status' => 'Pending',
+                    'date' => '2024-03-13',
+                    'branch' => 'arimbay'
+                ],
+                [
+                    'id' => 'INV004',
+                    'customer' => 'Sofia Reyes',
+                    'service' => 'Consultation',
+                    'total' => 2500,
+                    'status' => 'Overdue',
+                    'date' => '2024-03-12',
+                    'branch' => 'stodomingo'
+                ]
+            ]
+        ];
+
+        return view('admin.billing-system', compact('billingData'));
+    }
+
+    /**
      * Display the staff management page
      */
     public function staffManagement(): View
@@ -703,5 +797,88 @@ class AdminController extends Controller
 
         return $branches[$branchId] ?? null;
     }
-}
 
+    /**
+     * Display the branch report page
+     */
+    public function branchReport(): View
+    {
+        // Mock branch report data - replace with actual database queries
+        $reportData = [
+            'total_stats' => [
+                'total_patients' => 312,
+                'total_revenue' => 156450,
+                'total_appointments' => 156,
+                'active_labor_cases' => 8
+            ],
+            'branches' => [
+                'daraga' => [
+                    'name' => 'Daraga',
+                    'patients' => 120,
+                    'revenue' => 58200,
+                    'appointments' => 65,
+                    'labor_cases' => 3
+                ],
+                'stodomingo' => [
+                    'name' => 'Sto Domingo',
+                    'patients' => 98,
+                    'revenue' => 45800,
+                    'appointments' => 48,
+                    'labor_cases' => 2
+                ],
+                'arimbay' => [
+                    'name' => 'Arimbay',
+                    'patients' => 94,
+                    'revenue' => 52450,
+                    'appointments' => 43,
+                    'labor_cases' => 3
+                ]
+            ]
+        ];
+
+        return view('admin.branch-report', compact('reportData'));
+    }
+
+    /**
+     * Get report data for AJAX calls
+     */
+    public function getReportData(Request $request)
+    {
+        $branch = $request->get('branch', 'all');
+        $period = $request->get('period', 'month');
+        
+        $data = [
+            'stats' => [
+                'patients' => rand(250, 350),
+                'revenue' => rand(120000, 180000),
+                'appointments' => rand(120, 180),
+                'labor_cases' => rand(5, 12)
+            ],
+            'last_updated' => now()->format('Y-m-d H:i:s')
+        ];
+        
+        return response()->json($data);
+    }
+
+    /**
+     * Export branch report as PDF
+     */
+    public function exportReportPDF(Request $request)
+    {
+        return response()->json([
+            'success' => true,
+            'message' => 'PDF report generation initiated'
+        ]);
+    }
+
+    /**
+     * Export branch report as Excel
+     */
+    public function exportReportExcel(Request $request)
+    {
+        return response()->json([
+            'success' => true,
+            'message' => 'Excel report generation initiated'
+        ]);
+    }
+}

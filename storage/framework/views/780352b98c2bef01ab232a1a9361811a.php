@@ -825,37 +825,31 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo e(route('admin.dashboard')); ?>">
                         <i class="fas fa-th-large"></i>
-                        Dashboard
+                        Multi-Branch
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo e(route('admin.patients')); ?>">
                         <i class="fas fa-users"></i>
-                        Patients Record
+                        All Patients Record
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#appointments">
                         <i class="fas fa-calendar-alt"></i>
-                        Appointments
+                        All Appointments
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#labor">
-                        <i class="fas fa-baby"></i>
-                        Labor Monitoring
+                    <a class="nav-link" href="<?php echo e(route('admin.branch.report')); ?>">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        Branch Report
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#billing">
+                    <a class="nav-link" href="<?php echo e(route('admin.billing.system')); ?>">
                         <i class="fas fa-file-invoice-dollar"></i>
                         Billing System
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#referral">
-                        <i class="fas fa-share-alt"></i>
-                        Referrals
                     </a>
                 </li>
                 <li class="nav-item">

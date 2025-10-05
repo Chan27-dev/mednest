@@ -44,21 +44,58 @@
     }
 
     .sidebar .logo .logo-image {
-        width: 45px;
-        height: 45px;
-        background: white;
-        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #ffffff 0%, #fce4ec 100%);
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(214, 51, 132, 0.4);
         overflow: hidden;
+        position: relative;
+        transition: all 0.3s ease;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .sidebar .logo .logo-image::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transform: rotate(45deg);
+        animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+        0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+        100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+
+    .sidebar .logo .logo-image:hover {
+        transform: scale(1.05) rotate(5deg);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(214, 51, 132, 0.6);
     }
 
     .sidebar .logo .logo-image img {
-        width: 35px;
-        height: 35px;
-        object-fit: contain;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        position: relative;
+        z-index: 1;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        padding: 5px;
+    }
+
+    .sidebar .logo .logo-image .logo-fallback {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary-color);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     .sidebar .logo .logo-text h5 {
@@ -782,8 +819,9 @@
 <div class="sidebar">
     <div class="logo">
         <div class="logo-image">
-            <img src="{{ asset('images/mednest-logo.png') }}" alt="MedNest Logo"> 
-            
+            <img src="{{ asset('images/mednest-logo.png') }}" alt="MedNest Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"> 
+            <div class="logo-fallback">
+            </div>
         </div>
         <div class="logo-text">
             <h5>MedNest</h5>
@@ -1580,20 +1618,6 @@
                     window.location.href = '/logout';
                 }, 800);
             }
-        } = '/logout';
-                    
-                    // For demo, show success and reload
-                    window.MedNestDashboard.prototype.showNotification('Successfully logged out!', 'success');
-                    
-                    // Reset the button
-                    logoutItem.innerHTML = originalContent;
-                    
-                    // In a real app, redirect to login page
-                    setTimeout(() => {
-                        alert('Demo: In a real app, you would be redirected to the login page.');
-                    }, 1500);
-                }, 1000);
-            }
         }
 
         // Close dropdown when clicking outside
@@ -1643,21 +1667,6 @@
                 btn.style.transform = 'translateY(0)';
                 btn.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
             });
-        });
-            // Ctrl/Cmd + / for search focus
-            if ((e.ctrlKey || e.metaKey) && e.key === '/') {
-                e.preventDefault();
-                document.querySelector('.search-box input').focus();
-            }
-            
-            // Esc to clear search
-            if (e.key === 'Escape') {
-                const searchInput = document.querySelector('.search-box input');
-                if (searchInput === document.activeElement) {
-                    searchInput.value = '';
-                    searchInput.blur();
-                }
-            }
         });
 
         // Add loading states for form submissions
