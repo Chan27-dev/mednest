@@ -83,19 +83,24 @@
     .sidebar .logo .logo-image img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
         object-position: center;
         position: relative;
         z-index: 1;
         filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-        padding: 5px;
+        padding: 8px;
     }
 
     .sidebar .logo .logo-image .logo-fallback {
-        font-size: 1.5rem;
+        font-size: 2rem;
         font-weight: bold;
         color: var(--primary-color);
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
     }
 
     .sidebar .logo .logo-text h5 {
@@ -820,8 +825,9 @@
 <div class="sidebar">
     <div class="logo">
         <div class="logo-image">
-            <img src="<?php echo e(asset('images/mednest-logo.png')); ?>" alt="MedNest Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"> 
+            <img src="<?php echo e(asset('images/mednest-logo.png')); ?>" alt="MedNest Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"> 
             <div class="logo-fallback">
+                <i class="fas fa-heart"></i>
             </div>
         </div>
         <div class="logo-text">
@@ -1361,143 +1367,13 @@
             });
         });
 
-        // Auto-refresh functionality (optional)
-        let autoRefreshEnabled = false;
-        let refreshInterval;
-
-        function toggleAutoRefresh() {
-            if (autoRefreshEnabled) {
-                clearInterval(refreshInterval);
-                autoRefreshEnabled = false;
-            } else {
-                refreshInterval = setInterval(() => {
-                    // In a real application, you would refresh data via AJAX
-                    console.log('Auto-refreshing dashboard data...');
-                }, 60000); // Refresh every minute
-                autoRefreshEnabled = true;
-            }
-        }
-
-        // Handle admin profile dropdown actions
-        const adminDropdownItems = document.querySelectorAll('.admin-profile .dropdown-item');
-        adminDropdownItems.forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                const action = this.getAttribute('data-action');
-                
-                switch(action) {
-                    case 'profile':
-                        window.MedNestDashboard.prototype.showNotification('Profile page opened', 'info');
-                        break;
-                    case 'settings':
-                        window.MedNestDashboard.prototype.showNotification('Account settings opened', 'info');
-                        break;
-                    case 'notifications':
-                        window.MedNestDashboard.prototype.showNotification('Notifications panel opened', 'info');
-                        break;
-                    case 'logout':
-                        handleLogout();
-                        break;
-                }
-            });
-        });
-
-        // Debug: Test if Bootstrap modal is working
-        console.log('Bootstrap version:', bootstrap?.Modal ? 'Loaded' : 'Not loaded');
-        console.log('Add Patient button found:', document.getElementById('addPatientBtn') ? 'Yes' : 'No');
-        console.log('Modal element found:', document.getElementById('addPatientModal') ? 'Yes' : 'No');
-
-        // Backup method - if Bootstrap modal fails, use simple display
-        function openPatientModal() {
-            const modalElement = document.getElementById('addPatientModal');
-            
-            if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
-                // Use Bootstrap modal
-                const modal = new bootstrap.Modal(modalElement);
-                modal.show();
-                console.log('Bootstrap modal opened');
-            } else {
-                // Fallback - manual display
-                modalElement.style.display = 'block';
-                modalElement.classList.add('show');
-                modalElement.setAttribute('aria-hidden', 'false');
-                document.body.classList.add('modal-open');
-                
-                // Add backdrop
-                const backdrop = document.createElement('div');
-                backdrop.className = 'modal-backdrop fade show';
-                document.body.appendChild(backdrop);
-                
-                console.log('Manual modal opened');
-            }
-        }
-
-        // Updated Add Patient button handler
-        document.addEventListener('DOMContentLoaded', function() {
-            const addPatientBtn = document.getElementById('addPatientBtn');
-            
-            if (addPatientBtn) {
-                addPatientBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    console.log('Add New Patient clicked!');
-                    openPatientModal();
-                });
-                console.log('Add Patient button event listener attached');
-            } else {
-                console.error('Add Patient button not found!');
-            }
-        });
-
-        // Handle modal events
-        const addPatientModal = document.getElementById('addPatientModal');
-        if (addPatientModal) {
-            // Reset form when modal is closed
-            addPatientModal.addEventListener('hidden.bs.modal', function () {
-                const form = document.getElementById('addPatientForm');
-                if (form) {
-                    form.reset();
-                    
-                    // Reset service selection to first option
-                    const serviceCards = document.querySelectorAll('.service-card');
-                    serviceCards.forEach(card => card.classList.remove('active'));
-                    if (serviceCards[0]) {
-                        serviceCards[0].classList.add('active');
-                    }
-                    
-                    // Reset hidden fields
-                    document.getElementById('selectedService').value = 'prenatal';
-                    document.getElementById('servicePrice').value = 'FREE';
-                    
-                    // Remove validation classes
-                    const inputs = form.querySelectorAll('.form-control');
-                    inputs.forEach(input => {
-                        input.classList.remove('is-invalid', 'is-valid');
-                    });
-                }
-            });
-
-            // Set default date when modal opens
-            addPatientModal.addEventListener('shown.bs.modal', function () {
-                const today = new Date().toISOString().split('T')[0];
-                const dateInput = document.getElementById('preferredDate');
-                if (dateInput && !dateInput.value) {
-                    dateInput.value = today;
-                    dateInput.min = today; // Prevent past dates
-                }
-            });
-        }
+        // Service card selection
         const serviceCards = document.querySelectorAll('.service-card');
         serviceCards.forEach(card => {
             card.addEventListener('click', function() {
-                // Remove active class from all cards
                 serviceCards.forEach(c => c.classList.remove('active'));
-                
-                // Add active class to clicked card
                 this.classList.add('active');
                 
-                // Update hidden fields
                 const service = this.getAttribute('data-service');
                 const price = this.getAttribute('data-price');
                 
@@ -1528,7 +1404,7 @@
                 });
                 
                 if (!isValid) {
-                    window.MedNestDashboard.prototype.showNotification('Please fill in all required fields', 'warning');
+                    alert('Please fill in all required fields');
                     return;
                 }
                 
@@ -1539,68 +1415,27 @@
                 
                 // Simulate API call
                 setTimeout(() => {
-                    // Success
-                    const patientName = formData.get('full_name');
-                    const service = document.querySelector('.service-card.active h6').textContent;
-                    
-                    window.MedNestDashboard.prototype.showNotification(
-                        `Appointment scheduled successfully for ${patientName} - ${service}`, 
-                        'success'
-                    );
+                    alert('Appointment scheduled successfully!');
                     
                     // Reset form and close modal
                     form.reset();
-                    serviceCards[0].classList.add('active'); // Reset to first service
+                    serviceCards[0].classList.add('active');
                     const modal = bootstrap.Modal.getInstance(document.getElementById('addPatientModal'));
-                    modal.hide();
+                    if (modal) modal.hide();
                     
                     // Reset button
                     confirmBtn.innerHTML = originalText;
                     confirmBtn.disabled = false;
-                    
                 }, 2000);
             });
-        }
-
-        // Handle modal close buttons
-        document.addEventListener('click', function(e) {
-            if (e.target.matches('[data-bs-dismiss="modal"]') || e.target.matches('.btn-close')) {
-                const modal = document.getElementById('addPatientModal');
-                
-                if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
-                    const modalInstance = bootstrap.Modal.getInstance(modal);
-                    if (modalInstance) {
-                        modalInstance.hide();
-                    }
-                } else {
-                    // Manual close
-                    modal.style.display = 'none';
-                    modal.classList.remove('show');
-                    modal.setAttribute('aria-hidden', 'true');
-                    document.body.classList.remove('modal-open');
-                    
-                    // Remove backdrop
-                    const backdrop = document.querySelector('.modal-backdrop');
-                    if (backdrop) {
-                        backdrop.remove();
-                    }
-                }
-            }
-        });
-        const today = new Date().toISOString().split('T')[0];
-        const dateInput = document.getElementById('preferredDate');
-        if (dateInput) {
-            dateInput.value = today;
-            dateInput.min = today; // Prevent past dates
         }
 
         // Auto-format phone number
         const phoneInputs = document.querySelectorAll('input[type="tel"]');
         phoneInputs.forEach(input => {
             input.addEventListener('input', function(e) {
-                let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+                let value = e.target.value.replace(/\D/g, '');
                 if (value.length >= 10) {
-                    // Format as Philippine mobile number
                     value = value.replace(/(\d{4})(\d{3})(\d{4})/, '$1-$2-$3');
                 }
                 e.target.value = value;
@@ -1608,78 +1443,11 @@
         });
 
         // Logout functionality
-        function handleLogout() {
-            // Show confirmation dialog
-            if (confirm('Are you sure you want to logout?')) {
-                // Show loading state
-                const logoutItem = document.querySelector('[data-action="logout"]');
-                const originalContent = logoutItem.innerHTML;
-                logoutItem.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Logging out...';
-                
-                // Simple redirect to logout route which will redirect to login
-                setTimeout(() => {
-                    window.location.href = '/logout';
-                }, 800);
-            }
-        }
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(e) {
-            const dropdown = document.querySelector('.admin-profile .dropdown-menu');
-            const trigger = document.querySelector('.admin-profile-trigger');
-            
-            if (dropdown && !dropdown.contains(e.target) && !trigger.contains(e.target)) {
-                const dropdownInstance = bootstrap.Dropdown.getOrCreateInstance(trigger);
-                dropdownInstance.hide();
-            }
-        });
-
-        // Handle Quick Actions (updated to work with modal)
-        const actionBtns = document.querySelectorAll('.action-btn:not(#addPatientBtn)'); // Exclude Add Patient button
-        
-        actionBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
+        document.querySelectorAll('[data-action="logout"]').forEach(item => {
+            item.addEventListener('click', function(e) {
                 e.preventDefault();
-                
-                // Add loading animation
-                const originalContent = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Loading...</span>';
-                btn.style.pointerEvents = 'none';
-                
-                // Get action name
-                const actionName = btn.querySelector('span').textContent;
-                
-                // Simulate API call
-                setTimeout(() => {
-                    // Restore original content
-                    btn.innerHTML = originalContent;
-                    btn.style.pointerEvents = 'auto';
-                    
-                    // Show success message
-                    window.MedNestDashboard.prototype.showNotification(`${actionName} action triggered!`, 'success');
-                }, 1000);
-            });
-            
-            // Add hover effect
-            btn.addEventListener('mouseenter', () => {
-                btn.style.transform = 'translateY(-3px)';
-                btn.style.boxShadow = '0 6px 12px rgba(0,0,0,0.15)';
-            });
-            
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transform = 'translateY(0)';
-                btn.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
-            });
-        });
-
-        // Add loading states for form submissions
-        const forms = document.querySelectorAll('form');
-        forms.forEach(form => {
-            form.addEventListener('submit', function() {
-                const submitBtn = form.querySelector('button[type="submit"]');
-                if (submitBtn) {
-                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-                    submitBtn.disabled = true;
+                if (confirm('Are you sure you want to logout?')) {
+                    window.location.href = '/logout';
                 }
             });
         });
