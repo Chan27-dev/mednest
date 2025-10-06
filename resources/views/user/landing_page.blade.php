@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedNest - From Bump to Baby</title>
+    <title>MedNest - Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&display=swap" rel="stylesheet">
 
     <style>
         body {
@@ -80,8 +81,8 @@
             flex-direction: column;
             justify-content: center;
             height: 100%;
-            padding: 0 20px 0 300px; /* left padding to move inward */
-            text-align: left; /* left-aligned text */
+            padding: 0 20px 0 300px; 
+            text-align: left; 
         }
         .hero-content h1 {
             font-size: 56px;
@@ -186,6 +187,52 @@
         .view-services-btn .btn-primary {
             padding: 14px 36px;
             font-size: 18px;
+        }
+        
+        /* Card */
+        .card {
+        width: 300px;
+        height: 400px;
+        border-radius: 15px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        }
+        .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .card img {
+        width: 100%;
+        height: 65%;
+        object-fit: cover;
+        }
+
+        .card-content {
+        background: #D44C64;
+        color: #fff;
+        padding: 15px;
+        height: 35%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        }
+
+        .card-content h3 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 600;
+        text-decoration: underline;
+        }
+        .card-content p {
+        margin: 8px 0 0 0;
+        font-size: 14px;
+        line-height: 1.4;
         }
 
         /* WHY CHOOSE US SECTION */
@@ -312,61 +359,228 @@
         }
         /* === TESTIMONIAL SECTION === */
         .testimonial {
-        background: #F28D8D; /* light red background like your design */
+        background: rgba(237, 104, 104, 0.33);
         border-radius: 0 200px 200px 200px;
-        padding: 60px 40px;
+        padding: 60px 40px 120px;
         margin: 60px auto;
-        max-width: auto;
+        position: relative;
         }
 
         .testimonial-container {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         gap: 40px;
         }
 
         .testimonial-text {
         flex: 1;
         color: #5A3E3E;
+        font-family: 'ADLaM Display', cursive;
+        text-align: center; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         }
 
         .testimonial-text h2 {
-        text-align: center;
         margin-bottom: 20px;
-        font-size: 40px;
+        font-size: 36px;
         font-weight: bold;
+        text-align: center;
         }
 
         .quote-icon {
-        font-size: 150px;
+        font-size: 80px;
         color: #ffffff90;
-        margin-bottom: -80px;
+        margin: 0 auto -40px;
         }
 
         .feedback {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         line-height: 1.6;
         font-weight: 500;
+        margin: 20px 0;
         }
 
         .author {
         margin-top: 20px;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         color: #5A3E3E;
         font-style: italic;
         }
-
-        .testimonial-image {
-        flex: 1;
-        display: flex;
-        justify-content: center;
+            /* IMAGE BOX */
+        .image-box {
+        background: #ED6868;
+        border-radius: 20px;
+        padding: 12px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        transform: translateY(180px); 
+        position: relative;   
+        height: 500px;        
+        width: 400px;         
+        border-radius: 100px 100px 0 100px;
+        margin-left: 200px;
+        overflow: hidden;
         }
 
-        .testimonial-image img {
+        .image-box img {
+        position: absolute;
+        bottom: 0;            
+        left: 45%;            
+        transform: translateX(-50%); 
+        width: 320px;          
+        border-radius: 12px;
+        object-fit: cover;  
+        }
+
+        .text-container {
+            margin-left: 100px;
+        }
+
+        /* OUR DOCTORS SECTION */
+        .doctors {
+        text-align: center;
+        padding: 80px 40px;
+        background: #fff; 
+        }
+
+        .doctors h2 {
+        font-size: 36px;
+        font-weight: bold;
+        color: #5A3E3E;
+        margin-bottom: 10px;
+        }
+
+        .doctors .subtitle {
+        font-size: 1.1rem;
+        color: #777;
+        margin-bottom: 50px;
+        }
+
+        .doctors-container {
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        gap: 40px;
+        flex-wrap: wrap; 
+        }
+
+        .doctor-card {
+        text-align: center;
+        max-width: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        }
+
+        .doctor-photo {
+        width: 180px;
+        height: 180px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid #ED6868;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .doctor-photo img {
         width: 100%;
-        max-width: 340px;
-        border-radius: 30px;
+        height: 100%;
         object-fit: cover;
+        }
+
+        .doctor-card h3 {
+        font-size: 1.2rem;
+        color: #5A3E3E;
+        margin-bottom: 5px;
+        justify-content: center;
+        text-align: center;
+        }
+
+        .doctor-card p {
+        font-size: 0.95rem;
+        color: #777;
+        margin-top: auto;
+        }
+        /* FOOTER */
+        .footer {
+        background-color: #e88092;
+        color: #fff;
+        padding: 25px 20px 15px; 
+        font-family: 'Poppins', sans-serif;
+        }
+
+        .footer-container {
+        display: flex;
+        justify-content: space-between; 
+        align-items: flex-start;
+        flex-wrap: wrap; 
+        max-width: 1100px;
+        margin: 0 auto;
+        gap: 40px;
+        }
+
+       .footer-section {
+        flex: 1 1 31%px;
+        min-width: 220px;
+        margin: 0; 
+        }
+
+        .footer-section h3 {
+        font-size: 16px;
+        margin-bottom: 8px;
+        font-weight: 600;
+        text-transform: uppercase;
+        }
+
+        .footer-section ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        }
+
+        .footer-section ul li {
+        margin-bottom: 6px;
+        }
+
+        .footer-section a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 14px;
+        transition: 0.3s;
+        }
+
+        .footer-section a:hover {
+        text-decoration: underline;
+        color: #ffe0e6;
+        }
+
+        .footer-section p {
+        font-size: 14px;
+        margin: 4px 0; /* tighter spacing */
+        }
+
+        .footer-bottom {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 13px;
+        opacity: 0.9;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+        .footer-container {
+            flex-direction: column;
+            text-align: center;
+        }
+        .footer-section {
+            margin-bottom: 15px;
+        }
+        }
+        nav a.active {
+        color: #7B0707;
+        font-weight: 600;
         }
     </style>
 </head>
@@ -379,10 +593,22 @@
             <span class="logo-text"><span class="med">Med</span><span class="nest">Nest</span></span>
         </div>
         <nav>
-            <a href="#">Home</a>
-            <a href="#services">Services</a>
-            <a href="#about">About Us</a>
-            <a href="#appointment">Appointment</a>
+            <a href="{{ route('user.landing_page') }}" 
+            class="{{ request()->routeIs('user.landing_page') ? 'active' : '' }}">
+            Home
+            </a>
+            <a href="{{ route('user.services') }}" 
+            class="{{ request()->routeIs('user.services') ? 'active' : '' }}">
+            Services
+            </a>
+            <a href="{{ route('user.about') }}" 
+            class="{{ request()->routeIs('user.about') ? 'active' : '' }}">
+            About Us
+            </a>
+            <a href="{{ route('user.appointment') }}" 
+            class="{{ request()->routeIs('user.appointment') ? 'active' : '' }}">
+            Appointment
+            </a>
         </nav>
         <a href="tel:+639123456789" class="phone-btn">+6391-2345-6789</a>
     </header>
@@ -411,34 +637,39 @@
         <p>Explore some of our core maternity and healthcare services designed with your family in mind.</p>
 
         <div class="services-grid">
-            <div class="service-item">
+            <!-- Card 1 -->
+            <div class="card">
                 <img src="/images/Immunization.jpeg" alt="Immunization">
-                <div class="description">
+                <div class="card-content">
                     <h3>Immunization</h3>
                     <p>We provide quick and reliable immunization guidance with a tailored list of recommended vaccines for your health and protection.</p>
                 </div>
             </div>
 
-            <div class="service-item">
-                <img src="/images/Family_planning.jpeg" alt="Prenatal Care">
-                <div class="description">
-                    <h3>Prenatal Care</h3>
-                    <p>We provide quick and effective family planning guidance with a curated list of personalized recommendations</p>
-                </div>
-            </div>
-
-            <div class="service-item">
-                <img src="/images/pre-natal.jpeg" alt="Pre-natal Care">
-                <div class="description">
-                    <h3>Pre-natal Care</h3>
-                    <p>We ensure timely and thorough prenatal check-ups with a list of essential recommendations for a healthy pregnancy journey.</p>
-                </div>
+        <!-- Card 2 -->
+        <div class="card">
+            <img src="/images/Family_planning.jpeg" alt="Family Planning">
+            <div class="card-content">
+                <h3>Family Planning</h3>
+                <p>We provide quick and effective family planning guidance with a curated list of personalized recommendations.</p>
             </div>
         </div>
-        <div class="view-services-btn">
-            <a href="#all-services" class="btn-primary">View All Services</a>
+        <!-- Car
+         d 3 -->
+        <div class="card">
+            <img src="/images/pre-natal.jpeg" alt="Pre-natal Care">
+            <div class="card-content">
+                <h3>Pre-natal Care</h3>
+                <p>We ensure timely and thorough prenatal check-ups with a list of essential recommendations for a healthy pregnancy journey.</p>
+            </div>
+        </div>
+    </div>
+        
+        <div class="view-services-btn"> 
+            <a href="{{ route('user.services') }}" class="btn-primary">View All Services</a>
         </div>
     </section>
+
     <section class="why-choose-us">
     <div class="image-container">
         <div class="doctors-image">
@@ -487,20 +718,98 @@
     </section>
     <section class="testimonial">
         <div class="testimonial-container">
+
+            <!-- LEFT SIDE: Feedback -->
             <div class="testimonial-text">
                 <h2>Feedback from our Users</h2>
                 <p class="quote-icon">❝</p>
                 <p class="feedback">
-                 From my first prenatal visit to the day I brought my baby home, MedNest was there every step of the way. 
-                 The staff were not only professional but incredibly kind and reassuring. I always felt safe and supported. 
-                 I couldn't have asked for a better care experience.
-            </p>
-            <p class="author">- Maria Cruz, First-time Mom</p>
+                    From my first prenatal visit to the day I brought my baby home, MedNest was there every step of the way. 
+                    The staff were not only professional but incredibly kind and reassuring. I always felt safe and supported. 
+                    I couldn't have asked for a better care experience.
+                </p>
+                <p class="author">- Maria Cruz, First-time Mom</p>
+            </div>
+
+            <!-- RIGHT SIDE: Image inside rectangle -->
+            <div class="image-box">
+                <img src="images/mom-baby.png" alt="Happy mom with baby">
+            </div>
         </div>
-        <div class="testimonial-image">
-            <img src="images/mom-baby.png" alt="Happy mom with baby">
+    </section>
+    <!-- OUR DOCTORS AND SPECIALISTS SECTION -->
+    <section class="doctors">
+        <h2>Our Doctors and Specialists</h2>
+        <p class="subtitle">Meet the dedicated professionals committed to providing you with quality care and espertise.</p>
+
+        <div class="doctors-container">
+            <div class="doctor-card">
+                <div class="doctor-photo">
+                    <img src="images/Doctors.png" alt="Doctor 1">
+                </div>
+                <h3>Mary Jean A. Banaag, RM, BSM</h3>  
+                <p>Owner/Administrator</p>  
+            </div>
+
+            <div class="doctor-card">
+                <div class="doctor-photo">
+                    <img src="images/Doctors.png" alt="Doctor 2">
+                </div>
+                <h3>Bunnessa B. Ocampo, MD.</h3>  
+                <p>Owner/Administrator</p>  
+            </div>
+
+            <div class="doctor-card">
+                <div class="doctor-photo">
+                    <img src="images/Doctors.png" alt="Doctor 3">
+                </div>
+                <h3>Muriel D. Medel, MD.</h3>  
+                <p>Pediatrician</p>  
+            </div>
+
+            <div class="doctor-card">
+                <div class="doctor-photo">
+                    <img src="images/Doctors.png" alt="Doctor 4">
+                </div>
+                <h3>Roselyn S. Obion, RM, RN</h3>  
+                <p>Midwife/Nurse</p>  
+            </div>
         </div>
-    </div>
-    <section>
+    </section>
 </body>
+        <footer class="footer">
+        <div class="footer-container">
+            <!-- Page Links -->
+            <div class="footer-section">
+            <h3>Page</h3>
+            <ul>
+                <a href="{{ route('user.services') }}">Services</a>
+                <a href="{{ route('user.about') }}">About Us</a>
+                <a href="{{ route('user.appointment') }}">Appointment</a>
+            </ul>
+            </div>
+
+            <!-- Contact -->
+            <div class="footer-section">
+            <h3>Contact</h3>
+            <p>📍 Purok 1 Brgy. 3 Del Rosario, Sto. Domingo Albay 4508</p>
+            <p>📞 +63 912-345-678</p>
+            <p>📧 delrosario.maternity@gmail.com</p>
+            </div>
+
+            <!-- Support -->
+            <div class="footer-section">
+            <h3>Support</h3>
+            <ul>
+                <li><a href="#">Terms and Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 MedNest — Caring for You Every Step of the Way.</p>
+        </div>
+        </footer>
 </html>
