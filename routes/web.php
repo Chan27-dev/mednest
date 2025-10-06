@@ -6,7 +6,7 @@ use App\Http\Controllers\BillingController;
 use App\Http\Controllers\StaffController;
 
 Route::get('/', function () {
-    return redirect()->route('dashboard.index');
+    return view('login');
 });
 
 // MedNest Dashboard Routes
@@ -120,3 +120,4 @@ Route::prefix('api')->name('api.')->group(function () {
 Route::fallback(function () {
     return redirect()->route('dashboard.index')->with('message', 'Page not found - redirected to dashboard');
 });
+
