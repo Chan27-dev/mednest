@@ -1,8 +1,8 @@
-@extends('layouts.app')
 
-@section('title', 'Account Settings - MedNest')
 
-@section('extra-css')
+<?php $__env->startSection('title', 'Account Settings - MedNest'); ?>
+
+<?php $__env->startSection('extra-css'); ?>
 <style>
     :root {
         --primary-color: #d63384;
@@ -358,9 +358,9 @@
         }
     }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <!-- Sidebar -->
 <div class="sidebar">
     <div class="logo">
@@ -391,43 +391,43 @@
     <nav class="sidebar-nav">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.index') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.index')); ?>">
                     <i class="fas fa-th-large"></i>
                     Dashboard
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.patients') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.patients')); ?>">
                     <i class="fas fa-users"></i>
                     Patients Record
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.appointments') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.appointments')); ?>">
                     <i class="fas fa-calendar-alt"></i>
                     Appointments
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.billing') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.billing')); ?>">
                     <i class="fas fa-file-invoice-dollar"></i>
                     Billing System
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.referrals') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.referrals')); ?>">
                     <i class="fas fa-share-alt"></i>
                     Referrals
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.staff') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.staff')); ?>">
                     <i class="fas fa-user-cog"></i>
                     Staff Management
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.settings') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.settings')); ?>">
                     <i class="fas fa-cog"></i>
                     Settings
                 </a>
@@ -441,7 +441,7 @@
     <!-- Top Header -->
     <div class="top-header">
         <div class="breadcrumb-nav">
-            <a href="{{ route('dashboard.index') }}">
+            <a href="<?php echo e(route('dashboard.index')); ?>">
                 <i class="fas fa-home"></i> Dashboard
             </a>
             <i class="fas fa-chevron-right"></i>
@@ -462,19 +462,19 @@
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.profile') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.profile')); ?>">
                         <i class="fas fa-user me-2"></i>
                         My Profile
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.settings') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.settings')); ?>">
                         <i class="fas fa-cog me-2"></i>
                         Account Settings
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.notifications') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.notifications')); ?>">
                         <i class="fas fa-bell me-2"></i>
                         Notifications
                         <span class="badge bg-danger ms-auto">3</span>
@@ -546,15 +546,15 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="name" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="name" value="{{ $settingsData['user']['name'] }}">
+                                <input type="text" class="form-control" id="name" value="<?php echo e($settingsData['user']['name']); ?>">
                             </div>
                             <div class="col-md-6">
                                 <label for="email" class="form-label">Email Address</label>
-                                <input type="email" class="form-control" id="email" value="{{ $settingsData['user']['email'] }}">
+                                <input type="email" class="form-control" id="email" value="<?php echo e($settingsData['user']['email']); ?>">
                             </div>
                             <div class="col-md-6">
                                 <label for="phone" class="form-label">Phone Number</label>
-                                <input type="tel" class="form-control" id="phone" value="{{ $settingsData['user']['phone'] }}">
+                                <input type="tel" class="form-control" id="phone" value="<?php echo e($settingsData['user']['phone']); ?>">
                             </div>
                             <div class="col-md-6">
                                 <label for="timezone" class="form-label">Timezone</label>
@@ -603,7 +603,7 @@
                             </div>
                             <div>
                                 <h6 class="mb-1">Password</h6>
-                                <small class="text-muted">Last changed: {{ date('M j, Y', strtotime($settingsData['security']['last_password_change'])) }}</small>
+                                <small class="text-muted">Last changed: <?php echo e(date('M j, Y', strtotime($settingsData['security']['last_password_change']))); ?></small>
                             </div>
                         </div>
                         <button class="btn btn-outline-primary btn-sm">Change Password</button>
@@ -618,19 +618,19 @@
                             <div>
                                 <h6 class="mb-1">Two-Factor Authentication</h6>
                                 <small class="text-muted">
-                                    @if($settingsData['security']['two_factor_enabled'])
+                                    <?php if($settingsData['security']['two_factor_enabled']): ?>
                                         <span class="text-success">Enabled</span> - Extra security for your account
-                                    @else
+                                    <?php else: ?>
                                         <span class="text-warning">Disabled</span> - Recommended for security
-                                    @endif
+                                    <?php endif; ?>
                                 </small>
                             </div>
                         </div>
-                        @if($settingsData['security']['two_factor_enabled'])
+                        <?php if($settingsData['security']['two_factor_enabled']): ?>
                             <button class="btn btn-outline-danger btn-sm">Disable 2FA</button>
-                        @else
+                        <?php else: ?>
                             <button class="btn btn-primary btn-sm">Enable 2FA</button>
-                        @endif
+                        <?php endif; ?>
                     </div>
 
                     <!-- Active Sessions -->
@@ -641,7 +641,7 @@
                             </div>
                             <div>
                                 <h6 class="mb-1">Active Sessions</h6>
-                                <small class="text-muted">{{ $settingsData['security']['active_sessions'] }} active sessions</small>
+                                <small class="text-muted"><?php echo e($settingsData['security']['active_sessions']); ?> active sessions</small>
                             </div>
                         </div>
                         <button class="btn btn-outline-warning btn-sm">Manage Sessions</button>
@@ -675,21 +675,21 @@
                         <div class="mb-4">
                             <h6 class="mb-3">Email Notifications</h6>
                             <div class="form-check form-switch mb-3">
-                                <input class="form-check-input" type="checkbox" id="emailNotifications" {{ $settingsData['preferences']['email_notifications'] ? 'checked' : '' }}>
+                                <input class="form-check-input" type="checkbox" id="emailNotifications" <?php echo e($settingsData['preferences']['email_notifications'] ? 'checked' : ''); ?>>
                                 <label class="form-check-label" for="emailNotifications">
                                     <strong>Email Notifications</strong><br>
                                     <small class="text-muted">Receive notifications via email</small>
                                 </label>
                             </div>
                             <div class="form-check form-switch mb-3">
-                                <input class="form-check-input" type="checkbox" id="smsNotifications" {{ $settingsData['preferences']['sms_notifications'] ? 'checked' : '' }}>
+                                <input class="form-check-input" type="checkbox" id="smsNotifications" <?php echo e($settingsData['preferences']['sms_notifications'] ? 'checked' : ''); ?>>
                                 <label class="form-check-label" for="smsNotifications">
                                     <strong>SMS Notifications</strong><br>
                                     <small class="text-muted">Receive notifications via SMS</small>
                                 </label>
                             </div>
                             <div class="form-check form-switch mb-3">
-                                <input class="form-check-input" type="checkbox" id="desktopNotifications" {{ $settingsData['preferences']['desktop_notifications'] ? 'checked' : '' }}>
+                                <input class="form-check-input" type="checkbox" id="desktopNotifications" <?php echo e($settingsData['preferences']['desktop_notifications'] ? 'checked' : ''); ?>>
                                 <label class="form-check-label" for="desktopNotifications">
                                     <strong>Desktop Notifications</strong><br>
                                     <small class="text-muted">Show notifications in your browser</small>
@@ -745,14 +745,14 @@
                         <div class="mb-4">
                             <h6 class="mb-3">Appearance</h6>
                             <div class="form-check form-switch mb-3">
-                                <input class="form-check-input" type="checkbox" id="darkMode" {{ $settingsData['preferences']['dark_mode'] ? 'checked' : '' }}>
+                                <input class="form-check-input" type="checkbox" id="darkMode" <?php echo e($settingsData['preferences']['dark_mode'] ? 'checked' : ''); ?>>
                                 <label class="form-check-label" for="darkMode">
                                     <strong>Dark Mode</strong><br>
                                     <small class="text-muted">Use dark theme for the dashboard</small>
                                 </label>
                             </div>
                             <div class="form-check form-switch mb-3">
-                                <input class="form-check-input" type="checkbox" id="compactView" {{ $settingsData['preferences']['compact_view'] ? 'checked' : '' }}>
+                                <input class="form-check-input" type="checkbox" id="compactView" <?php echo e($settingsData['preferences']['compact_view'] ? 'checked' : ''); ?>>
                                 <label class="form-check-label" for="compactView">
                                     <strong>Compact View</strong><br>
                                     <small class="text-muted">Show more information in less space</small>
@@ -854,9 +854,9 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('extra-js')
+<?php $__env->startSection('extra-js'); ?>
 <script>
     // Handle logout functionality
     document.addEventListener('click', function(e) {
@@ -971,4 +971,5 @@
         });
     });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH E:\4th yr 1st sem\mednest\resources\views/dashboard/settings.blade.php ENDPATH**/ ?>

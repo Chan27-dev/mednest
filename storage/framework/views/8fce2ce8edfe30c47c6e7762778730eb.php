@@ -1,8 +1,8 @@
-@extends('layouts.app')
 
-@section('title', 'MedNest Dashboard')
 
-@section('extra-css')
+<?php $__env->startSection('title', 'MedNest Dashboard'); ?>
+
+<?php $__env->startSection('extra-css'); ?>
 <style>
     :root {
         --primary-color: #d63384;
@@ -809,22 +809,23 @@
         }
     }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <!-- Success/Error Messages -->
-@if(session('message'))
+<?php if(session('message')): ?>
     <div class="alert alert-info alert-dismissible fade show" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
-        {{ session('message') }}
+        <?php echo e(session('message')); ?>
+
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
-@endif
+<?php endif; ?>
 
 <!-- Sidebar -->
 <div class="sidebar">
     <div class="logo">
         <div class="logo-image">
-            <img src="{{ asset('images/mednest-logo.png') }}" alt="MedNest Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"> 
+            <img src="<?php echo e(asset('images/mednest-logo.png')); ?>" alt="MedNest Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"> 
             <div class="logo-fallback">
                 <i class="fas fa-heart"></i>
             </div>
@@ -838,25 +839,25 @@
    <nav class="sidebar-nav">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" href="{{ route('dashboard.index') }}">
+                <a class="nav-link active" href="<?php echo e(route('dashboard.index')); ?>">
                     <i class="fas fa-th-large"></i>
                     Dashboard
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.patients') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.patients')); ?>">
                     <i class="fas fa-users"></i>
                     Patients Record
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.appointments') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.appointments')); ?>">
                     <i class="fas fa-calendar-alt"></i>
                     Appointments
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.billing') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.billing')); ?>">
                     <i class="fas fa-file-invoice-dollar"></i>
                     Billing System
                 </a>
@@ -868,7 +869,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.staff') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.staff')); ?>">
                     <i class="fas fa-user-cog"></i>
                     Staff Management
                 </a>
@@ -900,19 +901,19 @@
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.profile') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.profile')); ?>">
                         <i class="fas fa-user me-2"></i>
                         My Profile
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.settings') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.settings')); ?>">
                         <i class="fas fa-cog me-2"></i>
                         Account Settings
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.notifications') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.notifications')); ?>">
                         <i class="fas fa-bell me-2"></i>
                         Notifications
                         <span class="badge bg-danger ms-auto">3</span>
@@ -937,25 +938,25 @@
         <div class="row g-4 mb-4">
             <div class="col-lg-3 col-md-6">
                 <div class="stats-card patients" data-bs-toggle="tooltip" data-bs-placement="top" title="Total patients across all branches">
-                    <div class="stats-number">{{ $data['stats']['total_patients'] }}</div>
+                    <div class="stats-number"><?php echo e($data['stats']['total_patients']); ?></div>
                     <div class="stats-label">Total Patients (All Branches)</div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="stats-card appointments" data-bs-toggle="tooltip" data-bs-placement="top" title="Scheduled appointments today">
-                    <div class="stats-number">{{ $data['stats']['total_appointments'] }}</div>
+                    <div class="stats-number"><?php echo e($data['stats']['total_appointments']); ?></div>
                     <div class="stats-label">Total Appointment</div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="stats-card revenue" data-bs-toggle="tooltip" data-bs-placement="top" title="Current active labor cases">
-                    <div class="stats-number">{{ $data['stats']['active_labor_cases'] }}</div>
+                    <div class="stats-number"><?php echo e($data['stats']['active_labor_cases']); ?></div>
                     <div class="stats-label">Total Active Labor Cases</div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="stats-card rating" data-bs-toggle="tooltip" data-bs-placement="top" title="Average customer satisfaction rating">
-                    <div class="stats-number">{{ $data['stats']['monthly_revenue'] }}</div>
+                    <div class="stats-number"><?php echo e($data['stats']['monthly_revenue']); ?></div>
                     <div class="stats-label">Total Monthly Revenue</div>
                 </div>
             </div>
@@ -996,21 +997,23 @@
         <div class="recent-activity">
             <h5 class="mb-4">Recent Activity</h5>
             <div class="activity-list">
-                @foreach($data['recent_activities'] as $activity)
-                <div class="activity-item" data-activity-id="{{ $loop->index }}">
-                    <div class="activity-time">{{ $activity['time'] }}</div>
+                <?php $__currentLoopData = $data['recent_activities']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $activity): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="activity-item" data-activity-id="<?php echo e($loop->index); ?>">
+                    <div class="activity-time"><?php echo e($activity['time']); ?></div>
                     <div class="activity-details">
-                        <strong>{{ $activity['activity'] }}</strong><br>
-                        <small class="text-muted">{{ $activity['patient'] }}</small>
+                        <strong><?php echo e($activity['activity']); ?></strong><br>
+                        <small class="text-muted"><?php echo e($activity['patient']); ?></small>
                     </div>
-                    <div class="branch-badge branch-{{ strtolower(str_replace(' ', '', $activity['branch'])) }}">
-                        {{ $activity['branch'] }}
+                    <div class="branch-badge branch-<?php echo e(strtolower(str_replace(' ', '', $activity['branch']))); ?>">
+                        <?php echo e($activity['branch']); ?>
+
                     </div>
-                    <div class="status-badge status-{{ $activity['status_class'] }}">
-                        {{ $activity['status'] }}
+                    <div class="status-badge status-<?php echo e($activity['status_class']); ?>">
+                        <?php echo e($activity['status']); ?>
+
                     </div>
                 </div>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
 
@@ -1176,7 +1179,7 @@
             <!-- Modal Body -->
             <div class="modal-body p-4">
                 <form id="addPatientForm">
-                    @csrf
+                    <?php echo csrf_field(); ?>
                     
                     <!-- Patient Information Section -->
                     <div class="section-header mb-3">
@@ -1319,9 +1322,9 @@
 <button class="btn btn-primary d-md-none" id="sidebarToggle" style="position: fixed; top: 10px; left: 10px; z-index: 9999;">
     <i class="fas fa-bars"></i>
 </button>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('extra-js')
+<?php $__env->startSection('extra-js'); ?>
 <script>
     // Additional dashboard-specific JavaScript
     document.addEventListener('DOMContentLoaded', function() {
@@ -1450,4 +1453,5 @@
         });
     });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH E:\4th yr 1st sem\mednest\resources\views/dashboard/index.blade.php ENDPATH**/ ?>

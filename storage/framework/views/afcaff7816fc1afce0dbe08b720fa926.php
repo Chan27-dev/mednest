@@ -1,8 +1,8 @@
-@extends('layouts.app')
 
-@section('title', 'My Profile - MedNest')
 
-@section('extra-css')
+<?php $__env->startSection('title', 'My Profile - MedNest'); ?>
+
+<?php $__env->startSection('extra-css'); ?>
 <style>
     :root {
         --primary-color: #d63384;
@@ -338,9 +338,9 @@
         }
     }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <!-- Sidebar -->
 <div class="sidebar">
     <div class="logo">
@@ -371,43 +371,43 @@
     <nav class="sidebar-nav">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.index') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.index')); ?>">
                     <i class="fas fa-th-large"></i>
                     Dashboard
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.patients') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.patients')); ?>">
                     <i class="fas fa-users"></i>
                     Patients Record
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.appointments') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.appointments')); ?>">
                     <i class="fas fa-calendar-alt"></i>
                     Appointments
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.billing') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.billing')); ?>">
                     <i class="fas fa-file-invoice-dollar"></i>
                     Billing System
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.referrals') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.referrals')); ?>">
                     <i class="fas fa-share-alt"></i>
                     Referrals
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.staff') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.staff')); ?>">
                     <i class="fas fa-user-cog"></i>
                     Staff Management
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.settings') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.settings')); ?>">
                     <i class="fas fa-cog"></i>
                     Settings
                 </a>
@@ -421,7 +421,7 @@
     <!-- Top Header -->
     <div class="top-header">
         <div class="breadcrumb-nav">
-            <a href="{{ route('dashboard.index') }}">
+            <a href="<?php echo e(route('dashboard.index')); ?>">
                 <i class="fas fa-home"></i> Dashboard
             </a>
             <i class="fas fa-chevron-right"></i>
@@ -442,19 +442,19 @@
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.profile') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.profile')); ?>">
                         <i class="fas fa-user me-2"></i>
                         My Profile
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.settings') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.settings')); ?>">
                         <i class="fas fa-cog me-2"></i>
                         Account Settings
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.notifications') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.notifications')); ?>">
                         <i class="fas fa-bell me-2"></i>
                         Notifications
                         <span class="badge bg-danger ms-auto">3</span>
@@ -480,13 +480,14 @@
                     AC
                 </div>
                 <div>
-                    <h2 class="mb-1">{{ $profileData['name'] }}</h2>
-                    <p class="mb-2 opacity-75">{{ $profileData['role'] }}</p>
+                    <h2 class="mb-1"><?php echo e($profileData['name']); ?></h2>
+                    <p class="mb-2 opacity-75"><?php echo e($profileData['role']); ?></p>
                     <div class="d-flex gap-2">
-                        <span class="badge bg-light text-dark">{{ $profileData['branch'] }}</span>
+                        <span class="badge bg-light text-dark"><?php echo e($profileData['branch']); ?></span>
                         <span class="badge bg-light text-dark">
                             <i class="fas fa-clock me-1"></i>
-                            Last login: {{ date('M j, Y g:i A', strtotime($profileData['last_login'])) }}
+                            Last login: <?php echo e(date('M j, Y g:i A', strtotime($profileData['last_login']))); ?>
+
                         </span>
                     </div>
                 </div>
@@ -516,7 +517,7 @@
                     </div>
                     <div class="info-content">
                         <h6>Email Address</h6>
-                        <p>{{ $profileData['email'] }}</p>
+                        <p><?php echo e($profileData['email']); ?></p>
                     </div>
                 </div>
 
@@ -526,7 +527,7 @@
                     </div>
                     <div class="info-content">
                         <h6>Phone Number</h6>
-                        <p>{{ $profileData['phone'] }}</p>
+                        <p><?php echo e($profileData['phone']); ?></p>
                     </div>
                 </div>
 
@@ -536,7 +537,7 @@
                     </div>
                     <div class="info-content">
                         <h6>Address</h6>
-                        <p>{{ $profileData['address'] }}</p>
+                        <p><?php echo e($profileData['address']); ?></p>
                     </div>
                 </div>
 
@@ -546,16 +547,16 @@
                     </div>
                     <div class="info-content">
                         <h6>Joined Date</h6>
-                        <p>{{ date('F j, Y', strtotime($profileData['joined_date'])) }}</p>
+                        <p><?php echo e(date('F j, Y', strtotime($profileData['joined_date']))); ?></p>
                     </div>
                 </div>
 
                 <div class="mt-4">
                     <h6 class="text-muted mb-3">Permissions</h6>
                     <div class="d-flex flex-wrap gap-2">
-                        @foreach($profileData['permissions'] as $permission)
-                        <span class="badge bg-primary">{{ ucwords(str_replace('_', ' ', $permission)) }}</span>
-                        @endforeach
+                        <?php $__currentLoopData = $profileData['permissions']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permission): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <span class="badge bg-primary"><?php echo e(ucwords(str_replace('_', ' ', $permission))); ?></span>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </div>
             </div>
@@ -569,19 +570,19 @@
 
                 <div class="stats-grid">
                     <div class="stat-item">
-                        <div class="stat-number">{{ $profileData['stats']['patients_managed'] }}</div>
+                        <div class="stat-number"><?php echo e($profileData['stats']['patients_managed']); ?></div>
                         <div class="stat-label">Patients Managed</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">{{ $profileData['stats']['appointments_scheduled'] }}</div>
+                        <div class="stat-number"><?php echo e($profileData['stats']['appointments_scheduled']); ?></div>
                         <div class="stat-label">Appointments Scheduled</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">{{ $profileData['stats']['reports_generated'] }}</div>
+                        <div class="stat-number"><?php echo e($profileData['stats']['reports_generated']); ?></div>
                         <div class="stat-label">Reports Generated</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">{{ $profileData['stats']['active_days'] }}</div>
+                        <div class="stat-number"><?php echo e($profileData['stats']['active_days']); ?></div>
                         <div class="stat-label">Active Days</div>
                     </div>
                 </div>
@@ -604,9 +605,9 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('extra-js')
+<?php $__env->startSection('extra-js'); ?>
 <script>
     // Handle logout functionality
     document.addEventListener('click', function(e) {
@@ -619,4 +620,5 @@
         }
     });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH E:\4th yr 1st sem\mednest\resources\views/dashboard/profile.blade.php ENDPATH**/ ?>

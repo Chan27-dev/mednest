@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\AdminController;
 
 // User routes (your pages now inside resources/views/user/)
 Route::prefix('user')->group(function () {
@@ -24,6 +25,7 @@ Route::prefix('user')->group(function () {
     })->name('user.landing_page');
 });
 
+<<<<<<< HEAD
 // ✅ Default route (optional – can point to user landing page)
 Route::get('/', function () {
     return view('user.landing_page');
@@ -33,6 +35,9 @@ Route::get('/', function () {
 // -------------------------------------------------------------
 // MedNest Dashboard Routes
 // -------------------------------------------------------------
+=======
+// MedNest Admin Clerk Routes
+>>>>>>> 57a0d39dcee1ce5c618ae3209eda86a51bb08825
 Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::get('/patients', [DashboardController::class, 'patients'])->name('patients');
@@ -41,9 +46,25 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('/billing', [DashboardController::class, 'billing'])->name('billing');
     Route::get('/staff', [DashboardController::class, 'staff'])->name('staff');
     
+<<<<<<< HEAD
     Route::get('/referrals', fn() => redirect()->route('dashboard.index')->with('message', 'Referrals section - Frontend demo'))->name('referrals');
     Route::get('/reports', fn() => redirect()->route('dashboard.index')->with('message', 'Branch Reports section - Frontend demo'))->name('reports');
     Route::get('/settings', fn() => redirect()->route('dashboard.index')->with('message', 'Settings section - Frontend demo'))->name('settings');
+=======
+    // Demo routes for other sections (redirects to main dashboard)
+    Route::get('/referrals', function() {
+        return redirect()->route('dashboard.index')->with('message', 'Referrals section - Frontend demo');
+    })->name('referrals');
+    
+    Route::get('/reports', function() {
+        return redirect()->route('dashboard.index')->with('message', 'Branch Reports section - Frontend demo');
+    })->name('reports');
+    
+    // Settings route - now a real page
+    Route::get('/settings', [DashboardController::class, 'settings'])->name('settings');
+    
+    // Profile routes
+>>>>>>> 57a0d39dcee1ce5c618ae3209eda86a51bb08825
     Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
     Route::get('/account-settings', [DashboardController::class, 'accountSettings'])->name('account.settings');
     Route::get('/notifications', [DashboardController::class, 'notificationsPage'])->name('notifications');
@@ -115,9 +136,123 @@ Route::prefix('api')->name('api.')->group(function () {
     });
 });
 
+<<<<<<< HEAD
 // -------------------------------------------------------------
 // Fallback Route
 // -------------------------------------------------------------
 Route::fallback(function () {
     return redirect()->route('dashboard.index')->with('message', 'Page not found - redirected to dashboard');
 });
+=======
+// Admin Multi-Branch Management Routes
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Main admin dashboard
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    
+    // Patient records route
+    Route::get('/patient-records', [AdminController::class, 'patients'])->name('patients');
+    
+    // Billing System route
+    Route::get('/billing-system', [AdminController::class, 'billingSystem'])->name('billing.system');
+    
+    // Staff Management route
+    Route::get('/staff-management', [AdminController::class, 'staffManagement'])->name('staff.management');
+    
+    // Branch Report route
+    Route::get('/branch-report', [AdminController::class, 'branchReport'])->name('branch.report');
+    
+    // Branch-specific views
+    Route::get('/branch/{branch}', [AdminController::class, 'getBranchData'])->name('branch.detail');
+    
+    // AJAX API endpoints for admin
+    Route::prefix('api')->name('api.')->group(function () {
+        // Real-time statistics
+        Route::get('/stats', [AdminController::class, 'getStats'])->name('stats');
+        Route::get('/activities', [AdminController::class, 'getRecentActivities'])->name('activities');
+        Route::get('/notifications', [AdminController::class, 'getNotifications'])->name('notifications');
+        
+        // Search functionality
+        Route::get('/search', [AdminController::class, 'globalSearch'])->name('search');
+        
+        // Analytics and reporting
+        Route::get('/analytics/{branch?}', [AdminController::class, 'getBranchAnalytics'])->name('analytics');
+        Route::get('/comparison', [AdminController::class, 'getBranchComparison'])->name('comparison');
+        
+        // Billing System API routes
+        Route::prefix('billing')->name('billing.')->group(function () {
+            Route::get('/payments', [AdminController::class, 'getPayments'])->name('payments');
+            Route::get('/invoices', [AdminController::class, 'getInvoices'])->name('invoices');
+            Route::get('/stats', [AdminController::class, 'getBillingStats'])->name('stats');
+            Route::post('/search', [AdminController::class, 'searchBilling'])->name('search');
+            Route::post('/export', [AdminController::class, 'exportBilling'])->name('export');
+        });
+        
+        // Branch Report API routes
+        Route::prefix('report')->name('report.')->group(function () {
+            Route::get('/data', [AdminController::class, 'getReportData'])->name('data');
+            Route::post('/export-pdf', [AdminController::class, 'exportReportPDF'])->name('export.pdf');
+            Route::post('/export-excel', [AdminController::class, 'exportReportExcel'])->name('export.excel');
+        });
+        
+        // Notifications management
+        Route::post('/notifications/{id}/read', [AdminController::class, 'markNotificationRead'])->name('notifications.read');
+        
+        // Export functionality
+        Route::post('/export', [AdminController::class, 'exportReport'])->name('export');
+    });
+    
+    // Report downloads
+    Route::get('/reports/download', function(Request $request) {
+        // Demo download functionality
+        return response()->json([
+            'message' => 'Report download feature - Demo functionality',
+            'parameters' => $request->all()
+        ]);
+    })->name('reports.download');
+    
+    // Placeholder routes for quick actions
+    Route::prefix('patients')->name('patients.')->group(function () {
+        Route::get('/create', function() {
+            return redirect()->route('admin.patients')->with('message', 'Add Patient feature - Coming soon');
+        })->name('create');
+        Route::get('/{id}', function($id) {
+            return redirect()->route('admin.patients')->with('message', 'Patient details - Demo');
+        })->name('show');
+    });
+    
+    Route::prefix('appointments')->name('appointments.')->group(function () {
+        Route::get('/create', function() {
+            return redirect()->route('admin.dashboard')->with('message', 'Schedule Appointment feature - Coming soon');
+        })->name('create');
+        Route::get('/{id}', function($id) {
+            return redirect()->route('admin.dashboard')->with('message', 'Appointment details - Demo');
+        })->name('show');
+    });
+    
+    Route::prefix('labor')->name('labor.')->group(function () {
+        Route::get('/monitor', function() {
+            return redirect()->route('admin.dashboard')->with('message', 'Labor Monitoring feature - Coming soon');
+        })->name('monitor');
+    });
+    
+    // Updated billing routes to avoid conflict
+    Route::prefix('billing')->name('billing.')->group(function () {
+        Route::get('/create', function() {
+            return redirect()->route('admin.billing.system')->with('message', 'Generate Bill feature - Coming soon');
+        })->name('create');
+        Route::get('/invoice/{id}', function($id) {
+            return redirect()->route('admin.billing.system')->with('message', 'Invoice details - Demo');
+        })->name('invoice.show');
+        Route::get('/payment/{id}', function($id) {
+            return redirect()->route('admin.billing.system')->with('message', 'Payment details - Demo');
+        })->name('payment.show');
+    }); 
+    
+    Route::prefix('staff')->name('staff.')->group(function () {
+        Route::get('/{id}', function($id) {
+            return redirect()->route('admin.dashboard')->with('message', 'Staff details - Demo');
+        })->name('show');
+    });
+});
+>>>>>>> 57a0d39dcee1ce5c618ae3209eda86a51bb08825

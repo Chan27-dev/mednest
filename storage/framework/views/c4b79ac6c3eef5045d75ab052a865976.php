@@ -1,8 +1,8 @@
-@extends('layouts.app')
 
-@section('title', 'Appointments - MedNest')
 
-@section('extra-css')
+<?php $__env->startSection('title', 'Appointments - MedNest'); ?>
+
+<?php $__env->startSection('extra-css'); ?>
 <style>
     :root {
         --primary-color: #d63384;
@@ -553,14 +553,14 @@
         }
     }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <!-- Sidebar -->
 <div class="sidebar">
     <div class="logo">
         <div class="logo-image">
-            <img src="{{ asset('images/mednest-logo.png') }}" alt="MedNest Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"> 
+            <img src="<?php echo e(asset('images/mednest-logo.png')); ?>" alt="MedNest Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"> 
             <div class="logo-fallback">
                 <i class="fas fa-heart"></i>
             </div>
@@ -574,25 +574,25 @@
     <nav class="sidebar-nav">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.index') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.index')); ?>">
                     <i class="fas fa-th-large"></i>
                     Dashboard
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.patients') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.patients')); ?>">
                     <i class="fas fa-users"></i>
                     Patients Record
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="{{ route('dashboard.appointments') }}">
+                <a class="nav-link active" href="<?php echo e(route('dashboard.appointments')); ?>">
                     <i class="fas fa-calendar-alt"></i>
                     Appointments
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.billing') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.billing')); ?>">
                     <i class="fas fa-file-invoice-dollar"></i>
                     Billing System
                 </a>
@@ -604,7 +604,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.staff') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.staff')); ?>">
                     <i class="fas fa-user-cog"></i>
                     Staff Management
                 </a>
@@ -636,19 +636,19 @@
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.profile') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.profile')); ?>">
                         <i class="fas fa-user me-2"></i>
                         My Profile
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.settings') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.settings')); ?>">
                         <i class="fas fa-cog me-2"></i>
                         Account Settings
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.notifications') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.notifications')); ?>">
                         <i class="fas fa-bell me-2"></i>
                         Notifications
                         <span class="badge bg-danger ms-auto">3</span>
@@ -719,46 +719,47 @@
                         </tr>
                     </thead>
                     <tbody id="appointmentsTableBody">
-                        @foreach($appointments as $index => $appointment)
-                        <tr data-appointment-id="{{ $index + 1 }}">
+                        <?php $__currentLoopData = $appointments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $appointment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <tr data-appointment-id="<?php echo e($index + 1); ?>">
                             <td>
                                 <div class="patient-info">
-                                    <div class="patient-name">{{ $appointment['patient'] }}</div>
-                                    <div class="patient-email">{{ $appointment['email'] }}</div>
+                                    <div class="patient-name"><?php echo e($appointment['patient']); ?></div>
+                                    <div class="patient-email"><?php echo e($appointment['email']); ?></div>
                                 </div>
                             </td>
                             <td>
                                 <div class="appointment-time">
-                                    <div class="time">{{ $appointment['date_time'] }}</div>
-                                    <div class="date">{{ $appointment['date'] }}</div>
+                                    <div class="time"><?php echo e($appointment['date_time']); ?></div>
+                                    <div class="date"><?php echo e($appointment['date']); ?></div>
                                 </div>
                             </td>
                             <td>
-                                <span class="service-badge">{{ $appointment['service'] }}</span>
+                                <span class="service-badge"><?php echo e($appointment['service']); ?></span>
                             </td>
                             <td>
-                                <div class="staff-name">{{ $appointment['assigned_staff'] }}</div>
+                                <div class="staff-name"><?php echo e($appointment['assigned_staff']); ?></div>
                             </td>
                             <td>
-                                <div class="payment-amount">{{ $appointment['payment'] }}</div>
+                                <div class="payment-amount"><?php echo e($appointment['payment']); ?></div>
                             </td>
                             <td>
-                                <span class="status-badge status-{{ strtolower($appointment['status']) }}">
-                                    {{ $appointment['status'] }}
+                                <span class="status-badge status-<?php echo e(strtolower($appointment['status'])); ?>">
+                                    <?php echo e($appointment['status']); ?>
+
                                 </span>
                             </td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="action-btn btn-edit" data-action="edit" data-patient="{{ $appointment['patient'] }}" title="Edit Appointment">
+                                    <button class="action-btn btn-edit" data-action="edit" data-patient="<?php echo e($appointment['patient']); ?>" title="Edit Appointment">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="action-btn btn-delete" data-action="delete" data-patient="{{ $appointment['patient'] }}" title="Delete Appointment">
+                                    <button class="action-btn btn-delete" data-action="delete" data-patient="<?php echo e($appointment['patient']); ?>" title="Delete Appointment">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
                             </td>
                         </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                 </table>
             </div>
@@ -770,9 +771,9 @@
 <button class="btn btn-primary d-md-none" id="sidebarToggle" style="position: fixed; top: 10px; left: 10px; z-index: 9999;">
     <i class="fas fa-bars"></i>
 </button>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('extra-js')
+<?php $__env->startSection('extra-js'); ?>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Mobile sidebar toggle
@@ -1031,4 +1032,5 @@
         }
     });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH E:\4th yr 1st sem\mednest\resources\views/dashboard/appointments.blade.php ENDPATH**/ ?>

@@ -8,3 +8,5 @@
 /storage/framework/cache
 /storage/framework/views
 /.env
+/storage/framework/views/
+/storage/logs/

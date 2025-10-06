@@ -1307,4 +1307,43 @@ class DashboardController extends Controller
 
         return response()->json($notifications);
     }
+
+    public function settings()
+{
+    $settingsData = [
+        'user' => [
+            'name' => 'Admin Clerk',
+            'email' => 'admin@mednest.com',
+            'phone' => '+63 917 123 4567',
+            'timezone' => 'Asia/Manila',
+            'language' => 'English'
+        ],
+        'general' => [
+            'clinic_name' => 'MedNest Maternity Clinic',
+            'timezone' => 'Asia/Manila',
+            'date_format' => 'Y-m-d',
+            'time_format' => '12-hour',
+            'currency' => 'PHP'
+        ],
+        'branches' => [
+            ['id' => 1, 'name' => 'Sto. Domingo Branch', 'status' => 'Active'],
+            ['id' => 2, 'name' => 'Daraga', 'status' => 'Active'],
+            ['id' => 3, 'name' => 'Arimbay Branch', 'status' => 'Maintenance']
+        ],
+        'security' => [
+            'two_factor_enabled' => true,
+            'last_password_change' => '2025-07-15',
+            'active_sessions' => 2
+        ],
+        'preferences' => [
+            'email_notifications' => true,
+            'sms_notifications' => false,
+            'desktop_notifications' => true,
+            'dark_mode' => false,
+            'compact_view' => false
+        ]
+    ];
+
+    return view('dashboard.settings', compact('settingsData'));
+}
 }

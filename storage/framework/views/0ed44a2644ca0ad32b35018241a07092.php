@@ -1,8 +1,8 @@
-@extends('layouts.app')
 
-@section('title', 'Notifications - MedNest')
 
-@section('extra-css')
+<?php $__env->startSection('title', 'Notifications - MedNest'); ?>
+
+<?php $__env->startSection('extra-css'); ?>
 <style>
     :root {
         --primary-color: #d63384;
@@ -423,9 +423,9 @@
         }
     }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <!-- Sidebar -->
 <div class="sidebar">
     <div class="logo">
@@ -456,43 +456,43 @@
     <nav class="sidebar-nav">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.index') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.index')); ?>">
                     <i class="fas fa-th-large"></i>
                     Dashboard
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.patients') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.patients')); ?>">
                     <i class="fas fa-users"></i>
                     Patients Record
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.appointments') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.appointments')); ?>">
                     <i class="fas fa-calendar-alt"></i>
                     Appointments
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.billing') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.billing')); ?>">
                     <i class="fas fa-file-invoice-dollar"></i>
                     Billing System
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.referrals') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.referrals')); ?>">
                     <i class="fas fa-share-alt"></i>
                     Referrals
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.staff') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.staff')); ?>">
                     <i class="fas fa-user-cog"></i>
                     Staff Management
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.settings') }}">
+                <a class="nav-link" href="<?php echo e(route('dashboard.settings')); ?>">
                     <i class="fas fa-cog"></i>
                     Settings
                 </a>
@@ -506,7 +506,7 @@
     <!-- Top Header -->
     <div class="top-header">
         <div class="breadcrumb-nav">
-            <a href="{{ route('dashboard.index') }}">
+            <a href="<?php echo e(route('dashboard.index')); ?>">
                 <i class="fas fa-home"></i> Dashboard
             </a>
             <i class="fas fa-chevron-right"></i>
@@ -527,19 +527,19 @@
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.profile') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.profile')); ?>">
                         <i class="fas fa-user me-2"></i>
                         My Profile
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.settings') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.settings')); ?>">
                         <i class="fas fa-cog me-2"></i>
                         Account Settings
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.notifications') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.notifications')); ?>">
                         <i class="fas fa-bell me-2"></i>
                         Notifications
                         <span class="badge bg-danger ms-auto">3</span>
@@ -613,30 +613,30 @@
 
         <!-- Notifications List -->
         <div class="notifications-list" id="notificationsList">
-            @foreach($notifications as $notification)
-            <div class="notification-item {{ !$notification['read'] ? 'unread' : '' }}" 
-                 data-type="{{ $notification['type'] }}" 
-                 data-id="{{ $notification['id'] }}">
+            <?php $__currentLoopData = $notifications; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $notification): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <div class="notification-item <?php echo e(!$notification['read'] ? 'unread' : ''); ?>" 
+                 data-type="<?php echo e($notification['type']); ?>" 
+                 data-id="<?php echo e($notification['id']); ?>">
                 <div class="notification-content">
-                    <div class="notification-icon {{ $notification['color'] }}">
-                        <i class="fas fa-{{ $notification['icon'] }}"></i>
+                    <div class="notification-icon <?php echo e($notification['color']); ?>">
+                        <i class="fas fa-<?php echo e($notification['icon']); ?>"></i>
                     </div>
                     <div class="notification-details">
-                        <div class="notification-title">{{ $notification['title'] }}</div>
-                        <div class="notification-message">{{ $notification['message'] }}</div>
+                        <div class="notification-title"><?php echo e($notification['title']); ?></div>
+                        <div class="notification-message"><?php echo e($notification['message']); ?></div>
                         <div class="notification-meta">
-                            <span class="notification-type">{{ ucfirst($notification['type']) }}</span>
-                            <span><i class="fas fa-clock me-1"></i>{{ $notification['time'] }}</span>
-                            @if(!$notification['read'])
+                            <span class="notification-type"><?php echo e(ucfirst($notification['type'])); ?></span>
+                            <span><i class="fas fa-clock me-1"></i><?php echo e($notification['time']); ?></span>
+                            <?php if(!$notification['read']): ?>
                                 <span class="text-primary fw-semibold">New</span>
-                            @endif
+                            <?php endif; ?>
                         </div>
                         <div class="notification-actions">
-                            @if(!$notification['read'])
+                            <?php if(!$notification['read']): ?>
                                 <button class="btn btn-sm btn-primary mark-read-btn">
                                     <i class="fas fa-check me-1"></i>Mark as Read
                                 </button>
-                            @endif
+                            <?php endif; ?>
                             <button class="btn btn-sm btn-outline-secondary view-details-btn">
                                 <i class="fas fa-eye me-1"></i>View Details
                             </button>
@@ -647,7 +647,7 @@
                     </div>
                 </div>
             </div>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
 
         <!-- Empty State (hidden by default) -->
@@ -658,9 +658,9 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('extra-js')
+<?php $__env->startSection('extra-js'); ?>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Handle logout functionality
@@ -966,4 +966,5 @@
         });
     });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH E:\4th yr 1st sem\mednest\resources\views/dashboard/notifications.blade.php ENDPATH**/ ?>

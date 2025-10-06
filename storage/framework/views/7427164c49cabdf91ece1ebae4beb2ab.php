@@ -1,8 +1,8 @@
-@extends('layouts.app')
 
-@section('title', 'Billing System - MedNest')
 
-@section('extra-css')
+<?php $__env->startSection('title', 'Billing System - MedNest'); ?>
+
+<?php $__env->startSection('extra-css'); ?>
 <style>
     :root {
         --primary-color: #d63384;
@@ -742,14 +742,14 @@
         }
     }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <!-- Sidebar -->
 <div class="sidebar">
     <div class="logo">
         <div class="logo-image">
-            <img src="{{ asset('images/mednest-logo.png') }}" alt="MedNest Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"> 
+            <img src="<?php echo e(asset('images/mednest-logo.png')); ?>" alt="MedNest Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"> 
             <div class="logo-fallback">
                 <i class="fas fa-heart"></i>
             </div>
@@ -763,37 +763,37 @@
     <nav class="sidebar-nav">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('dashboard.index') ? 'active' : '' }}" href="{{ route('dashboard.index') }}">
+                <a class="nav-link <?php echo e(request()->routeIs('dashboard.index') ? 'active' : ''); ?>" href="<?php echo e(route('dashboard.index')); ?>">
                     <i class="fas fa-th-large"></i>
                     Dashboard
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('dashboard.patients') ? 'active' : '' }}" href="{{ route('dashboard.patients') }}">
+                <a class="nav-link <?php echo e(request()->routeIs('dashboard.patients') ? 'active' : ''); ?>" href="<?php echo e(route('dashboard.patients')); ?>">
                     <i class="fas fa-user-plus"></i>
                     Patients Record
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('dashboard.appointments') ? 'active' : '' }}" href="{{ route('dashboard.appointments') }}">
+                <a class="nav-link <?php echo e(request()->routeIs('dashboard.appointments') ? 'active' : ''); ?>" href="<?php echo e(route('dashboard.appointments')); ?>">
                     <i class="fas fa-calendar-check"></i>
                     Appointments
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="{{ route('dashboard.billing') }}">
+                <a class="nav-link active" href="<?php echo e(route('dashboard.billing')); ?>">
                     <i class="fas fa-file-invoice"></i>
                     Billing System
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('dashboard.referrals') ? 'active' : '' }}" href="{{ route('dashboard.referrals') }}">
+                <a class="nav-link <?php echo e(request()->routeIs('dashboard.referrals') ? 'active' : ''); ?>" href="<?php echo e(route('dashboard.referrals')); ?>">
                     <i class="fas fa-share-alt"></i>
                     Referrals
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('dashboard.staff') ? 'active' : '' }}" href="{{ route('dashboard.staff') }}">
+                <a class="nav-link <?php echo e(request()->routeIs('dashboard.staff') ? 'active' : ''); ?>" href="<?php echo e(route('dashboard.staff')); ?>">
                     <i class="fas fa-users"></i>
                     Staff Management
                 </a>
@@ -826,19 +826,19 @@
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.profile') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.profile')); ?>">
                         <i class="fas fa-user me-2"></i>
                         My Profile
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.account.settings') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.account.settings')); ?>">
                         <i class="fas fa-cog me-2"></i>
                         Account Settings
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.notifications') }}">
+                    <a class="dropdown-item" href="<?php echo e(route('dashboard.notifications')); ?>">
                         <i class="fas fa-bell me-2"></i>
                         Notifications
                         <span class="badge bg-danger ms-auto">3</span>
@@ -846,8 +846,8 @@
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                        @csrf
+                    <form action="<?php echo e(route('logout')); ?>" method="POST" class="d-inline">
+                        <?php echo csrf_field(); ?>
                         <button type="submit" class="dropdown-item text-danger">
                             <i class="fas fa-sign-out-alt me-2"></i>
                             Logout
@@ -860,12 +860,13 @@
 
     <!-- Page Content -->
     <div class="page-content">
-        @if(session('message'))
+        <?php if(session('message')): ?>
             <div class="alert alert-info alert-dismissible fade show" role="alert" style="margin: 0; border-radius: 0;">
-                {{ session('message') }}
+                <?php echo e(session('message')); ?>
+
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        @endif
+        <?php endif; ?>
 
         <!-- Billing Header -->
         <div class="billing-header">
@@ -971,7 +972,7 @@
                         </tr>
                     </thead>
                     <tbody id="billingTableBody">
-                        @php
+                        <?php
                         $billingRecords = [
                             [
                                 'id' => 'P-001',
@@ -1028,43 +1029,44 @@
                                 'status' => 'pending'
                             ]
                         ];
-                        @endphp
+                        ?>
                         
-                        @foreach($billingRecords as $record)
-                        <tr data-patient-id="{{ $record['id'] }}">
-                            <td><span class="fw-bold text-primary">{{ $record['id'] }}</span></td>
+                        <?php $__currentLoopData = $billingRecords; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <tr data-patient-id="<?php echo e($record['id']); ?>">
+                            <td><span class="fw-bold text-primary"><?php echo e($record['id']); ?></span></td>
                             <td>
                                 <div class="patient-info">
-                                    <div class="patient-name">{{ $record['name'] }}</div>
-                                    <div class="patient-email">{{ $record['email'] }}</div>
+                                    <div class="patient-name"><?php echo e($record['name']); ?></div>
+                                    <div class="patient-email"><?php echo e($record['email']); ?></div>
                                 </div>
                             </td>
                             <td>
-                                <span class="service-badge">{{ strtoupper($record['service']) }}</span>
+                                <span class="service-badge"><?php echo e(strtoupper($record['service'])); ?></span>
                             </td>
                             <td>
-                                <div class="date">{{ $record['date'] }}</div>
+                                <div class="date"><?php echo e($record['date']); ?></div>
                             </td>
                             <td>
-                                <div class="payment-amount">{{ $record['amount'] }}</div>
+                                <div class="payment-amount"><?php echo e($record['amount']); ?></div>
                             </td>
                             <td>
-                                <span class="status-badge status-{{ strtolower($record['status']) }}">
-                                    {{ strtoupper($record['status']) }}
+                                <span class="status-badge status-<?php echo e(strtolower($record['status'])); ?>">
+                                    <?php echo e(strtoupper($record['status'])); ?>
+
                                 </span>
                             </td>
                             <td>
                                 <div class="action-buttons">
-                                    <button type="button" class="action-btn btn-view" onclick="viewDetails('{{ $record['id'] }}', '{{ $record['name'] }}')" title="View Details">
+                                    <button type="button" class="action-btn btn-view" onclick="viewDetails('<?php echo e($record['id']); ?>', '<?php echo e($record['name']); ?>')" title="View Details">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                                    <button type="button" class="action-btn btn-edit" onclick="editRecord('{{ $record['id'] }}', '{{ $record['name'] }}')" title="Edit Record">
+                                    <button type="button" class="action-btn btn-edit" onclick="editRecord('<?php echo e($record['id']); ?>', '<?php echo e($record['name']); ?>')" title="Edit Record">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                 </div>
                             </td>
                         </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                 </table>
             </div>
@@ -1083,8 +1085,8 @@
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form action="{{ route('billing.store') }}" method="POST" id="createInvoiceForm">
-                @csrf
+            <form action="<?php echo e(route('billing.store')); ?>" method="POST" id="createInvoiceForm">
+                <?php echo csrf_field(); ?>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
@@ -1194,8 +1196,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form id="editRecordForm">
-                @csrf
-                @method('PUT')
+                <?php echo csrf_field(); ?>
+                <?php echo method_field('PUT'); ?>
                 <div class="modal-body" id="editRecordContent">
                     <!-- Content will be loaded here -->
                 </div>
@@ -1224,7 +1226,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form id="paymentForm">
-                @csrf
+                <?php echo csrf_field(); ?>
                 <div class="modal-body">
                     <div class="form-group">
                         <label class="form-label">Payment Amount *</label>
@@ -1268,9 +1270,9 @@
 <button class="btn btn-primary d-md-none" id="sidebarToggle" style="position: fixed; top: 10px; left: 10px; z-index: 9999;">
     <i class="fas fa-bars"></i>
 </button>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('extra-js')
+<?php $__env->startSection('extra-js'); ?>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Mobile sidebar toggle
@@ -1764,4 +1766,5 @@
         }
     });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH E:\4th yr 1st sem\mednest\resources\views/dashboard/billing.blade.php ENDPATH**/ ?>
