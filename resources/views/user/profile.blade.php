@@ -28,6 +28,7 @@
       gap: 20px;
       border-bottom: 1px solid #e0e0e0;
       padding-bottom: 20px;
+      flex-wrap: wrap;
     }
 
     .profile-header img {
@@ -65,10 +66,12 @@
       margin: 8px 0;
       color: #555;
       font-size: 14px;
+      word-wrap: break-word;
     }
 
     .appointment-history {
       margin-top: 30px;
+      overflow-x: auto;
     }
 
     .appointment-history h3 {
@@ -94,6 +97,7 @@
       text-align: left;
       border-bottom: 1px solid #ddd;
       font-size: 14px;
+      white-space: nowrap;
     }
 
     .appointment-history th {
@@ -117,11 +121,63 @@
       font-weight: 600;
     }
 
-    @media (max-width: 600px) {
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .profile-container {
+        margin: 30px 20px;
+        padding: 20px;
+      }
+
       .profile-header {
         flex-direction: column;
         align-items: center;
         text-align: center;
+      }
+
+      .profile-header img {
+        width: 100px;
+        height: 100px;
+      }
+
+      .profile-header h2 {
+        font-size: 22px;
+      }
+
+      .profile-info h3,
+      .appointment-history h3 {
+        font-size: 16px;
+      }
+
+      .profile-info p,
+      .appointment-history td,
+      .appointment-history th {
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .profile-container {
+        padding: 15px;
+      }
+
+      .profile-header img {
+        width: 80px;
+        height: 80px;
+      }
+
+      .profile-header h2 {
+        font-size: 20px;
+      }
+
+      .profile-info h3,
+      .appointment-history h3 {
+        font-size: 15px;
+      }
+
+      .profile-info p,
+      .appointment-history td,
+      .appointment-history th {
+        font-size: 12px;
       }
     }
   </style>
