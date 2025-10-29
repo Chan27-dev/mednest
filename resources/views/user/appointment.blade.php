@@ -18,15 +18,15 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh; /* fits the screen height */
-      padding: 30px 0; /* adds space at top and bottom */
+      min-height: 100vh;
+      padding: 20px 0;
     }
 
     .appointment-container {
       display: flex;
+      flex-wrap: wrap;
       width: 90%;
       max-width: 1200px;
-      height: calc(100vh - 60px); /* prevents overflow while keeping space */
       background-color: #fff;
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
@@ -35,10 +35,10 @@
 
     /* LEFT PANEL */
     .appointment-form {
-      flex: 1;
-      background-color: rgba(213, 33, 65, 0.7); 
+      flex: 1 1 400px;
+      background-color: rgba(213, 33, 65, 0.85); 
       color: #fff;
-      padding: 50px 60px;
+      padding: 50px 40px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -90,6 +90,7 @@
 
     .time-btn {
       flex: 1 1 30%;
+      min-width: 80px;
       background-color: #fff;
       color: #e88092;
       border: none;
@@ -125,8 +126,8 @@
 
     /* RIGHT PANEL */
     .services-section {
-      flex: 1.1;
-      padding: 50px 60px;
+      flex: 1 1 350px;
+      padding: 50px 40px;
       background-color: #fff;
       display: flex;
       flex-direction: column;
@@ -149,6 +150,7 @@
       padding: 15px 20px;
       margin-bottom: 15px;
       transition: all 0.3s ease;
+      flex-wrap: wrap;
     }
 
     .service-card:hover {
@@ -157,7 +159,7 @@
     }
 
     .service-info {
-      flex: 1;
+      flex: 1 1 200px;
     }
 
     .service-info h3 {
@@ -196,20 +198,54 @@
       margin-top: 5px;
     }
 
+    /* MEDIA QUERIES */
     @media (max-width: 950px) {
-      body {
-        padding: 20px 0;
-        height: auto;
-      }
-
       .appointment-container {
         flex-direction: column;
-        height: auto;
       }
 
       .appointment-form,
       .services-section {
-        padding: 30px 25px;
+        padding: 30px 20px;
+      }
+
+      .time-btn {
+        flex: 1 1 45%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .appointment-form h2 {
+        font-size: 24px;
+      }
+
+      .services-section h2 {
+        font-size: 20px;
+      }
+
+      .time-btn {
+        flex: 1 1 100%;
+      }
+
+      .appointment-form,
+      .services-section {
+        padding: 20px 15px;
+      }
+
+      .confirm-btn {
+        padding: 12px 0;
+      }
+
+      .service-info h3 {
+        font-size: 14px;
+      }
+
+      .service-info p {
+        font-size: 12px;
+      }
+
+      .price {
+        font-size: 16px;
       }
     }
   </style>

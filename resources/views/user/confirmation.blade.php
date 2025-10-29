@@ -19,7 +19,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding: 60px 20px;
+      padding: 40px 20px;
       min-height: 100vh;
     }
 
@@ -28,12 +28,14 @@
       font-weight: 700;
       margin-bottom: 5px;
       color: #000;
+      text-align: center;
     }
 
     p.subtitle {
       font-size: 14px;
       color: #777;
       margin-bottom: 30px;
+      text-align: center;
     }
 
     /* STATUS BOX */
@@ -58,7 +60,7 @@
       width: 32px;
       height: 32px;
       line-height: 32px;
-      border-radius: 4px; /* square corners */
+      border-radius: 4px;
       margin-bottom: 12px;
     }
 
@@ -95,13 +97,15 @@
       display: flex;
       justify-content: space-between;
       margin-bottom: 15px;
+      flex-wrap: wrap;
     }
 
     .summary-row label {
       font-size: 14px;
       font-weight: 600;
       color: #333;
-      width: 50%;
+      width: 48%;
+      margin-bottom: 5px;
     }
 
     .summary-row input {
@@ -109,7 +113,7 @@
       padding: 6px 10px;
       border: 1px solid #ddd;
       border-radius: 6px;
-      width: 45%;
+      width: 48%;
       color: #333;
     }
 
@@ -139,7 +143,8 @@
     .button-group {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      flex-wrap: wrap;
+      gap: 15px;
       margin-top: 25px;
     }
 
@@ -151,6 +156,8 @@
       font-size: 14px;
       font-weight: 600;
       transition: all 0.3s ease;
+      min-width: 160px;
+      text-align: center;
     }
 
     .btn-home {
@@ -199,6 +206,7 @@
     .footer-card .contact {
       display: flex;
       justify-content: center;
+      flex-wrap: wrap;
       align-items: center;
       gap: 10px;
       font-size: 13px;
@@ -209,6 +217,66 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      white-space: nowrap;
+    }
+
+    /* MEDIA QUERIES */
+    @media (max-width: 600px) {
+      body {
+        padding: 30px 15px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+
+      p.subtitle {
+        font-size: 13px;
+        margin-bottom: 20px;
+      }
+
+      .status-box {
+        padding: 25px 15px;
+      }
+
+      .summary-card {
+        padding: 25px 15px;
+      }
+
+      .summary-row label,
+      .summary-row input {
+        width: 100%;
+      }
+
+      .summary-row label {
+        margin-bottom: 5px;
+      }
+
+      .next-steps h3 {
+        font-size: 13px;
+      }
+
+      .next-steps ul {
+        font-size: 12px;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .footer-card {
+        padding: 20px 15px;
+      }
+
+      .footer-card .contact {
+        flex-direction: column;
+        gap: 5px;
+      }
     }
   </style>
 </head>
