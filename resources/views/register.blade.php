@@ -24,44 +24,127 @@
       position: relative;
       z-index: 100;
     }
+
     .logo-container {
       display: flex;
       align-items: center;
       gap: 8px;
     }
+
     .logo-container img {
       height: 32px;
       width: 32px;
     }
+
     .logo-text {
       font-size: 24px;
       font-weight: 700;
     }
+
     .logo-text .med { color: #000; }
     .logo-text .nest { color: #7B0707; }
+
     nav {
       display: flex;
       gap: 40px;
       font-weight: 500;
+      align-items: center;
+      transition: all 0.3s ease;
     }
+
     nav a {
       text-decoration: none;
       color: #373C36;
+      font-weight: 500;
+      transition: color 0.3s, border-bottom 0.3s;
+      padding-bottom: 4px;
     }
-    .phone-btn {
+
+    nav a:hover {
+      color: #7B0707;
+      border-bottom: 2px solid #7B0707;
+    }
+
+    .right-nav {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 20px;
+    }
+
+    .phone-btn {
       background: #7B0707;
       color: #fff;
       padding: 8px 16px;
       border-radius: 30px;
       text-decoration: none;
       font-weight: 600;
-      font-size: 16px;
+      font-size: 15px;
+      white-space: nowrap;
     }
 
-    /* Register SECTION */
+    /* HAMBURGER */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      z-index: 110;
+    }
+
+    .bar {
+      width: 25px;
+      height: 3px;
+      background-color: #333;
+      margin: 4px 0;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* MOBILE MENU */
+    @media (max-width: 900px) {
+      nav {
+        position: absolute;
+        top: 75px;
+        right: 0;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        background-color: #fff;
+        border-top: 2px solid #f1f1f1;
+        display: none;
+        padding: 20px 0;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      }
+
+      nav.active {
+        display: flex;
+        animation: fadeIn 0.3s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      nav a {
+        margin: 10px 0;
+        font-size: 16px;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .right-nav {
+        gap: 10px;
+      }
+
+      .phone-btn {
+        padding: 6px 12px;
+        font-size: 14px;
+      }
+    }
+
+    /* REGISTER SECTION */
     .register-container {
       display: flex;
       justify-content: center;
@@ -161,16 +244,25 @@
       <img src="/images/mednest-logo.png" alt="MedNest Logo">
       <span class="logo-text"><span class="med">Med</span><span class="nest">Nest</span></span>
     </div>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#services">Services</a>
-      <a href="#about">About Us</a>
-      <a href="#appointment">Appointment</a>
+
+    <nav id="nav">
+      <a href="{{ route('user.landing_page') }}">Home</a>
+      <a href="{{ route('user.services') }}">Services</a>
+      <a href="{{ route('user.about') }}">About Us</a>
+      <a href="{{ route('user.appointment') }}">Appointment</a>
     </nav>
-    <a href="tel:+639123456789" class="phone-btn">+6391-2345-6789</a>
+
+    <div class="right-nav">
+      <a href="tel:+639123456789" class="phone-btn">+6391-2345-6789</a>
+      <div class="hamburger" id="hamburger">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
   </header>
 
-  <!-- Register BOX -->
+  <!-- REGISTER BOX -->
   <div class="register-container">
     <div class="register-box">
       <div class="register-header">
@@ -197,11 +289,20 @@
           <button type="submit" class="register-btn">Register</button>
         </form>
         <div class="register-link">
-          Already have an account? <a href="#">Login here</a>
+          Already have an account? <a href="{{ route('login') }}">Login here</a>
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const nav = document.getElementById('nav');
+
+    hamburger.addEventListener('click', () => {
+      nav.classList.toggle('active');
+    });
+  </script>
 
 </body>
 </html>
