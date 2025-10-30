@@ -408,14 +408,28 @@
         padding: 8px 12px;
       }
 
-      .footer-container {
-        flex-direction: column;
-        text-align: center;
-      }
+    .footer-container {
+      flex-direction: column;
+      align-items: center; 
+      text-align: center; 
+      gap: 20px; 
+    }
 
-      .footer-section {
-        margin-bottom: 10px;
-      }
+    .footer-section {
+      margin-bottom: 10px;
+      flex: none; 
+      width: 100%; 
+      max-width: 400px; 
+    }
+
+    .footer-section ul {
+      padding: 0;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 15px;
+    }
     }
   </style>
 </head>
