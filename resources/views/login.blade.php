@@ -23,6 +23,7 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       position: relative;
       z-index: 100;
+      flex-wrap: wrap;
     }
 
     .logo-container {
@@ -44,11 +45,19 @@
     .logo-text .med { color: #000; }
     .logo-text .nest { color: #7B0707; }
 
+    .nav-center {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
     nav {
       display: flex;
       gap: 40px;
       font-weight: 500;
-      align-items: center;
       transition: all 0.3s ease;
     }
 
@@ -58,6 +67,12 @@
       font-weight: 500;
       transition: color 0.3s, border-bottom 0.3s;
       padding-bottom: 4px;
+    }
+
+    nav a.active {
+      color: #7B0707;
+      font-weight: 700;
+      border-bottom: 2px solid #7B0707;
     }
 
     nav a:hover {
@@ -85,53 +100,43 @@
     /* HAMBURGER */
     .hamburger {
       display: none;
-      flex-direction: column;
+      font-size: 28px;
       cursor: pointer;
-      z-index: 110;
-    }
-
-    .bar {
-      width: 25px;
-      height: 3px;
-      background-color: #333;
-      margin: 4px 0;
-      border-radius: 2px;
-      transition: 0.3s;
+      color: #7B0707;
     }
 
     /* MOBILE MENU */
-    @media (max-width: 900px) {
-      nav {
-        position: absolute;
-        top: 75px;
-        right: 0;
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+
+      .nav-center {
+        position: static;
+        transform: none;
         width: 100%;
-        flex-direction: column;
-        align-items: center;
-        background-color: #fff;
-        border-top: 2px solid #f1f1f1;
+      }
+
+      nav {
         display: none;
-        padding: 20px 0;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        flex-direction: column;
+        width: 100%;
+        background-color: #fff;
+        border-top: 1px solid #eee;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 99;
       }
 
-      nav.active {
+      nav.show {
         display: flex;
-        animation: fadeIn 0.3s ease-in-out;
-      }
-
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
       }
 
       nav a {
-        margin: 10px 0;
-        font-size: 16px;
-      }
-
-      .hamburger {
-        display: flex;
+        text-align: center;
+        padding: 10px;
+        border-top: 1px solid #eee;
       }
 
       .right-nav {
@@ -249,20 +254,18 @@
       <span class="logo-text"><span class="med">Med</span><span class="nest">Nest</span></span>
     </div>
 
-    <nav id="nav">
-      <a href="{{ route('user.landing_page') }}">Home</a>
-      <a href="{{ route('user.services') }}">Services</a>
-      <a href="{{ route('user.about') }}">About Us</a>
-      <a href="{{ route('user.appointment') }}">Appointment</a>
-    </nav>
+    <div class="nav-center">
+      <nav id="nav">
+        <a href="{{ route('user.landing_page') }}" class="{{ request()->is('/') || request()->routeIs('user.landing_page') ? 'active' : '' }}">Home</a>
+        <a href="{{ route('user.services') }}" class="{{ request()->routeIs('user.services') ? 'active' : '' }}">Services</a>
+        <a href="{{ route('user.about') }}" class="{{ request()->routeIs('user.about') ? 'active' : '' }}">About Us</a>
+        <a href="{{ route('user.appointment') }}" class="{{ request()->routeIs('user.appointment') ? 'active' : '' }}">Appointment</a>
+      </nav>
+    </div>
 
     <div class="right-nav">
       <a href="tel:+639123456789" class="phone-btn">+6391-2345-6789</a>
-      <div class="hamburger" id="hamburger">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-      </div>
+      <div class="hamburger" id="hamburger">☰</div>
     </div>
   </header>
 
@@ -293,10 +296,7 @@
   <script>
     const hamburger = document.getElementById('hamburger');
     const nav = document.getElementById('nav');
-
-    hamburger.addEventListener('click', () => {
-      nav.classList.toggle('active');
-    });
+    hamburger.addEventListener('click', () => nav.classList.toggle('show'));
   </script>
 
 </body>

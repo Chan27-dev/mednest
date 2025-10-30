@@ -22,7 +22,8 @@
       background: #fff;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       position: relative;
-      z-index: 100;
+      z-index: 1000;
+      flex-wrap: wrap;
     }
 
     .logo-container {
@@ -44,11 +45,19 @@
     .logo-text .med { color: #000; }
     .logo-text .nest { color: #7B0707; }
 
+    .nav-center {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
     nav {
       display: flex;
       gap: 40px;
       font-weight: 500;
-      align-items: center;
       transition: all 0.3s ease;
     }
 
@@ -85,53 +94,45 @@
     /* HAMBURGER */
     .hamburger {
       display: none;
-      flex-direction: column;
+      font-size: 28px;
       cursor: pointer;
-      z-index: 110;
-    }
-
-    .bar {
-      width: 25px;
-      height: 3px;
-      background-color: #333;
-      margin: 4px 0;
-      border-radius: 2px;
-      transition: 0.3s;
+      color: #7B0707;
+      z-index: 1100; /* make sure it's on top */
     }
 
     /* MOBILE MENU */
     @media (max-width: 900px) {
-      nav {
-        position: absolute;
-        top: 75px;
-        right: 0;
+      .hamburger {
+        display: block;
+      }
+
+      .nav-center {
+        position: static;
+        transform: none;
         width: 100%;
-        flex-direction: column;
-        align-items: center;
-        background-color: #fff;
-        border-top: 2px solid #f1f1f1;
+      }
+
+      nav {
         display: none;
-        padding: 20px 0;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        flex-direction: column;
+        width: 100%;
+        background-color: #fff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        border-radius: 10px;
+        text-align: center;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1050; /* make sure it overlays content */
       }
 
-      nav.active {
+      nav.show {
         display: flex;
-        animation: fadeIn 0.3s ease-in-out;
-      }
-
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
       }
 
       nav a {
         margin: 10px 0;
         font-size: 16px;
-      }
-
-      .hamburger {
-        display: flex;
       }
 
       .right-nav {
@@ -156,6 +157,7 @@
 
     .register-box {
       width: 500px;
+      max-width: 100%;
       background: #fff;
       border-radius: 15px;
       box-shadow: 0 16px 24px rgba(44, 40, 40, 0.12);
@@ -245,20 +247,18 @@
       <span class="logo-text"><span class="med">Med</span><span class="nest">Nest</span></span>
     </div>
 
-    <nav id="nav">
-      <a href="{{ route('user.landing_page') }}">Home</a>
-      <a href="{{ route('user.services') }}">Services</a>
-      <a href="{{ route('user.about') }}">About Us</a>
-      <a href="{{ route('user.appointment') }}">Appointment</a>
-    </nav>
+    <div class="nav-center">
+      <nav id="nav">
+        <a href="{{ route('user.landing_page') }}">Home</a>
+        <a href="{{ route('user.services') }}">Services</a>
+        <a href="{{ route('user.about') }}">About Us</a>
+        <a href="{{ route('user.appointment') }}">Appointment</a>
+      </nav>
+    </div>
 
     <div class="right-nav">
       <a href="tel:+639123456789" class="phone-btn">+6391-2345-6789</a>
-      <div class="hamburger" id="hamburger">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-      </div>
+      <div class="hamburger" id="hamburger">☰</div>
     </div>
   </header>
 
@@ -298,10 +298,7 @@
   <script>
     const hamburger = document.getElementById('hamburger');
     const nav = document.getElementById('nav');
-
-    hamburger.addEventListener('click', () => {
-      nav.classList.toggle('active');
-    });
+    hamburger.addEventListener('click', () => nav.classList.toggle('show'));
   </script>
 
 </body>
