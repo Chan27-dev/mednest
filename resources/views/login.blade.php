@@ -287,7 +287,7 @@
           <button type="submit" class="login-btn">Login</button>
         </form>
         <div class="register-link">
-          Don’t have an account? <a href="#">Register here</a>
+            Don’t have an account? <a href="{{ route('user.terms') }}">Register here</a>
         </div>
       </div>
     </div>

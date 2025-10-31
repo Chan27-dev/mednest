@@ -430,7 +430,7 @@
       text-align: center;
       margin-top: 15px;
     }
-    }
+  }
   </style>
 </head>
 
@@ -554,9 +554,9 @@
         <h3>Page</h3>
         <ul>
           <li><a href="{{ url('/') }}">Home</a></li>
-          <li><a href="{{ url('/#services') }}">Services</a></li>
-          <li><a href="{{ url('/about') }}">About Us</a></li>
-          <li><a href="{{ url('/#appointment') }}">Appointment</a></li>
+          <li><a href="{{ url('/user/services') }}">Services</a></li>
+          <li><a href="{{ url('/user/about') }}">About Us</a></li>
+          <li><a href="{{ url('/user/appointment') }}">Appointment</a></li>
         </ul>
       </div>
 
@@ -564,16 +564,16 @@
         <h3>Contact</h3>
         <p>📍 Purok 1 Brgy. 3 Del Rosario, Sto. Domingo Albay 4508</p>
         <p>📞 +63 912-345-678</p>
-        <p>📧 delrosario.maternity@gmail.com</p>
+        <p>📧 <a href="mailto:delrosario.maternity@gmail.com" style="color: inherit; text-decoration: none;">delrosario.maternity@gmail.com</a></p>
       </div>
 
       <div class="footer-section">
         <h3>Support</h3>
         <ul>
-          <li><a href="#">Terms and Conditions</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Help</a></li>
+          <li><a href="{{ url('/user/terms') }}">Terms and Conditions</a></li>
+          <li><a href="{{ url('/user/privacy') }}">Privacy Policy</a></li>
+          <li><a href="{{ url('/user/faq') }}">FAQ</a></li>
+          <li><a href="{{ url('/user/help') }}">Help</a></li>
         </ul>
       </div>
     </div>
