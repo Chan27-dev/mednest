@@ -149,7 +149,7 @@ class DashboardController extends Controller
                 'date_time' => '10:00 AM',
                 'date' => 'March 25, 2025',
                 'service' => 'Consultation',
-                'assigned_staff' => 'Dr. Sarah Wilson',
+                'assigned_staff' => 'Dr. Budnessa B. Ocampo',
                 'payment' => '₱1,500.00',
                 'status' => 'CONFIRMED',
                 'actions' => ['edit', 'delete']
@@ -159,8 +159,8 @@ class DashboardController extends Controller
                 'email' => 'john.e@email.com',
                 'date_time' => '10:00 AM',
                 'date' => 'March 25, 2025',
-                'service' => 'Consultation',
-                'assigned_staff' => 'Dr. Sarah Wilson',
+                'service' => 'Labor Monitoring',
+                'assigned_staff' => 'Dr. Muriel D. Medel',
                 'payment' => '₱1,500.00',
                 'status' => 'CONFIRMED',
                 'actions' => ['edit', 'delete']
@@ -170,8 +170,8 @@ class DashboardController extends Controller
                 'email' => 'john.chris@email.com',
                 'date_time' => '10:00 AM',
                 'date' => 'March 25, 2025',
-                'service' => 'Consultation',
-                'assigned_staff' => 'Dr. Sarah Wilson',
+                'service' => 'Pre-natal Check Up',
+                'assigned_staff' => 'Dr. Budnessa B. Ocampo',
                 'payment' => '₱1,500.00',
                 'status' => 'CONFIRMED',
                 'actions' => ['edit', 'delete']
@@ -181,8 +181,8 @@ class DashboardController extends Controller
                 'email' => 'mark@email.com',
                 'date_time' => '10:00 AM',
                 'date' => 'March 25, 2025',
-                'service' => 'Consultation',
-                'assigned_staff' => 'Dr. Sarah Wilson',
+                'service' => 'Ultrasound',
+                'assigned_staff' => 'Dr. Budnessa B. Ocampo',
                 'payment' => '₱1,500.00',
                 'status' => 'CONFIRMED',
                 'actions' => ['edit', 'delete']
