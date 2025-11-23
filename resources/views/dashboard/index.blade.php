@@ -1185,25 +1185,34 @@
 
                     <div class="row g-3 mb-4">
                         <div class="col-md-6">
-                            <label for="fullName" class="form-label fw-semibold">Full Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control form-control-lg border-0 bg-light" id="fullName" name="full_name" required>
+                            <label for="first_name" class="form-label fw-semibold">First Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-lg border-0 bg-light" id="first_name" name="first_name" required>
                         </div>
                         <div class="col-md-6">
-                            <label for="age" class="form-label fw-semibold">Age <span class="text-danger">*</span></label>
-                            <div class="input-group">
-                                <input type="number" class="form-control form-control-lg border-0 bg-light" id="age" name="age" min="1" max="100" required>
-                                <span class="input-group-text bg-light border-0">
-                                    <i class="fas fa-calendar-alt text-muted"></i>
-                                </span>
-                            </div>
+                            <label for="last_name" class="form-label fw-semibold">Last Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-lg border-0 bg-light" id="last_name" name="last_name" required>
                         </div>
                     </div>
 
                     <div class="row g-3 mb-4">
                         <div class="col-md-6">
-                            <label for="contactNumber" class="form-label fw-semibold">Contact Number <span class="text-danger">*</span></label>
-                            <input type="tel" class="form-control form-control-lg border-0 bg-light" id="contactNumber" name="contact_number" required>
+                            <label for="date_of_birth" class="form-label fw-semibold">Date of Birth <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control form-control-lg border-0 bg-light" id="date_of_birth" name="date_of_birth" required>
                         </div>
+                        <div class="col-md-6">
+                            <label for="contact_number" class="form-label fw-semibold">Contact Number <span class="text-danger">*</span></label>
+                            <input type="tel" class="form-control form-control-lg border-0 bg-light" id="contact_number" name="contact_number" required>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-12">
+                            <label for="address" class="form-label fw-semibold">Address <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-lg border-0 bg-light" id="address" name="address" placeholder="Street, Barangay, City/Province" required>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-4">
                         <div class="col-md-6">
                             <label for="email" class="form-label fw-semibold">Email (Optional)</label>
                             <input type="email" class="form-control form-control-lg border-0 bg-light" id="email" name="email">
@@ -1289,14 +1298,6 @@
                     </div>
 
                     <!-- Preferred Date Section -->
-                    <div class="section-header mb-3">
-                        <h6 class="fw-bold text-secondary mb-3">Preferred Date <span class="text-danger">*</span></h6>
-                    </div>
-
-                    <div class="mb-4">
-                        <input type="date" class="form-control form-control-lg border-0 bg-light" id="preferredDate" name="preferred_date" required>
-                    </div>
-
                     <input type="hidden" id="selectedService" name="selected_service" value="prenatal">
                     <input type="hidden" id="servicePrice" name="service_price" value="FREE">
                 </form>
@@ -1387,7 +1388,7 @@
                 const formData = new FormData(form);
                 
                 // Validate required fields
-                const requiredFields = ['full_name', 'age', 'contact_number', 'preferred_date'];
+                const requiredFields = ['first_name', 'last_name', 'date_of_birth', 'contact_number', 'address'];
                 let isValid = true;
                 
                 requiredFields.forEach(field => {
