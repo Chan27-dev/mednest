@@ -478,6 +478,213 @@
         transform: translateY(-1px);
     }
 
+    /* Modal Styles */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        backdrop-filter: blur(5px);
+    }
+
+    .modal-overlay.show {
+        display: flex;
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .appointment-modal {
+        background: white;
+        border-radius: 15px;
+        width: 90%;
+        max-width: 600px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .modal-header {
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid #e9ecef;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: linear-gradient(135deg, var(--primary-color), #e91e63);
+    }
+
+    .modal-header h5 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-close {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 1.2rem;
+    }
+
+    .modal-close:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: rotate(90deg);
+    }
+
+    .modal-body {
+        padding: 2rem;
+    }
+
+    .patient-info-modal {
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin-bottom: 1.5rem;
+        border-left: 4px solid var(--primary-color);
+    }
+
+    .patient-info-modal h6 {
+        color: var(--primary-color);
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+    }
+
+    .patient-info-modal p {
+        margin: 0.25rem 0;
+        color: #495057;
+        font-size: 0.9rem;
+    }
+
+    .form-group-modal {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group-modal label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #495057;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .form-group-modal select,
+    .form-group-modal input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid #e1e5e9;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background-color: white;
+    }
+
+    .form-group-modal select:focus,
+    .form-group-modal input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(214, 51, 132, 0.25);
+    }
+
+    .modal-footer {
+        padding: 1.5rem 2rem;
+        border-top: 1px solid #e9ecef;
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+        background-color: #f8f9fa;
+        border-radius: 0 0 15px 15px;
+    }
+
+    .modal-action-btn {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .modal-action-btn i {
+        font-size: 1rem;
+    }
+
+    .btn-approve-modal {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .btn-approve-modal:hover {
+        background-color: #1e7e34;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+    }
+
+    .btn-cancel-modal {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn-cancel-modal:hover {
+        background-color: #c82333;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+    }
+
+    .btn-reschedule-modal {
+        background-color: #fd7e14;
+        color: white;
+    }
+
+    .btn-reschedule-modal:hover {
+        background-color: #dc6502;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(253, 126, 20, 0.3);
+    }
+
     .dropdown-menu {
         border: none;
         box-shadow: 0 4px 20px rgba(0,0,0,0.15);
@@ -749,7 +956,7 @@
                             </td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="action-btn btn-edit" data-action="edit" data-patient="{{ $appointment['patient'] }}" title="Edit Appointment">
+                                    <button class="action-btn btn-edit" data-action="edit" data-patient="{{ $appointment['patient'] }}" data-service="{{ $appointment['service'] }}" data-staff="{{ $appointment['assigned_staff'] }}" data-payment="{{ $appointment['payment'] }}" data-email="{{ $appointment['email'] }}" data-datetime="{{ $appointment['date_time'] }}" data-date="{{ $appointment['date'] }}" title="Edit Appointment">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <button class="action-btn btn-delete" data-action="delete" data-patient="{{ $appointment['patient'] }}" title="Delete Appointment">
@@ -762,6 +969,71 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Appointment Modal -->
+<div class="modal-overlay" id="editAppointmentModal">
+    <div class="appointment-modal">
+        <div class="modal-header">
+            <h5><i class="fas fa-edit me-2"></i>Edit Appointment</h5>
+            <button class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="patient-info-modal">
+                <h6 id="modalPatientName">Patient Name</h6>
+                <p><i class="fas fa-envelope me-2"></i><span id="modalPatientEmail">patient@email.com</span></p>
+                <p><i class="fas fa-clock me-2"></i><span id="modalAppointmentTime">10:00 AM</span></p>
+                <p><i class="fas fa-calendar me-2"></i><span id="modalAppointmentDate">January 1, 2025</span></p>
+            </div>
+
+            <div class="form-group-modal">
+                <label for="modalService">
+                    <i class="fas fa-stethoscope me-1"></i>Service
+                </label>
+                <select class="form-control" id="modalService">
+                    <option value="consultation">Consultation</option>
+                    <option value="prenatal">Pre-natal Check Up</option>
+                    <option value="ultrasound">Ultrasound</option>
+                    <option value="labor">Labor Monitoring</option>
+                </select>
+            </div>
+
+            <div class="form-group-modal">
+                <label for="modalStaff">
+                    <i class="fas fa-user-md me-1"></i>Assigned Staff
+                </label>
+                <select class="form-control" id="modalStaff">
+                    <option value="Dr. Budnessa B. Ocampo">Dr. Budnessa B. Ocampo</option>
+                    <option value="Dr. Muriel D. Medel">Dr. Muriel D. Medel</option>
+                    <option value="Nurse Roselyn S. Abion">Nurse Roselyn S. Abion</option>
+                    <option value="Midwife Mary Jean Banaag">Midwife Mary Jean Banaag </option>
+                </select>
+            </div>
+
+            <div class="form-group-modal">
+                <label for="modalPayment">
+                    <i class="fas fa-money-bill-wave me-1"></i>Payment
+                </label>
+                <input type="text" class="form-control" id="modalPayment" placeholder="₱0.00">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-action-btn btn-approve-modal" onclick="approveAppointment()">
+                <i class="fas fa-check-circle"></i>
+                <span>Approve</span>
+            </button>
+            <button class="modal-action-btn btn-reschedule-modal" onclick="rescheduleAppointment()">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Reschedule</span>
+            </button>
+            <button class="modal-action-btn btn-cancel-modal" onclick="cancelAppointment()">
+                <i class="fas fa-times-circle"></i>
+                <span>Cancel</span>
+            </button>
         </div>
     </div>
 </div>
@@ -798,6 +1070,145 @@
         window.addEventListener('resize', function() {
             if (window.innerWidth > 768) {
                 sidebar.classList.remove('show');
+            }
+        });
+
+        // Action dropdown functionality
+        document.addEventListener('click', function(e) {
+            // Toggle dropdown
+            if (e.target.closest('.action-dropdown-toggle')) {
+                e.stopPropagation();
+                const toggle = e.target.closest('.action-dropdown-toggle');
+                const menu = toggle.nextElementSibling;
+                
+                // Close all other dropdowns
+                document.querySelectorAll('.action-dropdown-menu.show').forEach(dropdown => {
+                    if (dropdown !== menu) {
+                        dropdown.classList.remove('show');
+                    }
+                });
+                
+                // Toggle current dropdown
+                menu.classList.toggle('show');
+            }
+            // Handle dropdown item clicks
+            else if (e.target.closest('.action-dropdown-item')) {
+                const item = e.target.closest('.action-dropdown-item');
+                const action = item.getAttribute('data-action');
+                const patientName = item.getAttribute('data-patient');
+                
+                // Close dropdown
+                item.closest('.action-dropdown-menu').classList.remove('show');
+                
+                // Add loading state
+                const originalContent = item.innerHTML;
+                item.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Processing...</span>';
+                item.disabled = true;
+                
+                setTimeout(() => {
+                    // Reset button
+                    item.innerHTML = originalContent;
+                    item.disabled = false;
+                    
+                    // Handle different actions
+                    switch(action) {
+                        case 'view':
+                            showNotification(`Viewing details for ${patientName}'s appointment`, 'info');
+                            break;
+                        case 'approve':
+                            showNotification(`${patientName}'s appointment has been approved`, 'success');
+                            // Update status badge
+                            const row = item.closest('tr');
+                            const statusBadge = row.querySelector('.status-badge');
+                            statusBadge.className = 'status-badge status-confirmed';
+                            statusBadge.textContent = 'Confirmed';
+                            break;
+                        case 'reschedule':
+                            showNotification(`Opening reschedule form for ${patientName}`, 'info');
+                            break;
+                        case 'cancel':
+                            if (confirm(`Are you sure you want to cancel ${patientName}'s appointment?`)) {
+                                showNotification(`${patientName}'s appointment has been cancelled`, 'warning');
+                                // Update status badge
+                                const row = item.closest('tr');
+                                const statusBadge = row.querySelector('.status-badge');
+                                statusBadge.className = 'status-badge status-cancelled';
+                                statusBadge.textContent = 'Cancelled';
+                            }
+                            break;
+                        default:
+                            showNotification(`${action} action for ${patientName}`, 'info');
+                    }
+                }, 1000);
+            }
+            // Close dropdowns when clicking outside
+            else {
+                document.querySelectorAll('.action-dropdown-menu.show').forEach(dropdown => {
+                    dropdown.classList.remove('show');
+                });
+            }
+        });
+
+        // Store current row being edited
+        let currentEditRow = null;
+
+        // Handle action buttons - Edit and Delete
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.btn-edit')) {
+                const btn = e.target.closest('.btn-edit');
+                const patientName = btn.getAttribute('data-patient');
+                const patientEmail = btn.getAttribute('data-email');
+                const service = btn.getAttribute('data-service');
+                const staff = btn.getAttribute('data-staff');
+                const payment = btn.getAttribute('data-payment');
+                const dateTime = btn.getAttribute('data-datetime');
+                const date = btn.getAttribute('data-date');
+                
+                // Store the current row for later updates
+                currentEditRow = btn.closest('tr');
+                
+                // Populate modal with appointment data
+                document.getElementById('modalPatientName').textContent = patientName;
+                document.getElementById('modalPatientEmail').textContent = patientEmail;
+                document.getElementById('modalAppointmentTime').textContent = dateTime;
+                document.getElementById('modalAppointmentDate').textContent = date;
+                document.getElementById('modalService').value = service.toLowerCase();
+                document.getElementById('modalStaff').value = staff;
+                document.getElementById('modalPayment').value = payment;
+                
+                // Show modal
+                document.getElementById('editAppointmentModal').classList.add('show');
+            }
+            
+            if (e.target.closest('.btn-delete')) {
+                const btn = e.target.closest('.btn-delete');
+                const patientName = btn.getAttribute('data-patient');
+                
+                if (confirm(`Are you sure you want to delete ${patientName}'s appointment?`)) {
+                    // Add loading state
+                    const originalContent = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                    btn.disabled = true;
+                    
+                    setTimeout(() => {
+                        // Remove the row with animation
+                        const row = btn.closest('tr');
+                        row.style.transform = 'translateX(100%)';
+                        row.style.opacity = '0';
+                        row.style.transition = 'all 0.3s ease';
+                        
+                        setTimeout(() => {
+                            row.remove();
+                            showNotification(`${patientName}'s appointment has been deleted`, 'success');
+                            
+                            // Check if we need to show empty state
+                            const remainingRows = tableBody.querySelectorAll('tr:not(#noResultsMessage)');
+                            if (remainingRows.length === 0) {
+                                filterAppointments(); // This will show the no results message
+                            }
+                        }, 300);
+                    }, 500);
+                }
             }
         });
 
@@ -897,54 +1308,6 @@
             dateFilter.addEventListener('change', filterAppointments);
         }
 
-        // Handle action buttons
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('.action-btn')) {
-                const btn = e.target.closest('.action-btn');
-                const action = btn.getAttribute('data-action');
-                const patientName = btn.getAttribute('data-patient');
-                
-                // Add loading state
-                const originalContent = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-                btn.disabled = true;
-                
-                setTimeout(() => {
-                    // Reset button
-                    btn.innerHTML = originalContent;
-                    btn.disabled = false;
-                    
-                    // Handle different actions
-                    switch(action) {
-                        case 'edit':
-                            showNotification(`Opening edit form for ${patientName}'s appointment`, 'info');
-                            break;
-                        case 'delete':
-                            if (confirm(`Are you sure you want to delete ${patientName}'s appointment?`)) {
-                                // Remove the row with animation
-                                const row = btn.closest('tr');
-                                row.style.transform = 'translateX(100%)';
-                                row.style.opacity = '0';
-                                
-                                setTimeout(() => {
-                                    row.remove();
-                                    showNotification(`${patientName}'s appointment has been deleted`, 'success');
-                                    
-                                    // Check if we need to show empty state
-                                    const remainingRows = tableBody.querySelectorAll('tr:not(#noResultsMessage)');
-                                    if (remainingRows.length === 0) {
-                                        filterAppointments(); // This will show the no results message
-                                    }
-                                }, 300);
-                            }
-                            break;
-                        default:
-                            showNotification(`${action} action for ${patientName}`, 'info');
-                    }
-                }, 1000);
-            }
-        });
-
         // Handle logout functionality
         document.addEventListener('click', function(e) {
             if (e.target.matches('[data-action="logout"]')) {
@@ -1030,5 +1393,99 @@
             dateFilter.placeholder = 'Select date...';
         }
     });
+
+    // Modal Functions
+    function closeModal() {
+        document.getElementById('editAppointmentModal').classList.remove('show');
+        currentEditRow = null;
+    }
+
+    // Close modal when clicking outside
+    document.addEventListener('click', function(e) {
+        const modal = document.getElementById('editAppointmentModal');
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const modal = document.getElementById('editAppointmentModal');
+            if (modal.classList.contains('show')) {
+                closeModal();
+            }
+        }
+    });
+
+    function approveAppointment() {
+        if (!currentEditRow) return;
+        
+        const patientName = document.getElementById('modalPatientName').textContent;
+        const newService = document.getElementById('modalService').value;
+        const newStaff = document.getElementById('modalStaff').value;
+        const newPayment = document.getElementById('modalPayment').value;
+        
+        // Update the row with new values
+        currentEditRow.querySelector('.service-badge').textContent = newService.toUpperCase();
+        currentEditRow.querySelector('.staff-name').textContent = newStaff;
+        currentEditRow.querySelector('.payment-amount').textContent = newPayment;
+        
+        // Update status to confirmed
+        const statusBadge = currentEditRow.querySelector('.status-badge');
+        statusBadge.className = 'status-badge status-confirmed';
+        statusBadge.textContent = 'Confirmed';
+        
+        // Close modal
+        closeModal();
+        
+        // Show notification
+        showNotification(`${patientName}'s appointment has been approved and updated`, 'success');
+    }
+
+    function cancelAppointment() {
+        if (!currentEditRow) return;
+        
+        const patientName = document.getElementById('modalPatientName').textContent;
+        
+        if (confirm(`Are you sure you want to cancel ${patientName}'s appointment?`)) {
+            // Update status to cancelled
+            const statusBadge = currentEditRow.querySelector('.status-badge');
+            statusBadge.className = 'status-badge status-cancelled';
+            statusBadge.textContent = 'Cancelled';
+            
+            // Close modal
+            closeModal();
+            
+            // Show notification
+            showNotification(`${patientName}'s appointment has been cancelled`, 'warning');
+        }
+    }
+
+    function rescheduleAppointment() {
+        if (!currentEditRow) return;
+        
+        const patientName = document.getElementById('modalPatientName').textContent;
+        const newService = document.getElementById('modalService').value;
+        const newStaff = document.getElementById('modalStaff').value;
+        const newPayment = document.getElementById('modalPayment').value;
+        
+        // Update the row with new values
+        currentEditRow.querySelector('.service-badge').textContent = newService.toUpperCase();
+        currentEditRow.querySelector('.staff-name').textContent = newStaff;
+        currentEditRow.querySelector('.payment-amount').textContent = newPayment;
+        
+        // Update status to pending (since it's being rescheduled)
+        const statusBadge = currentEditRow.querySelector('.status-badge');
+        statusBadge.className = 'status-badge status-pending';
+        statusBadge.textContent = 'Pending';
+        
+
+        // Close modal
+        closeModal();
+        
+        // Show notification
+        showNotification(`${patientName}'s appointment has been rescheduled`, 'info');
+    }
 </script>
 @endsection

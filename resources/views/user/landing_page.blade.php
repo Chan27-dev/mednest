@@ -301,11 +301,39 @@
       text-align: center;
       padding: 80px 20px;
     }
+    .doctor-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 250px; 
+      text-align: center;
+      transition: transform 0.3s ease;
+      display: flex;               
+      flex-direction: column;      
+      justify-content: space-between; 
+      height: 200px;               
+    }
+
+    .doctor-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .doctor-photo img {
+      width: 150px; 
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 15px;
+    }
+
     .doctors-container {
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
+      align-items: flex-start;
+      flex-wrap: nowrap; 
       gap: 30px;
+      overflow-x: auto;
     }
 
     /* RESPONSIVE */
@@ -375,6 +403,10 @@
       }
       .testimonial {
         border-radius: 50px;
+      }
+        .doctors-container {
+        flex-wrap: wrap; 
+        justify-content: center;
       }
     }
 
@@ -549,8 +581,8 @@
                 Streamlined records, scheduling, monitoring, and billing — so you can stress less and care more.
             </p>
             <div class="hero-buttons">
-                <a href="#appointment" class="btn-primary">Book Appointment</a>
-                <a href="#learn-more" class="btn-outline">Learn More</a>
+                <a href="{{url('/user/appointment') }}" class="btn-primary">Book Appointment</a>
+                <a href="{{url('/user/about') }}" class="btn-outline">Learn More</a>
             </div>
         </div>
     </section>
@@ -703,9 +735,9 @@
       <h3>Page</h3>
       <ul>
         <li><a href="{{ url('/') }}">Home</a></li>
-        <li><a href="{{ url('/#services') }}">Services</a></li>
-        <li><a href="{{ url('/about') }}">About Us</a></li>
-        <li><a href="{{ url('/#appointment') }}">Appointment</a></li>
+        <li><a href="{{ url('/user/services') }}">Services</a></li>
+        <li><a href="{{ url('/user/about') }}">About Us</a></li>
+        <li><a href="{{ url('/user/appointment') }}">Appointment</a></li>
       </ul>
     </div>
 
@@ -713,16 +745,16 @@
       <h3>Contact</h3>
       <p>📍 Purok 1 Brgy. 3 Del Rosario, Sto. Domingo Albay 4508</p>
       <p>📞 +63 912-345-678</p>
-      <p>📧 delrosario.maternity@gmail.com</p>
+      <p>📧 <a href="mailto:delrosario.maternity@gmail.com" style="color: inherit; text-decoration: none;">delrosario.maternity@gmail.com</a></p>
     </div>
 
     <div class="footer-section">
       <h3>Support</h3>
       <ul>
-        <li><a href="#">Terms and Conditions</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">FAQ</a></li>
-        <li><a href="#">Help</a></li>
+        <li><a href="{{ url('/user/terms') }}">Terms and Conditions</a></li>
+        <li><a href="{{ url('/user/privacy') }}">Privacy Policy</a></li>
+        <li><a href="{{ url('/user/faq') }}">FAQ</a></li>
+        <li><a href="{{ url('/user/help') }}">Help</a></li>
       </ul>
     </div>
   </div>

@@ -257,7 +257,7 @@
       <h2>Schedule Your Visit</h2>
       <p>Select your preferred date, time, and service</p>
 
-      <form>
+      <form action="{{ route('user.confirmation') }}" method="get">
         <div class="form-group">
           <label>Patient Name</label>
           <input type="text" placeholder="Enter your name">

@@ -158,6 +158,8 @@
       transition: all 0.3s ease;
       min-width: 160px;
       text-align: center;
+      text-decoration: none; 
+      display: inline-block;
     }
 
     .btn-home {
@@ -320,7 +322,7 @@
     </div>
 
     <div class="next-steps">
-      <h3>❓ What happens next?</h3>
+      <h3>What happens next?</h3>
       <ul>
         <li>Our medical staff will review your appointment request.</li>
         <li>You will receive a confirmation call within 24 hours.</li>
@@ -330,8 +332,8 @@
     </div>
 
     <div class="button-group">
-      <button class="btn btn-home">Back to Home</button>
-      <button class="btn btn-another">Book Another Appointment</button>
+      <a href="{{ route('user.landing_page') }}" class="btn btn-home">Back to Home</a>
+      <a href="{{ route('user.appointment') }}" class="btn btn-another">Book Another Appointment</a>
     </div>
   </div>
 
@@ -340,7 +342,7 @@
     <p>Contact us directly for any changes or questions</p>
     <div class="contact">
       <span>📞 +63 912-345-6789</span>
-      <span>📧 delrosario.maternity@gmail.com</span>
+      <span>📧 <a href="mailto:delrosario.maternity@gmail.com" style="color: inherit; text-decoration: none;">delrosario.maternity@gmail.com</a></span>
     </div>
   </div>
 
