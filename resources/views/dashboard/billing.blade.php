@@ -792,12 +792,6 @@
                     Referrals
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('dashboard.staff') ? 'active' : '' }}" href="{{ route('dashboard.staff') }}">
-                    <i class="fas fa-users"></i>
-                    Staff Management
-                </a>
-            </li>
         </ul>
     </nav>
 </div>

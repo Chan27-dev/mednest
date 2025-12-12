@@ -46,7 +46,6 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('/appointments', [DashboardController::class, 'appointments'])->name('appointments');
     Route::get('/labor', [DashboardController::class, 'labor'])->name('labor');
     Route::get('/billing', [DashboardController::class, 'billing'])->name('billing');
-    Route::get('/staff', [DashboardController::class, 'staff'])->name('staff');
 
     // Demo routes for other sections (redirects to main dashboard)
     Route::get('/referrals', function() {

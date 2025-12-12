@@ -810,12 +810,6 @@
                     Referrals
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.staff') }}">
-                    <i class="fas fa-user-cog"></i>
-                    Staff Management
-                </a>
-            </li>
         </ul>
     </nav>
 </div>
