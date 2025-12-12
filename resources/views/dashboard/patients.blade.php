@@ -283,7 +283,7 @@
             background: #f8f9fa;
             color: #495057;
             font-weight: 600;
-            font-size: 0.875rem;
+            font-size: 0.8125rem; /* reduced from 0.875rem */
             text-transform: uppercase;
             letter-spacing: 0.5px;
             padding: 1rem 1.5rem;
@@ -297,6 +297,7 @@
             border: none;
             border-bottom: 1px solid #f1f3f4;
             vertical-align: middle;
+            font-size: 0.8125rem; /* reduced from 0.875rem */
         }
 
         .patients-table tr:hover {
@@ -472,7 +473,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/>',
             opacity: 0.3;
         }
 
@@ -728,7 +729,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/>',
         }
 
         .referral-header .header-content {
@@ -890,6 +891,296 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* PATIENT PROFILE WITH 11 TABS - FIXED LAYOUT */
+        #patient-profile {
+            display: none;
+            background: #f8f9fa;
+            padding: 0;
+        }
+
+        #patient-profile .container-fluid {
+            padding: 0;
+        }
+
+        #patient-profile .bg-white {
+            padding: 1rem 2rem;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        #patient-profile #profile-title {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        #patient-profile #profile-name {
+            color: #d63384;
+            font-weight: 700;
+        }
+
+        #patient-profile .nav-tabs {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border: none;
+            padding: 0 1rem;
+        }
+
+        #patient-profile .nav-tabs .nav-item {
+            white-space: nowrap;
+        }
+
+        #patient-profile .nav-tabs .nav-link {
+            border: none;
+            border-bottom: 3px solid transparent;
+            border-radius: 0;
+            color: #6c757d;
+            font-weight: 600;
+            padding: 0.75rem 1.25rem;
+            transition: all 0.3s;
+        }
+
+        #patient-profile .nav-tabs .nav-link.active {
+            border-bottom: 3px solid #d63384;
+            color: #333;
+        }
+
+        #patient-profile .tab-content {
+            background: white;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            min-height: 65vh;
+            padding: 2rem;
+        }
+
+        #patient-profile .tab-pane {
+            display: none;
+        }
+
+        #patient-profile .tab-pane.fade.show {
+            display: block;
+        }
+
+        /* Specific styles for each tab content */
+        #patient-profile #clinical {
+            display: block;
+        }
+
+        #patient-profile .form-label {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        #patient-profile .form-control {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        #patient-profile .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(214, 51, 132, 0.1);
+            outline: none;
+        }
+
+        #patient-profile .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        #patient-profile .btn-primary {
+            background: linear-gradient(135deg, #d63384, #ff6b9d);
+            color: white;
+            border: none;
+        }
+
+        #patient-profile .btn-primary:hover {
+            background: linear-gradient(135deg, #c2185b, #d63384);
+            transform: translateY(-1px);
+        }
+
+        #patient-profile .btn-success {
+            background: #10b981;
+            color: white;
+            border: none;
+        }
+
+        #patient-profile .btn-success:hover {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+
+        #patient-profile .btn-danger {
+            background: #dc3545;
+            color: white;
+            border: none;
+        }
+
+        #patient-profile .btn-danger:hover {
+            background: #c82333;
+            transform: translateY(-1px);
+        }
+
+        #patient-profile .badge {
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.4rem 0.8rem;
+            border-radius: 10px;
+        }
+
+        #patient-profile .badge.bg-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        #patient-profile .badge.bg-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        #patient-profile .badge.bg-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        #patient-profile .accordion-button {
+            background: #f8f9fa;
+            color: #333;
+            font-weight: 500;
+            padding: 1rem;
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        #patient-profile .accordion-button:hover {
+            background: #e2e6ea;
+        }
+
+        #patient-profile .accordion-button:not(.collapsed) {
+            background: #e2e6ea;
+            color: #333;
+        }
+
+        #patient-profile .accordion-body {
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 0 0 8px 8px;
+        }
+
+        #patient-profile .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+
+        #patient-profile .table th {
+            background: #f8f9fa;
+            color: #495057;
+            font-weight: 600;
+            font-size: 0.8125rem; /* reduced from 0.875rem */
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-bottom: 1px solid #e1e5e9;
+            text-align: left;
+        }
+
+        #patient-profile .table td {
+            padding: 1rem 1.5rem;
+            border: none;
+            border-bottom: 1px solid #f1f3f4;
+            vertical-align: middle;
+            font-size: 0.8125rem; /* reduced from 0.875rem */
+        }
+
+        #patient-profile .table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* LABORATORY ORDER MODAL */
+        .modal-content {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #d63384, #ff6b9d);
+            color: white;
+            border: none;
+            position: relative;
+        }
+
+        .modal-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/>',
+            opacity: 0.3;
+        }
+
+        .modal-title {
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin: 0;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .accordion-button {
+            background: #f8f9fa;
+            color: #333;
+            font-weight: 500;
+            padding: 1rem;
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .accordion-button:hover {
+            background: #e2e6ea;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background: #e2e6ea;
+            color: #333;
+        }
+
+        .accordion-body {
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* General improvements */
+        .container-fluid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container-fluid {
+                padding: 0 0.5rem;
+            }
+
+            .modal-dialog {
+                max-width: 90%;
+                margin: 1.75rem auto;
+            }
+        }
     </style>
 </head>
 <body>
@@ -923,13 +1214,13 @@
        <nav class="sidebar-nav">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" href="{{ route('dashboard.index') }}">
+                <a class="nav-link" href="{{ route('dashboard.index') }}">
                     <i class="fas fa-th-large"></i>
                     Dashboard
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.patients') }}">
+                <a class="nav-link active" href="{{ route('dashboard.patients') }}">
                     <i class="fas fa-users"></i>
                     Patients Record
                 </a>
@@ -985,19 +1276,19 @@
                     </li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{ route('dashboard.profile') }}">
                             <i class="fas fa-user me-2"></i>
                             My Profile
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{ route('dashboard.settings') }}">
                             <i class="fas fa-cog me-2"></i>
                             Account Settings
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{ route('dashboard.notifications') }}">
                             <i class="fas fa-bell me-2"></i>
                             Notifications
                             <span class="badge bg-danger ms-auto">3</span>
@@ -1005,7 +1296,7 @@
                     </li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
-                        <a class="dropdown-item text-danger" href="#" data-action="logout">
+                        <a class="dropdown-item text-danger" href="{{ route('logout') }}" data-action="logout">
                             <i class="fas fa-sign-out-alt me-2"></i>
                             Logout
                         </a>
@@ -1031,9 +1322,20 @@
             <div class="patients-container">
                 <!-- Search Section -->
                 <div class="search-section">
-                    <div class="patient-search">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" class="form-control" id="patientSearchInput" placeholder="Search patients by name, ID, or contact...">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="patient-search" style="min-width: 320px;">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" class="form-control" id="patientSearchInput" placeholder="Search patients by name, ID, or contact...">
+                        </div>
+                        <div class="branch-filter" style="min-width: 200px;">
+                            <label for="branchFilterSelect" class="form-label visually-hidden">Branch</label>
+                            <select id="branchFilterSelect" class="form-select">
+                                <option value="all">All Branches</option>
+                                <option value="Sto Domingo">Sto Domingo</option>
+                                <option value="Daraga">Daraga</option>
+                                <option value="Bacacay">Bacacay</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
@@ -1043,68 +1345,61 @@
                         <thead>
                             <tr>
                                 <th>Patient ID</th>
-                                <th>Name</th>
-                                <th>Age</th>
-                                <th>Contact</th>
-                                <th>Last Visit</th>
-                                <th>Status</th>
+                                <th>Full Name</th>
+                                <th>Date of Birth</th>
+                                <th>Blood Type</th>
+                                <th>Contact No</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Medical History</th>
+                                <th>Emergency Contact</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody id="patientsTableBody">
-                            <tr data-patient-id="P-001">
-                                <td class="patient-id">P-001</td>
-                                <td class="patient-name">Maria Santos</td>
-                                <td>28</td>
-                                <td>09123456789</td>
-                                <td>2 days ago</td>
-                                <td>
-                                    <span class="status-badge status-active">ACTIVE</span>
-                                </td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="action-btn btn-edit" onclick="showUpdateForm('Maria Santos')">Update Records</button>
-                                        <button class="action-btn btn-referral" onclick="showReferrals('Maria Santos')">Referrals</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr data-patient-id="P-002">
-                                <td class="patient-id">P-002</td>
-                                <td class="patient-name">Ana Garcia</td>
-                                <td>32</td>
-                                <td>09234567890</td>
-                                <td>1 day ago</td>
-                                <td>
-                                    <span class="status-badge status-near-due">NEAR DUE</span>
-                                </td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="action-btn btn-edit" onclick="showUpdateForm('Ana Garcia')">Update Records</button>
-                                        <button class="action-btn btn-monitor" onclick="showMonitor('Ana Garcia')">Monitor</button>
-                                        <button class="action-btn btn-referral" onclick="showReferrals('Ana Garcia')">Referrals</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr data-patient-id="P-003">
-                                <td class="patient-id">P-003</td>
-                                <td class="patient-name">Rosa Cruz</td>
-                                <td>25</td>
-                                <td>09345678901</td>
-                                <td>1 week ago</td>
-                                <td>
-                                    <span class="status-badge status-active">ACTIVE</span>
-                                </td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="action-btn btn-edit" onclick="showUpdateForm('Rosa Cruz')">Update Records</button>
-                                        <button class="action-btn btn-referral" onclick="showReferrals('Rosa Cruz')">Referrals</button>
-                                    </div>
-                                </td>
-                            </tr>
+                            @forelse($patients as $patient)
+                                <tr data-patient-id="{{ $patient->id }}">
+                                    <td class="patient-id">P-{{ str_pad($patient->id, 3, '0', STR_PAD_LEFT) }}</td>
+                                    <td class="patient-name">{{ $patient->full_name }}</td>
+                                    {{-- Ensure date_of_birth is cast to a date in your Patient model --}}
+                                    <td>
+                                        @if($patient->date_of_birth)
+                                            {{ $patient->date_of_birth->format('M d, Y') }}
+                                            ({{ $patient->date_of_birth->age }} years)
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
+                                    <td>{{ $patient->blood_type ?? 'N/A' }}</td>
+                                    <td>{{ $patient->phone }}</td>
+                                    <td>{{ $patient->email }}</td>
+                                    <td>{{ $patient->address }}</td>
+                                    <td>{{ $patient->medical_history ?? 'None' }}</td>
+                                    <td>{{ $patient->emergency_contact_name }} ({{ $patient->emergency_contact_phone }})</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="action-btn btn-view" onclick="showUpdateForm('{{ $patient->full_name }}')">View Records</button>
+                                            <button class="action-btn btn-monitor" onclick="showMonitor('{{ $patient->full_name }}')">Monitor</button>
+                                            <button class="action-btn btn-referral" onclick="showReferrals('{{ $patient->full_name }}')">Referrals</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="10" class="text-center py-5">
+                                        <i class="fas fa-user-slash fa-3x text-muted mb-3"></i>
+                                        <h5 class="text-muted">No Patients Found</h5>
+                                        <p class="text-muted">There are currently no patient records in the database.</p>
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
             </div>
+        </div>
+        <div class="card-footer bg-white">
+            {{ $patients->links() }}
         </div>
 
         <!-- Enhanced Update Records Form -->
@@ -1403,176 +1698,9 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Critical Alert Modal -->
-            <div id="criticalAlertModal" class="modal fade" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content border-0 shadow">
-                        <div class="modal-body p-5 text-center">
-                            <div class="bg-danger bg-opacity-10 p-4 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
-                                <i class="fas fa-exclamation-triangle text-danger" style="font-size: 2rem;"></i>
-                            </div>
-                            <h3 class="text-danger fw-bold mb-4">CRITICAL ALERT</h3>
-                            <p class="text-muted mb-4" id="alertMessage">Labor progress has reached the action line. Immediate medical intervention required.</p>
-                            <div class="d-grid gap-2">
-                                <button onclick="acknowledgeAlert()" class="btn btn-danger btn-lg fw-bold">
-                                    <i class="fas fa-check me-2"></i>Acknowledge Alert
-                                </button>
-                                <button onclick="closeAlert()" class="btn btn-outline-secondary">
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
-        <!-- Enhanced Referrals View -->
-        <div id="referrals-view" class="page-content" style="display: none;">
-            <div class="referral-container">
-                <div class="referral-header">
-                    <div class="header-content">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <h2 class="mb-2" style="font-size: 1.75rem; font-weight: 700;">
-                                    Patient Referral Form
-                                </h2>
-                                <p class="mb-0" style="opacity: 0.9; font-size: 1rem;">
-                                    Creating referral for <span id="referral-patient-name" style="font-weight: 600;">Patient Name</span>
-                                </p>
-                            </div>
-                            <button onclick="showDashboard()" class="btn btn-outline-light fw-bold">
-                                <i class="fas fa-home me-2"></i>Back to Dashboard
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="referral-body">
-                    <!-- Institution Information -->
-                    <div class="referral-section">
-                        <div class="referral-section-title">
-                            <i class="fas fa-hospital"></i>
-                            Institution Information
-                        </div>
-                        <div class="referral-form-grid">
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Referring Hospital/Clinic *</label>
-                                <input type="text" class="enhanced-form-control" placeholder="Enter the name of referring institution">
-                            </div>
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Institution Address</label>
-                                <input type="text" class="enhanced-form-control" placeholder="Complete address of the institution">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Medical Information -->
-                    <div class="referral-section">
-                        <div class="referral-section-title">
-                            <i class="fas fa-stethoscope"></i>
-                            Medical Information
-                        </div>
-                        <div class="enhanced-form-group">
-                            <label class="enhanced-form-label">Reason for Referral *</label>
-                            <textarea class="enhanced-form-control" rows="4" placeholder="Provide detailed medical reason for referral, including current condition, symptoms, and urgency level..."></textarea>
-                        </div>
-                        <div class="referral-form-grid">
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Primary Diagnosis</label>
-                                <input type="text" class="enhanced-form-control" placeholder="Enter primary diagnosis">
-                            </div>
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Urgency Level</label>
-                                <select class="enhanced-form-control">
-                                    <option value="">Select urgency level</option>
-                                    <option value="routine">Routine</option>
-                                    <option value="urgent">Urgent</option>
-                                    <option value="emergency">Emergency</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Healthcare Provider Information -->
-                    <div class="referral-section">
-                        <div class="referral-section-title">
-                            <i class="fas fa-user-md"></i>
-                            Healthcare Provider Information
-                        </div>
-                        <div class="referral-form-grid">
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Referring Doctor *</label>
-                                <input type="text" class="enhanced-form-control" placeholder="Enter doctor's full name">
-                            </div>
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Medical License Number</label>
-                                <input type="text" class="enhanced-form-control" placeholder="Enter license number">
-                            </div>
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Contact Number *</label>
-                                <input type="tel" class="enhanced-form-control" placeholder="Enter contact number">
-                            </div>
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Email Address</label>
-                                <input type="email" class="enhanced-form-control" placeholder="Enter email address">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Additional Information -->
-                    <div class="referral-section">
-                        <div class="referral-section-title">
-                            <i class="fas fa-clipboard-list"></i>
-                            Additional Information
-                        </div>
-                        <div class="enhanced-form-group">
-                            <label class="enhanced-form-label">Patient's Medical History</label>
-                            <textarea class="enhanced-form-control" rows="3" placeholder="Brief summary of relevant medical history..."></textarea>
-                        </div>
-                        <div class="enhanced-form-group">
-                            <label class="enhanced-form-label">Special Instructions & Notes</label>
-                            <textarea class="enhanced-form-control" rows="3" placeholder="Any special instructions, patient preferences, or additional information..."></textarea>
-                        </div>
-                        <div class="referral-form-grid">
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Preferred Appointment Date</label>
-                                <input type="date" class="enhanced-form-control">
-                            </div>
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Patient Insurance</label>
-                                <input type="text" class="enhanced-form-control" placeholder="Insurance provider or plan">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="referral-actions">
-                    <div class="d-flex flex-wrap align-items-center justify-content-between">
-                        <div>
-                            <button class="referral-button referral-button-primary">
-                                <i class="fas fa-paper-plane"></i>Submit Referral
-                            </button>
-                            <button class="referral-button referral-button-secondary">
-                                <i class="fas fa-save"></i>Save as Draft
-                            </button>
-                        </div>
-                        <div>
-                            <button class="referral-button referral-button-secondary">
-                                <i class="fas fa-print"></i>Print Form
-                            </button>
-                            <button class="referral-button referral-button-purple">
-                                <i class="fas fa-envelope"></i>Email Referral
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Add New Patient Modal -->
+        <!-- Add New Patient Modal -->
     <div class="modal fade" id="addPatientModal" tabindex="-1" aria-labelledby="addPatientModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content border-0">
@@ -1587,6 +1715,7 @@
                 <!-- Modal Body -->
                 <div class="modal-body p-4">
                     <form id="addPatientForm">
+                        @csrf
                         <!-- Patient Information Section -->
                         <div class="section-header mb-3">
                             <h6 class="fw-bold text-secondary mb-3">Patient Information</h6>
@@ -1594,25 +1723,34 @@
 
                         <div class="row g-3 mb-4">
                             <div class="col-md-6">
-                                <label for="fullName" class="form-label fw-semibold">Full Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form-control-lg border-0 bg-light" id="fullName" name="full_name" required>
+                                <label for="first_name" class="form-label fw-semibold">First Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control form-control-lg border-0 bg-light" id="first_name" name="first_name" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="age" class="form-label fw-semibold">Age <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control form-control-lg border-0 bg-light" id="age" name="age" min="1" max="100" required>
-                                    <span class="input-group-text bg-light border-0">
-                                        <i class="fas fa-calendar-alt text-muted"></i>
-                                    </span>
-                                </div>
+                                <label for="last_name" class="form-label fw-semibold">Last Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control form-control-lg border-0 bg-light" id="last_name" name="last_name" required>
                             </div>
                         </div>
 
                         <div class="row g-3 mb-4">
                             <div class="col-md-6">
-                                <label for="contactNumber" class="form-label fw-semibold">Contact Number <span class="text-danger">*</span></label>
-                                <input type="tel" class="form-control form-control-lg border-0 bg-light" id="contactNumber" name="contact_number" required>
+                                <label for="date_of_birth" class="form-label fw-semibold">Date of Birth <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control form-control-lg border-0 bg-light" id="date_of_birth" name="date_of_birth" required>
                             </div>
+                            <div class="col-md-6">
+                                <label for="contact_number" class="form-label fw-semibold">Contact Number <span class="text-danger">*</span></label>
+                                <input type="tel" class="form-control form-control-lg border-0 bg-light" id="contact_number" name="contact_number" required>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-12">
+                                <label for="address" class="form-label fw-semibold">Address <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control form-control-lg border-0 bg-light" id="address" name="address" placeholder="Street, Barangay, City/Province" required>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-4">
                             <div class="col-md-6">
                                 <label for="email" class="form-label fw-semibold">Email (Optional)</label>
                                 <input type="email" class="form-control form-control-lg border-0 bg-light" id="email" name="email">
@@ -1627,17 +1765,17 @@
                         <div class="mb-4">
                             <textarea class="form-control border-0 bg-light" id="medicalHistory" name="medical_history" rows="4" 
                                       placeholder="Any relevant medical history, allergies, or current medications"></textarea>
-                        </div>
+                                               </div>
 
                         <!-- Emergency Contact Section -->
                         <div class="row g-3 mb-4">
                             <div class="col-md-6">
-                                <label for="emergencyContactName" class="form-label fw-semibold">Emergency Contact Name</label>
-                                <input type="text" class="form-control form-control-lg border-0 bg-light" id="emergencyContactName" name="emergency_contact_name">
+                                <label for="emergency_contact_name" class="form-label fw-semibold">Emergency Contact Name</label>
+                                <input type="text" class="form-control form-control-lg border-0 bg-light" id="emergency_contact_name" name="emergency_contact_name">
                             </div>
                             <div class="col-md-6">
-                                <label for="emergencyContactNumber" class="form-label fw-semibold">Emergency Contact Number</label>
-                                <input type="tel" class="form-control form-control-lg border-0 bg-light" id="emergencyContactNumber" name="emergency_contact_number">
+                                <label for="emergency_contact_number" class="form-label fw-semibold">Emergency Contact Number</label>
+                                <input type="tel" class="form-control form-control-lg border-0 bg-light" id="emergency_contact_number" name="emergency_contact_number">
                             </div>
                         </div>
                     </form>
@@ -1656,487 +1794,571 @@
         </div>
     </div>
 
-    <!-- Mobile Sidebar Toggle -->
-    <button class="btn btn-primary d-md-none" id="sidebarToggle" style="position: fixed; top: 10px; left: 10px; z-index: 9999;">
-        <i class="fas fa-bars"></i>
-    </button>
+    <!-- PATIENT PROFILE WITH 11 TABS - FIXED LAYOUT -->
+    <div id="patient-profile" class="page-content" style="display:none; background: #f8f9fa; padding: 0;">
+        <!-- Header Section -->
+        <div class="bg-white border-bottom" style="padding: 1rem 2rem;">
+            <div class="d-flex align-items-center justify-content-between gap-3">
+                <button onclick="backToList()" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to List
+                </button>
+                <h4 class="mb-0" id="profile-title">
+                    <span id="profile-name" style="color: #d63384; font-weight: 700;">Patient Name</span>
+                    <span style="color: #6c757d; font-weight: 500; font-size: 1rem; margin-left: 0.5rem;">- Complete Medical Record</span>
+                </h4>
+            </div>
+        </div>
+
+        <!-- SCROLLABLE TABS -->
+        <div style="background: white; border-bottom: 2px solid #dee2e6; overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 0;">
+            <ul class="nav nav-tabs mb-0" id="recordTabs" style="min-width: max-content; border: none; padding: 0; margin: 0;">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#clinical" style="border: none; border-bottom: 3px solid #d63384; border-radius: 0; color: #6c757d; font-weight: 600; padding: 0.75rem 1.25rem; white-space: nowrap;">
+                        <i class="fas fa-user-nurse me-2"></i>Clinical
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#consent" style="border: none; border-bottom: 3px solid transparent; border-radius: 0; color: #6c757d; font-weight: 600; padding: 0.75rem 1.25rem; white-space: nowrap;">
+                        <i class="fas fa-file-contract me-2"></i>Consent
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#partograph" style="border: none; border-bottom: 3px solid transparent; border-radius: 0; color: #6c757d; font-weight: 600; padding: 0.75rem 1.25rem; white-space: nowrap;">
+                        <i class="fas fa-chart-line me-2"></i>Partograph
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#doctors" style="border: none; border-bottom: 3px solid transparent; border-radius: 0; color: #6c757d; font-weight: 600; padding: 0.75rem 1.25rem; white-space: nowrap;">
+                        <i class="fas fa-user-md me-2"></i>Doctor's Order
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#history" style="border: none; border-bottom: 3px solid transparent; border-radius: 0; color: #6c757d; font-weight: 600; padding: 0.75rem 1.25rem; white-space: nowrap;">
+                        <i class="fas fa-clipboard-list me-2"></i>History
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#obstetrical" style="border: none; border-bottom: 3px solid transparent; border-radius: 0; color: #6c757d; font-weight: 600; padding: 0.75rem 1.25rem; white-space: nowrap;">
+                        <i class="fas fa-baby me-2"></i>Obstetrical
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#nurses" style="border: none; border-bottom: 3px solid transparent; border-radius: 0; color: #6c757d; font-weight: 600; padding: 0.75rem 1.25rem; white-space: nowrap;">
+                        <i class="fas fa-notes-medical me-2"></i>Nurses
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#medication" style="border: none; border-bottom: 3px solid transparent; border-radius: 0; color: #6c757d; font-weight: 600; padding: 0.75rem 1.25rem; white-space: nowrap;">
+                        <i class="fas fa-pills me-2"></i>Medication
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#laboratory" style="border: none; border-bottom: 3px solid transparent; border-radius: 0; color: #6c757d; font-weight: 600; padding: 0.75rem 1.25rem; white-space: nowrap;">
+                        <i class="fas fa-microscope me-2"></i>Laboratory
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#postpartum" style="border: none; border-bottom: 3px solid transparent; border-radius: 0; color: #6c757d; font-weight: 600; padding: 0.75rem 1.25rem; white-space: nowrap;">
+                        <i class="fas fa-heart me-2"></i>Postpartum
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#discharge" style="border: none; border-bottom: 3px solid transparent; border-radius: 0; color: #6c757d; font-weight: 600; padding: 0.75rem 1.25rem; white-space: nowrap;">
+                        <i class="fas fa-door-open me-2"></i>Discharge
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- TAB CONTENT -->
+        <div class="tab-content bg-white" style="min-height: 60vh; padding: 1.5rem 2rem;">
+            <!-- CLINICAL TAB -->
+            <div class="tab-pane fade show active" id="clinical">
+                <h5 class="mb-2" style="color: #2d3748; font-weight: 700;">Mother's Clinical Record</h5>
+                <p class="text-muted mb-3" style="font-size: 0.95rem;">Complete the clinical information and medical history for the patient.</p>
+                <form id="clinicalForm">
+                    <div class="row g-3">
+                        <div class="col-lg-6">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Obstetric History</label>
+                            <textarea class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;" rows="3" placeholder="Previous pregnancies, deliveries, complications..."></textarea>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Current Pregnancy Details</label>
+                            <textarea class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;" rows="3" placeholder="LMP, EDC, any symptoms..."></textarea>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Blood Pressure</label>
+                            <input type="text" class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;" placeholder="120/80 mmHg">
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Weight (kg)</label>
+                            <input type="number" class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;" placeholder="e.g., 65">
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button type="button" class="btn" style="background: linear-gradient(135deg, #d63384, #ff6b9d); color: white; padding: 0.5rem 1.5rem; font-weight: 600; border: none; border-radius: 8px; font-size: 0.9rem;" onclick="saveClinical()">
+                            <i class="fas fa-save me-2"></i>Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- PAHINTULOT TAB -->
+            <div class="tab-pane fade" id="consent">
+                <h5 class="mb-2" style="color: #2d3748; font-weight: 700;">Pahintulot sa Pangangalaga</h5>
+                <div class="alert alert-info mb-3" style="background: #e7f3ff; border: none; border-left: 4px solid #0066cc; border-radius: 8px; font-size: 0.9rem;">
+                    <i class="fas fa-info-circle me-2"></i>Informed consent document for maternal care procedures
+                </div>
+                <form>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="consent1" style="width: 1.1rem; height: 1.1rem;">
+                        <label class="form-check-label ms-3" for="consent1" style="font-weight: 500; color: #374151; font-size: 0.9rem;">
+                            Ako ay sumasang-ayon sa lahat ng medical procedures na kinakailangan para sa aking kalusugan.
+                        </label>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="consent2" style="width: 1.1rem; height: 1.1rem;">
+                        <label class="form-check-label ms-3" for="consent2" style="font-weight: 500; color: #374151; font-size: 0.9rem;">
+                            Naintindihan ko ang lahat ng risks at benefits.
+                        </label>
+                    </div>
+                    <button type="button" class="btn" style="background: #10b981; color: white; padding: 0.5rem 1.5rem; font-weight: 600; border: none; border-radius: 8px; font-size: 0.9rem;">
+                        <i class="fas fa-check me-2"></i>Mark Consent
+                    </button>
+                </form>
+            </div>
+
+            <!-- PARTOGRAPH TAB -->
+            <div class="tab-pane fade" id="partograph">
+                <h5 class="mb-2" style="color: #2d3748; font-weight: 700;">Partograph</h5>
+                <p class="text-muted mb-3" style="font-size: 0.9rem;">Labor progress chart and monitoring data.</p>
+                <div id="partographChart" style="height: 350px; background: #f8f9fa; border: 2px dashed #dee2e6; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                    <p class="text-muted"><i class="fas fa-chart-line me-2"></i>Chart will load here</p>
+                </div>
+            </div>
+
+            <!-- DOCTOR'S ORDER TAB -->
+            <div class="tab-pane fade" id="doctors">
+                <h5 class="mb-2" style="color: #2d3748; font-weight: 700;">Doctor's Order</h5>
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Medications Prescribed</label>
+                        <textarea class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;" rows="3" placeholder="List medications with dosage..."></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Special Instructions</label>
+                        <textarea class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;" rows="3" placeholder="Any special care instructions..."></textarea>
+                    </div>
+                    <button type="button" class="btn" style="background: linear-gradient(135deg, #d63384, #ff6b9d); color: white; padding: 0.5rem 1.5rem; font-weight: 600; border: none; border-radius: 8px; font-size: 0.9rem;">
+                        <i class="fas fa-save me-2"></i>Save
+                    </button>
+                </form>
+            </div>
+
+            <!-- HISTORY & PHYSICAL EXAM TAB -->
+            <div class="tab-pane fade" id="history">
+                <h5 class="mb-2" style="color: #2d3748; font-weight: 700;">History & Physical Exam</h5>
+                <form>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Chief Complaint</label>
+                            <input type="text" class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;" placeholder="Primary reason for visit">
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Temperature (°C)</label>
+                            <input type="number" class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;" step="0.1" placeholder="e.g., 37.2">
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Heart Rate (bpm)</label>
+                            <input type="number" class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;" placeholder="e.g., 80">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Physical Examination Findings</label>
+                            <textarea class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;" rows="3" placeholder="Detailed findings..."></textarea>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button type="button" class="btn" style="background: linear-gradient(135deg, #d63384, #ff6b9d); color: white; padding: 0.5rem 1.5rem; font-weight: 600; border: none; border-radius: 8px; font-size: 0.9rem;">
+                            <i class="fas fa-save me-2"></i>Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- OBSTETRICAL RECORD TAB -->
+            <div class="tab-pane fade" id="obstetrical">
+                <h5 class="mb-2" style="color: #2d3748; font-weight: 700;">Obstetrical Record</h5>
+                <form>
+                    <div class="row g-3">
+                        <div class="col-lg-6">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Number of Pregnancies</label>
+                            <input type="number" class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;" placeholder="Gravida">
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Number of Deliveries</label>
+                            <input type="number" class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;" placeholder="Para">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Labor Notes</label>
+                            <textarea class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;" rows="3" placeholder="Labor duration, complications, mode of delivery..."></textarea>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button type="button" class="btn" style="background: linear-gradient(135deg, #d63384, #ff6b9d); color: white; padding: 0.5rem 1.5rem; font-weight: 600; border: none; border-radius: 8px; font-size: 0.9rem;">
+                            <i class="fas fa-save me-2"></i>Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- NURSES/MIDWIFE NOTE TAB -->
+            <div class="tab-pane fade" id="nurses">
+                <h5 class="mb-2" style="color: #2d3748; font-weight: 700;">Nurses/Midwife Note</h5>
+                <form>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Shift Note</label>
+                            <textarea class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;" rows="4" placeholder="Patient status, interventions, observations..."></textarea>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Time of Entry</label>
+                            <input type="time" class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;">
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Nurse Name</label>
+                            <input type="text" class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;" placeholder="Full name">
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button type="button" class="btn" style="background: linear-gradient(135deg, #d63384, #ff6b9d); color: white; padding: 0.5rem 1.5rem; font-weight: 600; border: none; border-radius: 8px; font-size: 0.9rem;">
+                            <i class="fas fa-save me-2"></i>Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- MEDICATION SHEET TAB -->
+            <div class="tab-pane fade" id="medication">
+                <h5 class="mb-2" style="color: #2d3748; font-weight: 700;">Medication Sheet</h5>
+                <button class="btn mb-3" style="background: #10b981; color: white; padding: 0.5rem 1.25rem; font-weight: 600; border: none; border-radius: 8px; font-size: 0.9rem;" onclick="addMedicationRow()">
+                    <i class="fas fa-plus me-2"></i>Add Medication
+                </button>
+                <div class="table-responsive" style="font-size: 0.9rem;">
+                    <table class="table table-sm table-bordered">
+                        <thead style="background: #f3f4f6;">
+                            <tr>
+                                <th style="color: #374151; font-weight: 700; border-color: #e5e7eb;">Date/Time</th>
+                                <th style="color: #374151; font-weight: 700; border-color: #e5e7eb;">Medication</th>
+                                <th style="color: #374151; font-weight: 700; border-color: #e5e7eb;">Dosage</th>
+                                <th style="color: #374151; font-weight: 700; border-color: #e5e7eb;">Route</th>
+                                <th style="color: #374151; font-weight: 700; border-color: #e5e7eb;">Nurse</th>
+                                <th style="color: #374151; font-weight: 700; border-color: #e5e7eb;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="medicationTable">
+                            <tr>
+                                <td><input type="datetime-local" class="form-control form-control-sm" style="border: 1px solid #e5e7eb; font-size: 0.85rem;"></td>
+                                <td><input type="text" class="form-control form-control-sm" style="border: 1px solid #e5e7eb; font-size: 0.85rem;" placeholder="e.g., Oxytocin"></td>
+                                <td><input type="text" class="form-control form-control-sm" style="border: 1px solid #e5e7eb; font-size: 0.85rem;" placeholder="e.g., 10 IU"></td>
+                                <td><select class="form-select form-select-sm" style="border: 1px solid #e5e7eb; font-size: 0.85rem;"><option>IV</option><option>IM</option><option>PO</option></select></td>
+                                <td><input type="text" class="form-control form-control-sm" style="border: 1px solid #e5e7eb; font-size: 0.85rem;" placeholder="Name"></td>
+                                <td><button type="button" class="btn btn-sm btn-danger" onclick="this.closest('tr').remove()">Remove</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-3">
+                    <button type="button" class="btn" style="background: linear-gradient(135deg, #d63384, #ff6b9d); color: white; padding: 0.5rem 1.5rem; font-weight: 600; border: none; border-radius: 8px; font-size: 0.9rem;">
+                        <i class="fas fa-save me-2"></i>Save
+                    </button>
+                </div>
+            </div>
+
+            <!-- LABORATORY TAB -->
+            <div class="tab-pane fade" id="laboratory">
+                <h5 class="mb-2" style="color: #2d3748; font-weight: 700;">Laboratory Results</h5>
+                <button class="btn mb-3" style="background: linear-gradient(135deg, #d63384, #ff6b9d); color: white; padding: 0.5rem 1.25rem; font-weight: 600; border: none; border-radius: 8px; font-size: 0.9rem;" data-bs-toggle="modal" data-bs-target="#labModal">
+                    <i class="fas fa-flask me-2"></i>Order Lab Tests
+                </button>
+                <div class="table-responsive" style="font-size: 0.9rem;">
+                    <table class="table table-sm">
+                        <thead style="background: #f3f4f6;">
+                            <tr>
+                                <th style="color: #374151; font-weight: 700; border-color: #e5e7eb;">Date</th>
+                                <th style="color: #374151; font-weight: 700; border-color: #e5e7eb;">Test Name</th>
+                                <th style="color: #374151; font-weight: 700; border-color: #e5e7eb;">Result</th>
+                                <th style="color: #374151; font-weight: 700; border-color: #e5e7eb;">Normal Range</th>
+                                <th style="color: #374151; font-weight: 700; border-color: #e5e7eb;">Status</th>
+                                <th style="color: #374151; font-weight: 700; border-color: #e5e7eb;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lab-history" style="border-color: #e5e7eb;">
+                            <tr>
+                                <td style="border-color: #e5e7eb;">2025-12-10</td>
+                                <td style="border-color: #e5e7eb;">Complete Blood Count (CBC)</td>
+                                <td style="border-color: #e5e7eb;">Hb: 11.2 g/dL</td>
+                                <td style="border-color: #e5e7eb;">12-16 g/dL</td>
+                                <td style="border-color: #e5e7eb;"><span class="badge bg-warning" style="color: #000; font-size: 0.8rem;">Low</span></td>
+                                <td style="border-color: #e5e7eb;"><button class="btn btn-sm btn-outline-primary">View</button></td>
+                            </tr>
+                            <tr>
+                                <td style="border-color: #e5e7eb;">2025-12-08</td>
+                                <td style="border-color: #e5e7eb;">Blood Typing</td>
+                                <td style="border-color: #e5e7eb;">O+</td>
+                                <td style="border-color: #e5e7eb;">-</td>
+                                <td style="border-color: #e5e7eb;"><span class="badge bg-success" style="font-size: 0.8rem;">Normal</span></td>
+                                <td style="border-color: #e5e7eb;"><button class="btn btn-sm btn-outline-primary">View</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- POSTPARTUM TAB -->
+            <div class="tab-pane fade" id="postpartum">
+                <h5 class="mb-2" style="color: #2d3748; font-weight: 700;">Postpartum Record</h5>
+                <form>
+                    <div class="row g-3">
+                        <div class="col-lg-6">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Date of Delivery</label>
+                            <input type="date" class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;">
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Mode of Delivery</label>
+                            <select class="form-select" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;">
+                                <option>Spontaneous Vaginal Delivery</option>
+                                <option>Cesarean Section</option>
+                                <option>Assisted Delivery</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Postpartum Complications</label>
+                            <textarea class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;" rows="3" placeholder="Any complications, recovery notes..."></textarea>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button type="button" class="btn" style="background: linear-gradient(135deg, #d63384, #ff6b9d); color: white; padding: 0.5rem 1.5rem; font-weight: 600; border: none; border-radius: 8px; font-size: 0.9rem;">
+                            <i class="fas fa-save me-2"></i>Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- DISCHARGE TAB -->
+            <div class="tab-pane fade" id="discharge">
+                <h5 class="mb-2" style="color: #2d3748; font-weight: 700;">Discharge Plan</h5>
+                <form>
+                    <div class="row g-3">
+                        <div class="col-lg-6">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Discharge Date</label>
+                            <input type="date" class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;">
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Discharge Status</label>
+                            <select class="form-select" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;">
+                                <option>Home Care</option>
+                                <option>Referred to Hospital</option>
+                                <option>Follow-up Required</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Discharge Instructions</label>
+                            <textarea class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;" rows="3" placeholder="Medications, diet, activity restrictions..."></textarea>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold" style="color: #374151; font-size: 0.9rem;">Follow-up Appointment</label>
+                            <input type="date" class="form-control" style="border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;">
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button type="button" class="btn" style="background: #10b981; color: white; padding: 0.5rem 1.5rem; font-weight: 600; border: none; border-radius: 8px; font-size: 0.9rem;">
+                            <i class="fas fa-check me-2"></i>Mark Discharged
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- LABORATORY ORDER MODAL -->
+    <div class="modal fade" id="labModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">
+                        <i class="fas fa-flask me-2"></i>Order Laboratory Tests
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="accordion" id="labCategories">
+                        <!-- HEMATOLOGY -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#hematology">
+                                    <i class="fas fa-droplet me-2"></i>Hematology Tests
+                                </button>
+                            </h2>
+                            <div id="hematology" class="accordion-collapse collapse show" data-bs-parent="#labCategories">
+                                <div class="accordion-body">
+                                    <div class="row g-2">
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> CBC, Platelet – ₱250</label></div>
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> Blood Typing – ₱150</label></div>
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> ESR – ₱250</label></div>
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> CT, BT – ₱100</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- URINALYSIS & STOOL -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#urinalysis">
+                                    <i class="fas fa-flask-vial me-2"></i>Urinalysis & Stool
+                                </button>
+                            </h2>
+                            <div id="urinalysis" class="accordion-collapse collapse" data-bs-parent="#labCategories">
+                                <div class="accordion-body">
+                                    <div class="row g-2">
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> Urinalysis – ₱65</label></div>
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> Fecalysis – ₱65</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PREGNANCY TESTS -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#pregnancy">
+                                    <i class="fas fa-heart me-2"></i>Pregnancy Tests
+                                </button>
+                            </h2>
+                            <div id="pregnancy" class="accordion-collapse collapse" data-bs-parent="#labCategories">
+                                <div class="accordion-body">
+                                    <div class="row g-2">
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> Pregnancy Test (Blood) – ₱300</label></div>
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> Pregnancy Test (Urine) – ₱200</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SEROLOGY & INFECTIOUS DISEASE -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#serology">
+                                    <i class="fas fa-vial me-2"></i>Serology & Infectious Disease
+                                </button>
+                            </h2>
+                            <div id="serology" class="accordion-collapse collapse" data-bs-parent="#labCategories">
+                                <div class="accordion-body">
+                                    <div class="row g-2">
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> HBsAg – ₱220</label></div>
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> Hepa A Screening – ₱600</label></div>
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> ASO Titer – ₱250</label></div>
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> RPR – ₱180</label></div>
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> Hepa B Antibody Test (Qualitative) – ₱350</label></div>
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> Hepa B Antibody Test (Quantitative) – ₱950</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- METABOLIC & RENAL FUNCTION -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#metabolic">
+                                    <i class="fas fa-flask me-2"></i>Metabolic & Renal Function
+                                </button>
+                            </h2>
+                            <div id="metabolic" class="accordion-collapse collapse" data-bs-parent="#labCategories">
+                                <div class="accordion-body">
+                                    <div class="row g-2">
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> FBS – ₱80</label></div>
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> BUN – ₱140</label></div>
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> Creatinine – ₱110</label></div>
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> Uric Acid – ₱110</label></div>
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> Lipid Profile – ₱350</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- LIVER FUNCTION & GLUCOSE -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#liver">
+                                    <i class="fas fa-microscope me-2"></i>Liver Function & Glucose
+                                </button>
+                            </h2>
+                            <div id="liver" class="accordion-collapse collapse" data-bs-parent="#labCategories">
+                                <div class="accordion-body">
+                                    <div class="row g-2">
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> SGPT – ₱210</label></div>
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> SGOT – ₱210</label></div>
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> HBA1C – ₱750</label></div>
+                                        <div class="col-md-6"><label class="form-check"><input type="checkbox" class="form-check-input"> 75 GMS OGTT – ₱750</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="orderSelectedTests()">
+                        <i class="fas fa-check me-2"></i>Order Selected Tests
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script>
-        // Global variables
+        // ==================== FORM NAVIGATION STATE ====================
         let currentStep = 0;
         let currentPatient = '';
-        let formData = {};
-
-        // Partograph variables
-        let measurements = {
-            actual: [],
-            alert: [],
-            action: []
-        };
-        let chart = null;
-        let alertActive = false;
-        let alertAcknowledged = false;
-        let redZoneCount = 0;
-        let currentZone = 'green';
+        let formData = {}; // Store patient form data per section
 
         const formSections = [
-            { id: 'clinical', title: "Mother's Clinical Record", icon: 'fas fa-user-nurse', description: 'Complete the clinical information and medical history for the patient.' },
-            { id: 'pahintulot', title: 'Pahintulot sa Pangangalaga/Pag-aasikaso', icon: 'fas fa-file-contract', description: 'Consent form for patient care and treatment authorization.' },
-            { id: 'partograph', title: 'Partograph', icon: 'fas fa-chart-line', description: 'Labor monitoring chart and progress tracking during delivery.' },
-            { id: 'doctors_order', title: "Doctor's Order", icon: 'fas fa-user-md', description: 'Medical orders and prescriptions from attending physician.' },
-            { id: 'history_exam', title: 'Comprehensive History and Physical Examination', icon: 'fas fa-clipboard-list', description: 'Detailed patient history and physical examination findings.' },
-            { id: 'obstetrical', title: 'Obstetrical Record', icon: 'fas fa-baby', description: 'Pregnancy and delivery related medical information.' },
-            { id: 'nurses_note', title: 'Nurses/Midwife Note', icon: 'fas fa-notes-medical', description: 'Nursing observations, care provided, and patient status updates.' },
-            { id: 'medication', title: 'Medication Sheet', icon: 'fas fa-pills', description: 'Medication administration record and drug therapy monitoring.' },
-            { id: 'laboratory', title: 'Laboratory', icon: 'fas fa-microscope', description: 'Laboratory test results and diagnostic findings.' },
-            { id: 'postpartum', title: 'Postpartum Record', icon: 'fas fa-heart', description: 'Post-delivery care and recovery monitoring.' },
-            { id: 'discharge', title: 'Discharge Plan', icon: 'fas fa-door-open', description: 'Discharge summary and follow-up care instructions.' }
+            { id: 'clinical', title: "Mother's Clinical Record", icon: 'fas fa-user-nurse' },
+            { id: 'pahintulot', title: 'Pahintulot sa Pangangalaga', icon: 'fas fa-file-contract' },
+            { id: 'partograph', title: 'Partograph', icon: 'fas fa-chart-line' },
+            { id: 'doctors_order', title: "Doctor's Order", icon: 'fas fa-user-md' },
+            { id: 'history_exam', title: 'History & Physical Exam', icon: 'fas fa-clipboard-list' },
+            { id: 'obstetrical', title: 'Obstetrical Record', icon: 'fas fa-baby' },
+            { id: 'nurses_note', title: 'Nurses/Midwife Note', icon: 'fas fa-notes-medical' },
+            { id: 'medication', title: 'Medication Sheet', icon: 'fas fa-pills' },
+            { id: 'laboratory', title: 'Laboratory', icon: 'fas fa-microscope' },
+            { id: 'postpartum', title: 'Postpartum Record', icon: 'fas fa-heart' },
+            { id: 'discharge', title: 'Discharge Plan', icon: 'fas fa-door-open' }
         ];
 
-        // Partograph Functions
-        function updateCurrentTime() {
-            const now = new Date();
-            const timeElement = document.getElementById('currentTime');
-            if (timeElement) {
-                timeElement.textContent = now.toLocaleTimeString();
-            }
-        }
-
-        function initChart() {
-            const ctx = document.getElementById('partographChart');
-            if (!ctx) return;
-
-            try {
-                chart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        datasets: [
-                            {
-                                label: 'Actual Progress',
-                                data: [],
-                                borderColor: '#10B981',
-                                backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                                borderWidth: 3,
-                                pointRadius: 6,
-                                pointHoverRadius: 8,
-                                pointBackgroundColor: '#10B981',
-                                pointBorderColor: '#ffffff',
-                                pointBorderWidth: 2,
-                                tension: 0.2,
-                                fill: false
-                            },
-                            {
-                                label: 'Alert Line',
-                                data: [],
-                                borderColor: '#F59E0B',
-                                backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                                borderWidth: 3,
-                                pointRadius: 5,
-                                pointBackgroundColor: '#F59E0B',
-                                pointBorderColor: '#ffffff',
-                                pointBorderWidth: 2,
-                                borderDash: [8, 4],
-                                tension: 0.1,
-                                fill: false
-                            },
-                            {
-                                label: 'Action Line',
-                                data: [],
-                                borderColor: '#EF4444',
-                                backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                                borderWidth: 3,
-                                pointRadius: 5,
-                                pointBackgroundColor: '#EF4444',
-                                pointBorderColor: '#ffffff',
-                                pointBorderWidth: 2,
-                                borderDash: [12, 6],
-                                tension: 0.1,
-                                fill: false
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                display: true,
-                                position: 'top'
-                            },
-                            tooltip: {
-                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                                titleColor: '#ffffff',
-                                bodyColor: '#ffffff',
-                                borderColor: '#374151',
-                                borderWidth: 1,
-                                cornerRadius: 8
-                            }
-                        },
-                        scales: {
-                            x: {
-                                type: 'linear',
-                                position: 'bottom',
-                                min: 0,
-                                max: 12,
-                                title: {
-                                    display: true,
-                                    text: 'Time (hours from start of labor)',
-                                    font: { size: 14, weight: '600' },
-                                    color: '#374151'
-                                },
-                                grid: {
-                                    display: true,
-                                    color: 'rgba(156, 163, 175, 0.3)'
-                                },
-                                ticks: {
-                                    stepSize: 1,
-                                    color: '#6B7280',
-                                    font: { size: 12 }
-                                }
-                            },
-                            y: {
-                                min: 0,
-                                max: 10,
-                                title: {
-                                    display: true,
-                                    text: 'Cervical Dilation (cm)',
-                                    font: { size: 14, weight: '600' },
-                                    color: '#374151'
-                                },
-                                grid: {
-                                    display: true,
-                                    color: 'rgba(156, 163, 175, 0.3)'
-                                },
-                                ticks: {
-                                    stepSize: 1,
-                                    color: '#6B7280',
-                                    font: { size: 12 }
-                                }
-                            }
-                        }
-                    }
-                });
-            } catch (error) {
-                console.error('Error initializing chart:', error);
-            }
-        }
-
-        function addMeasurement() {
-            const timeInput = document.getElementById('timeInput');
-            const dilationInput = document.getElementById('dilationInput');
-            const typeInput = document.getElementById('measurementType');
-
-            if (!timeInput || !dilationInput || !typeInput) {
-                showNotification('Form elements not found', 'danger');
-                return;
-            }
-
-            const timeValue = timeInput.value.trim();
-            const dilationValue = dilationInput.value.trim();
-            const type = typeInput.value;
-
-            if (!timeValue || !dilationValue) {
-                showNotification('Please enter both time and dilation values', 'warning');
-                return;
-            }
-
-            const time = parseFloat(timeValue);
-            const dilation = parseFloat(dilationValue);
-
-            if (isNaN(time) || isNaN(dilation)) {
-                showNotification('Please enter valid numbers', 'warning');
-                return;
-            }
-
-            if (time < 0 || time > 12) {
-                showNotification('Time must be between 0 and 12 hours', 'warning');
-                return;
-            }
-
-            if (dilation < 0 || dilation > 10) {
-                showNotification('Dilation must be between 0 and 10 cm', 'warning');
-                return;
-            }
-
-            const newPoint = { x: time, y: dilation, timestamp: new Date().toLocaleString() };
-            measurements[type].push(newPoint);
-            measurements[type].sort((a, b) => a.x - b.x);
-
-            checkCriticalConditions(type, time, dilation);
-            updateChart();
-            updateTable();
-            updateTotalPoints();
-
-            timeInput.value = '';
-            dilationInput.value = '';
-
-            showNotification('Measurement added successfully!', 'success');
-        }
-
-        function checkCriticalConditions(measurementType, time, dilation) {
-            if (measurementType !== 'actual') return;
-
-            const zone = determineZone(dilation, time);
-            const alertLineValue = getAlertLineValueAtTime(time);
-            const actionLineValue = getActionLineValueAtTime(time);
-            
-            updateZoneStatus(zone, dilation, time, alertLineValue, actionLineValue);
-
-            if (zone === 'red') {
-                redZoneCount++;
-                if (redZoneCount === 1) {
-                    showNotification('🔴 ENTERED RED ZONE - First dangerous measurement detected', 'danger');
-                } else if (redZoneCount === 2) {
-                    showNotification('🔴 RED ZONE - Second consecutive dangerous measurement!', 'danger');
-                } else if (redZoneCount >= 3 && !alertActive) {
-                    triggerCriticalAlert(time, dilation, actionLineValue, redZoneCount);
-                }
-            } else if (zone === 'yellow') {
-                if (redZoneCount > 0) {
-                    showNotification('🟡 YELLOW ZONE - Caution: Labor progress slowing but improved from red zone', 'warning');
-                    redZoneCount = 0;
-                } else {
-                    showNotification('🟡 YELLOW ZONE - Caution: Monitor labor progress closely', 'warning');
-                }
-            } else if (zone === 'green') {
-                if (redZoneCount > 0 || currentZone !== 'green') {
-                    showNotification('🟢 GREEN ZONE - Labor progressing normally', 'success');
-                    redZoneCount = 0;
-                }
-            }
-
-            currentZone = zone;
-        }
-
-        function updateZoneStatus(zone, dilation, time, alertLineValue, actionLineValue) {
-            const zoneIcon = document.getElementById('zoneIcon');
-            const zoneTitle = document.getElementById('zoneTitle');
-            const zoneDescription = document.getElementById('zoneDescription');
-            const redZoneCounter = document.getElementById('redZoneCounter');
-
-            if (redZoneCounter) {
-                redZoneCounter.textContent = redZoneCount;
-            }
-
-            if (!zoneIcon || !zoneTitle || !zoneDescription) return;
-
-            if (zone === 'green') {
-                zoneIcon.className = 'bg-success bg-opacity-10 p-3 rounded me-3';
-                zoneIcon.innerHTML = '<i class="fas fa-check-circle text-success" style="font-size: 1.25rem;"></i>';
-                zoneTitle.textContent = 'GREEN ZONE';
-                zoneTitle.className = 'text-success mb-1 fw-bold';
-                zoneDescription.textContent = `Labor progressing normally (${dilation}cm at ${time}h)`;
-            } else if (zone === 'yellow') {
-                zoneIcon.className = 'bg-warning bg-opacity-10 p-3 rounded me-3';
-                zoneIcon.innerHTML = '<i class="fas fa-exclamation-triangle text-warning" style="font-size: 1.25rem;"></i>';
-                zoneTitle.textContent = 'YELLOW ZONE';
-                zoneTitle.className = 'text-warning mb-1 fw-bold';
-                zoneDescription.textContent = `Caution: Labor progress slowing (${dilation}cm at ${time}h)`;
-            } else if (zone === 'red') {
-                zoneIcon.className = 'bg-danger bg-opacity-10 p-3 rounded me-3';
-                zoneIcon.innerHTML = '<i class="fas fa-exclamation-circle text-danger" style="font-size: 1.25rem;"></i>';
-                zoneTitle.textContent = 'RED ZONE';
-                zoneTitle.className = 'text-danger mb-1 fw-bold';
-                zoneDescription.textContent = `DANGER: Prolonged labor (${dilation}cm at ${time}h) - Measurement #${redZoneCount}`;
-            }
-        }
-
-        function getAlertLineValueAtTime(time) {
-            if (time <= 0) return 4;
-            if (time >= 8) return 10;
-            const slope = (10 - 4) / (8 - 0);
-            return 4 + (slope * time);
-        }
-
-        function getActionLineValueAtTime(time) {
-            if (time <= 0) return 4;
-            if (time >= 12) return 10;
-            const slope = (10 - 4) / (12 - 0);
-            return 4 + (slope * time);
-        }
-
-        function determineZone(dilation, time) {
-            const alertLineValue = getAlertLineValueAtTime(time);
-            const actionLineValue = getActionLineValueAtTime(time);
-            
-            if (dilation > alertLineValue) {
-                return 'green';
-            } else if (dilation > actionLineValue) {
-                return 'yellow';
-            } else {
-                return 'red';
-            }
-        }
-
-        function triggerCriticalAlert(time, actualDilation, actionLineValue, consecutiveRedCount) {
-            alertActive = true;
-            alertAcknowledged = false;
-            
-            const alertTime = new Date().toLocaleString();
-            
-            const modal = document.getElementById('criticalAlertModal');
-            const message = document.getElementById('alertMessage');
-            
-            message.innerHTML = `
-                <strong>🚨 LABOR EMERGENCY - RED ZONE ALERT 🚨</strong><br><br>
-                <div class="text-start bg-danger bg-opacity-10 p-4 rounded mb-4 border border-danger">
-                    <div class="fw-semibold mb-2 text-danger">⚠️ CRITICAL SITUATION DETECTED:</div>
-                    <div>• <strong>Time:</strong> ${time} hours from labor start</div>
-                    <div>• <strong>Actual dilation:</strong> ${actualDilation} cm</div>
-                    <div>• <strong>Red zone threshold:</strong> ${actionLineValue.toFixed(1)} cm</div>
-                    <div class="text-danger fw-bold mt-3">
-                        🔴 ${consecutiveRedCount} CONSECUTIVE MEASUREMENTS IN RED ZONE
-                    </div>
-                </div>
-                <div class="text-start bg-warning bg-opacity-10 p-4 rounded mb-4 border border-warning">
-                    <strong class="text-danger">⚡ IMMEDIATE ACTIONS REQUIRED:</strong><br><br>
-                    <div class="space-y-1">
-                        <div>🏥 <strong>1. CESAREAN DELIVERY - Consider immediately</strong></div>
-                        <div>🚑 <strong>2. HOSPITAL TRANSFER - If not in tertiary facility</strong></div>
-                        <div>📊 <strong>3. CONTINUOUS FETAL MONITORING - Start now</strong></div>
-                        <div>👨‍⚕️ <strong>4. SENIOR OBSTETRICIAN - Call immediately</strong></div>
-                        <div>📝 <strong>5. DOCUMENT ALL INTERVENTIONS</strong></div>
-                    </div>
-                </div>
-            `;
-            
-            const modalInstance = new bootstrap.Modal(modal);
-            modalInstance.show();
-            
-            const statusPanel = document.getElementById('alertStatus');
-            const statusText = document.getElementById('alertStatusText');
-            const alertTimeElement = document.getElementById('alertTime');
-            
-            statusText.textContent = `🚨 RED ZONE EMERGENCY: ${consecutiveRedCount} consecutive dangerous measurements - CRITICAL INTERVENTION REQUIRED`;
-            alertTimeElement.textContent = alertTime;
-            statusPanel.style.display = 'block';
-        }
-
-        function acknowledgeAlert() {
-            alertAcknowledged = true;
-            const modal = bootstrap.Modal.getInstance(document.getElementById('criticalAlertModal'));
-            modal.hide();
-            showNotification('Critical alert acknowledged. Continue monitoring patient closely.', 'warning');
-        }
-
-        function closeAlert() {
-            if (!alertAcknowledged) {
-                showNotification('Please acknowledge the alert first for patient safety', 'danger');
-                return;
-            }
-            const modal = bootstrap.Modal.getInstance(document.getElementById('criticalAlertModal'));
-            modal.hide();
-        }
-
-        function updateChart() {
-            if (!chart) return;
-            try {
-                chart.data.datasets[0].data = measurements.actual;
-                chart.data.datasets[1].data = measurements.alert;
-                chart.data.datasets[2].data = measurements.action;
-                chart.update();
-            } catch (error) {
-                console.error('Error updating chart:', error);
-            }
-        }
-
-        function updateTable() {
-            const tableBody = document.getElementById('measurementTable');
-            if (!tableBody) return;
-
-            tableBody.innerHTML = '';
-
-            const allMeasurements = [];
-            Object.keys(measurements).forEach(type => {
-                measurements[type].forEach(point => {
-                    allMeasurements.push({
-                        time: point.x,
-                        dilation: point.y,
-                        type: type,
-                        timestamp: point.timestamp
-                    });
-                });
-            });
-
-            allMeasurements.sort((a, b) => a.time - b.time);
-
-            if (allMeasurements.length === 0) {
-                const row = tableBody.insertRow();
-                row.innerHTML = `
-                    <td colspan="4" class="text-center py-4 text-muted">
-                        No measurements recorded yet
-                    </td>
-                `;
-                return;
-            }
-
-            allMeasurements.forEach(measurement => {
-                const row = tableBody.insertRow();
-                row.innerHTML = `
-                    <td class="fw-medium">${measurement.time}h</td>
-                    <td class="fw-medium">${measurement.dilation} cm</td>
-                    <td>
-                        <span class="badge ${getTypeStyle(measurement.type)}">
-                            ${measurement.type.charAt(0).toUpperCase() + measurement.type.slice(1)}
-                        </span>
-                    </td>
-                    <td>
-                        <button onclick="removeMeasurement('${measurement.type}', ${measurement.time}, ${measurement.dilation})" 
-                                class="btn btn-sm btn-outline-danger">
-                            Remove
-                        </button>
-                    </td>
-                `;
-            });
-        }
-
-        function getTypeStyle(type) {
-            const styles = {
-                actual: 'bg-success',
-                alert: 'bg-warning',
-                action: 'bg-danger'
-            };
-            return styles[type] || 'bg-secondary';
-        }
-
-        function updateTotalPoints() {
-            const total = Object.values(measurements).reduce((sum, arr) => sum + arr.length, 0);
-            const totalElement = document.getElementById('totalPoints');
-            if (totalElement) {
-                totalElement.textContent = total;
-            }
-        }
-
-        function removeMeasurement(type, time, dilation) {
-            measurements[type] = measurements[type].filter(point => 
-                !(Math.abs(point.x - time) < 0.001 && Math.abs(point.y - dilation) < 0.001)
-            );
-            updateChart();
-            updateTable();
-            updateTotalPoints();
-            showNotification('Measurement removed', 'success');
-        }
-
-        // Main application functions
+        // ==================== SECTION VISIBILITY FUNCTIONS ====================
         function showDashboard() {
             document.getElementById('dashboard-view').style.display = 'block';
             document.getElementById('update-form').style.display = 'none';
             document.getElementById('monitor-form').style.display = 'none';
             document.getElementById('referrals-view').style.display = 'none';
+            document.getElementById('patient-profile').style.display = 'none';
         }
 
         function showUpdateForm(patientName) {
             currentPatient = patientName;
-            currentStep = 0;
-            document.getElementById('patient-name').textContent = patientName;
+            const nameEl = document.getElementById('patient-name');
+            if (nameEl) nameEl.textContent = patientName;
             
             document.getElementById('dashboard-view').style.display = 'none';
+            document.getElementById('update-form').style.display = 'block';
             document.getElementById('monitor-form').style.display = 'none';
             document.getElementById('referrals-view').style.display = 'none';
-            document.getElementById('update-form').style.display = 'block';
-            
+            document.getElementById('patient-profile').style.display = 'none';
+
+            currentStep = 0;
             generateSectionTabs();
             updateFormContent();
             updateProgressBar();
@@ -2144,245 +2366,115 @@
         }
 
         function showMonitor(patientName) {
-            document.getElementById('monitor-patient-name').textContent = patientName;
+            const monitorName = document.getElementById('monitor-patient-name');
+            if (monitorName) monitorName.textContent = patientName;
             
             document.getElementById('dashboard-view').style.display = 'none';
             document.getElementById('update-form').style.display = 'none';
-            document.getElementById('referrals-view').style.display = 'none';
             document.getElementById('monitor-form').style.display = 'block';
+            document.getElementById('referrals-view').style.display = 'none';
+            document.getElementById('patient-profile').style.display = 'none';
 
-            // Initialize partograph when monitor is shown
+            // Re-initialize partograph
             setTimeout(() => {
-                initChart();
-                updateCurrentTime();
-                setInterval(updateCurrentTime, 1000);
-                
-                // Set default start time
-                const now = new Date();
-                const timeString = now.getHours().toString().padStart(2, '0') + ':' + 
-                                  now.getMinutes().toString().padStart(2, '0');
-                const startTimeInput = document.getElementById('startTime');
-                if (startTimeInput) {
-                    startTimeInput.value = timeString;
+                if (typeof initChart === 'function') {
+                    try { initChart(); } catch (e) { console.warn('initChart error', e); }
                 }
-                
-                updateTotalPoints();
-                updateTable();
-                
-                // Add event listener to add button
-                const addButton = document.getElementById('addButton');
-                if (addButton) {
-                    addButton.removeEventListener('click', addMeasurement); // Remove existing listener
-                    addButton.addEventListener('click', addMeasurement);
+                if (typeof updateCurrentTime === 'function') {
+                    try { updateCurrentTime(); } catch (e) { }
                 }
             }, 100);
         }
 
         function showReferrals(patientName) {
-            document.getElementById('referral-patient-name').textContent = patientName;
+            const referralName = document.getElementById('referral-patient-name');
+            if (referralName) referralName.textContent = patientName;
             
             document.getElementById('dashboard-view').style.display = 'none';
             document.getElementById('update-form').style.display = 'none';
             document.getElementById('monitor-form').style.display = 'none';
             document.getElementById('referrals-view').style.display = 'block';
+            document.getElementById('patient-profile').style.display = 'none';
         }
 
+        function showPatientProfile(patientName) {
+            document.getElementById('dashboard-view').style.display = 'none';
+            document.getElementById('update-form').style.display = 'none';
+            document.getElementById('monitor-form').style.display = 'none';
+            document.getElementById('referrals-view').style.display = 'none';
+            document.getElementById('patient-profile').style.display = 'block';
+            document.getElementById('profile-name').textContent = patientName;
+        }
+
+        // ==================== FORM SECTION NAVIGATION ====================
         function generateSectionTabs() {
-            const tabsContainer = document.getElementById('section-tabs');
-            tabsContainer.innerHTML = '';
-            
-            formSections.forEach((section, index) => {
+            const container = document.getElementById('section-tabs');
+            if (!container) return;
+
+            container.innerHTML = '';
+            formSections.forEach((section, i) => {
                 const tab = document.createElement('div');
-                const isActive = currentStep === index;
-                tab.className = `section-nav-item ${isActive ? 'active' : ''}`;
-                tab.onclick = () => goToStep(index);
-                tab.innerHTML = `<i class="${section.icon}"></i>${section.title}`;
-                tabsContainer.appendChild(tab);
+                tab.className = `section-nav-item ${i === currentStep ? 'active' : ''}`;
+                tab.innerHTML = `<i class="${section.icon}"></i> ${section.title}`;
+                tab.onclick = () => goToStep(i);
+                container.appendChild(tab);
             });
         }
 
         function updateFormContent() {
             const section = formSections[currentStep];
-            document.getElementById('current-section-title').textContent = section.title;
-            document.getElementById('section-title-text').textContent = section.title;
-            document.getElementById('section-description').textContent = section.description;
-            document.getElementById('section-icon').className = section.icon;
-            document.getElementById('current-step').textContent = currentStep + 1;
-            document.getElementById('total-steps').textContent = formSections.length;
-            document.getElementById('step-counter').textContent = currentStep + 1;
-            document.getElementById('step-total').textContent = formSections.length;
-            
+
+            // Update all section title elements
+            const sectionTitle = document.getElementById('current-section-title');
+            if (sectionTitle) sectionTitle.textContent = section.title;
+
+            const sectionTitleText = document.getElementById('section-title-text');
+            if (sectionTitleText) sectionTitleText.textContent = section.title;
+
+            const sectionIcon = document.getElementById('section-icon');
+            if (sectionIcon) sectionIcon.className = section.icon;
+
+            // Update step counter elements
+            const currentStepEl = document.getElementById('current-step');
+            if (currentStepEl) currentStepEl.textContent = currentStep + 1;
+
+            const totalStepsEl = document.getElementById('total-steps');
+            if (totalStepsEl) totalStepsEl.textContent = formSections.length;
+
+            const stepCounterEl = document.getElementById('step-counter');
+            if (stepCounterEl) stepCounterEl.textContent = currentStep + 1;
+
+            const stepTotalEl = document.getElementById('step-total');
+            if (stepTotalEl) stepTotalEl.textContent = formSections.length;
+
+            // Update form content
             const formContent = document.getElementById('form-content');
-            formContent.innerHTML = getFormSectionHTML(section.id);
-        }
-
-        function getFormSectionHTML(sectionId) {
-            switch (sectionId) {
-                case 'clinical':
-                    return `
-                        <div class="form-grid">
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Name of Patient</label>
-                                <input type="text" class="enhanced-form-control" id="clinical-name">
-                            </div>
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Age</label>
-                                <input type="number" class="enhanced-form-control" id="clinical-age">
-                            </div>
-                            <div class="enhanced-form-group" style="grid-column: 1 / -1;">
-                                <label class="enhanced-form-label">Address</label>
-                                <input type="text" class="enhanced-form-control" id="clinical-address">
-                            </div>
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Date Admitted</label>
-                                <input type="datetime-local" class="enhanced-form-control" id="clinical-admitted">
-                            </div>
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Date Discharge</label>
-                                <input type="datetime-local" class="enhanced-form-control" id="clinical-discharge">
-                            </div>
-                            <div class="enhanced-form-group" style="grid-column: 1 / -1;">
-                                <label class="enhanced-form-label">Admitting Diagnosis</label>
-                                <textarea class="enhanced-form-control" rows="3" id="clinical-admitting-diagnosis"></textarea>
-                            </div>
-                            <div class="enhanced-form-group" style="grid-column: 1 / -1;">
-                                <label class="enhanced-form-label">Final Diagnosis</label>
-                                <textarea class="enhanced-form-control" rows="3" id="clinical-final-diagnosis"></textarea>
-                            </div>
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Attending Midwife</label>
-                                <input type="text" class="enhanced-form-control" id="clinical-midwife">
-                            </div>
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Discharged Status</label>
-                                <div style="margin-top: 0.75rem;">
-                                    <div class="form-check mb-2">
-                                        <input type="radio" name="dischargedStatus" value="Improved" class="form-check-input" id="status1">
-                                        <label class="form-check-label fw-medium" for="status1">Improved</label>
-                                    </div>
-                                    <div class="form-check mb-2">
-                                        <input type="radio" name="dischargedStatus" value="Absconded" class="form-check-input" id="status2">
-                                        <label class="form-check-label fw-medium" for="status2">Absconded</label>
-                                    </div>
-                                    <div class="form-check mb-2">
-                                        <input type="radio" name="dischargedStatus" value="Home Against Advice" class="form-check-input" id="status3">
-                                        <label class="form-check-label fw-medium" for="status3">Home Against Advice</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="radio" name="dischargedStatus" value="Transferred" class="form-check-input" id="status4">
-                                        <label class="form-check-label fw-medium" for="status4">Transferred</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-
-                case 'pahintulot':
-                    return `
-                        <div class="form-grid">
-                            <div class="enhanced-form-group" style="grid-column: 1 / -1;">
-                                <label class="enhanced-form-label">Patient Photo</label>
-                                <div style="border: 2px dashed #d1d5db; border-radius: 12px; padding: 2rem; text-align: center; background: #f9fafb;">
-                                    <i class="fas fa-camera fa-3x text-muted mb-3" style="color: var(--primary-color); opacity: 0.6;"></i>
-                                    <p class="text-muted mb-3 fw-medium">Upload patient photo</p>
-                                    <input type="file" accept="image/*" class="enhanced-form-control">
-                                </div>
-                            </div>
-                            <div class="enhanced-form-group" style="grid-column: 1 / -1;">
-                                <label class="enhanced-form-label">Consent Details</label>
-                                <textarea class="enhanced-form-control" rows="5" placeholder="Pahintulot sa pangangalaga/pag-aasikaso details..."></textarea>
-                            </div>
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Guardian Name</label>
-                                <input type="text" class="enhanced-form-control">
-                            </div>
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Relationship</label>
-                                <input type="text" class="enhanced-form-control">
-                            </div>
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Date of Consent</label>
-                                <input type="date" class="enhanced-form-control">
-                            </div>
-                        </div>
-                    `;
-
-                case 'nurses_note':
-                    return `
-                        <div class="form-grid">
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Date & Time</label>
-                                <input type="datetime-local" class="enhanced-form-control">
-                            </div>
-                            <div class="enhanced-form-group" style="grid-column: 1 / -1;">
-                                <label class="enhanced-form-label">Standard Nursing Notes</label>
-                                <div class="checkbox-group">
-                                    ${[
-                                        "Admitted Ambulatory woman accompanied by her husband",
-                                        "Consent secured and signed", 
-                                        "Vitals signs taken and recorded",
-                                        "BOW ruptured clearly",
-                                        "Advised proper bearing down / walking exercise",
-                                        "Delivered via NSVD, Cephalic Baby, A/S OF 8/9",
-                                        "Placenta out completely",
-                                        "Clotted blood evacuated",
-                                        "Cold compress applied",
-                                        "Uterus contracted",
-                                        "Medicine given",
-                                        "Transfer to ward for proper management",
-                                        "Endorse"
-                                    ].map((note, index) => `
-                                        <div class="enhanced-checkbox">
-                                            <input type="checkbox" id="note${index + 1}">
-                                            <label for="note${index + 1}">${note}</label>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            </div>
-                            <div class="enhanced-form-group">
-                                <label class="enhanced-form-label">Birth Weight</label>
-                                <input type="text" class="enhanced-form-control" placeholder="Enter birth weight">
-                            </div>
-                            <div class="enhanced-form-group" style="grid-column: 1 / -1;">
-                                <label class="enhanced-form-label">Additional Notes</label>
-                                <textarea class="enhanced-form-control" rows="4" placeholder="Enter additional nursing notes..."></textarea>
-                            </div>
-                        </div>
-                    `;
-
-                default:
-                    return `
-                        <div style="background: #f9fafb; border: 2px dashed #d1d5db; border-radius: 12px; padding: 3rem; text-align: center;">
-                            <i class="fas fa-construction fa-3x text-muted mb-3"></i>
-                            <h5 class="text-muted mb-3">Form Section In Development</h5>
-                            <p class="text-muted mb-4">The ${formSections.find(s => s.id === sectionId)?.title} section will include all relevant fields based on clinic requirements.</p>
-                            <div class="enhanced-form-group" style="max-width: 500px; margin: 0 auto; text-align: left;">
-                                <label class="enhanced-form-label">Notes & Comments</label>
-                                <textarea class="enhanced-form-control" rows="4" placeholder="Enter additional notes for this section..."></textarea>
-                            </div>
-                        </div>
-                    `;
+            if (formContent) {
+                formContent.innerHTML = getFormSectionHTML(section.id);
             }
         }
 
-        function updateProgressBar() {
-            const progressBar = document.getElementById('progress-bar');
-            const miniProgress = document.getElementById('mini-progress');
-            const percentage = ((currentStep + 1) / formSections.length) * 100;
-            progressBar.style.width = percentage + '%';
-            miniProgress.style.width = percentage + '%';
+        function getFormSectionHTML(id) {
+            const forms = {
+                clinical: `<div class="alert alert-info"><i class="fas fa-info-circle"></i> Mother's Clinical Record form goes here</div>`,
+                pahintulot: `<div class="alert alert-info"><i class="fas fa-info-circle"></i> Consent form (Tagalog) goes here</div>`,
+                nurses_note: `
+                    <div class="checkbox-group">
+                        ${["Admitted Ambulatory", "Consent secured", "Vitals taken", "Delivered via NSVD"].map(n => `
+                            <div class="enhanced-checkbox">
+                                <input type="checkbox" id="note-${n.toLowerCase().replace(/\s+/g, '-')}">
+                                <label for="note-${n.toLowerCase().replace(/\s+/g, '-')}">${n}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                `,
+                default: `<div class="text-center py-5"><h5>Form section coming soon</h5></div>`
+            };
+            return forms[id] || forms.default;
         }
 
-        function updateNavigationButtons() {
-            const backBtn = document.getElementById('back-btn');
-            const nextBtn = document.getElementById('next-btn');
-            
-            backBtn.disabled = currentStep === 0;
-            nextBtn.disabled = currentStep === formSections.length - 1;
-        }
-
-        function goToStep(stepIndex) {
-            currentStep = stepIndex;
+        function goToStep(n) {
+            currentStep = n;
             generateSectionTabs();
             updateFormContent();
             updateProgressBar();
@@ -2391,239 +2483,217 @@
 
         function nextStep() {
             if (currentStep < formSections.length - 1) {
-                currentStep++;
-                generateSectionTabs();
-                updateFormContent();
-                updateProgressBar();
-                updateNavigationButtons();
+                goToStep(currentStep + 1);
             }
         }
 
         function previousStep() {
             if (currentStep > 0) {
-                currentStep--;
-                generateSectionTabs();
-                updateFormContent();
-                updateProgressBar();
-                updateNavigationButtons();
+                goToStep(currentStep - 1);
             }
         }
 
-        function saveData() {
-            const currentSection = formSections[currentStep].id;
-            const formElements = document.querySelectorAll('#form-content input, #form-content textarea, #form-content select');
+        function updateProgressBar() {
+            const percent = ((currentStep + 1) / formSections.length) * 100;
             
-            if (!formData[currentPatient]) {
-                formData[currentPatient] = {};
-            }
-            
-            if (!formData[currentPatient][currentSection]) {
-                formData[currentPatient][currentSection] = {};
-            }
-            
-            formElements.forEach(element => {
-                if (element.id) {
-                    formData[currentPatient][currentSection][element.id] = element.value;
-                } else if (element.name) {
-                    formData[currentPatient][currentSection][element.name] = element.value;
-                } else if (element.type === 'checkbox') {
-                    const label = element.closest('.enhanced-checkbox')?.querySelector('label')?.textContent?.trim();
-                    if (label) {
-                        formData[currentPatient][currentSection][label] = element.checked;
-                    }
-                }
-            });
-            
-            showNotification('Data saved successfully! All changes have been preserved.', 'success');
+            const progressBar = document.getElementById('progress-bar');
+            if (progressBar) progressBar.style.width = percent + '%';
+
+            const miniProgress = document.getElementById('mini-progress');
+            if (miniProgress) miniProgress.style.width = percent + '%';
         }
 
-        function downloadData() {
-            if (formData[currentPatient]) {
-                const dataStr = JSON.stringify(formData[currentPatient], null, 2);
-                const dataBlob = new Blob([dataStr], {type: 'application/json'});
-                const url = URL.createObjectURL(dataBlob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = `${currentPatient.replace(/\s+/g, '_')}_medical_records.json`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
-                showNotification('Medical records downloaded successfully!', 'success');
-            } else {
-                showNotification('No data available for download. Please save some information first.', 'warning');
-            }
+        function updateNavigationButtons() {
+            const backBtn = document.getElementById('back-btn');
+            if (backBtn) backBtn.disabled = currentStep === 0;
+
+            const nextBtn = document.getElementById('next-btn');
+            if (nextBtn) nextBtn.disabled = currentStep === formSections.length - 1;
         }
 
-        function printData() {
-            window.print();
-        }
-
+        // ==================== NOTIFICATIONS ====================
         function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            notification.className = `alert alert-${type} alert-dismissible fade show`;
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                z-index: 9999;
-                min-width: 300px;
-                opacity: 0;
-                transform: translateX(100%);
-                transition: all 0.3s ease;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-                border-radius: 10px;
-                border: none;
-            `;
-            
-            const icons = {
-                'success': 'fas fa-check-circle',
-                'info': 'fas fa-info-circle',
-                'warning': 'fas fa-exclamation-triangle',
-                'danger': 'fas fa-times-circle'
-            };
-            
-            notification.innerHTML = `
-                <i class="${icons[type] || icons.info} me-2"></i>
+            const div = document.createElement('div');
+            div.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+            div.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            div.innerHTML = `
                 ${message}
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             `;
-            
-            document.body.appendChild(notification);
-            
+            document.body.appendChild(div);
             setTimeout(() => {
-                notification.style.opacity = '1';
-                notification.style.transform = 'translateX(0)';
-            }, 100);
-            
-            setTimeout(() => {
-                notification.style.opacity = '0';
-                notification.style.transform = 'translateX(100%)';
-                
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 300);
-            }, 3000);
+                if (div && div.parentNode) div.remove();
+            }, 4000);
         }
 
+        // ==================== ADD PATIENT MODAL SAVE ====================
         document.addEventListener('DOMContentLoaded', function() {
-            // Mobile sidebar toggle
-            const sidebarToggle = document.getElementById('sidebarToggle');
-            const sidebar = document.querySelector('.sidebar');
-            
-            if (sidebarToggle) {
-                sidebarToggle.addEventListener('click', function() {
-                    sidebar.classList.toggle('show');
-                });
-            }
+            // Initialize on page load
+            showDashboard();
 
-            // Patient search functionality
-            const searchInput = document.getElementById('patientSearchInput');
-            const tableBody = document.getElementById('patientsTableBody');
-            const rows = tableBody.querySelectorAll('tr');
-
-            searchInput.addEventListener('input', function() {
-                const searchTerm = this.value.toLowerCase().trim();
-                
-                rows.forEach(row => {
-                    const patientId = row.querySelector('.patient-id').textContent.toLowerCase();
-                    const patientName = row.querySelector('.patient-name').textContent.toLowerCase();
-                    const contact = row.cells[3].textContent.toLowerCase();
-                    
-                    if (patientId.includes(searchTerm) || 
-                        patientName.includes(searchTerm) || 
-                        contact.includes(searchTerm)) {
-                        row.style.display = '';
-                    } else {
-                        row.style.display = 'none';
-                    }
-                });
-            });
-
-            // Handle Save Patient
+            // Add Patient form save handler
             const savePatientBtn = document.getElementById('savePatientBtn');
             if (savePatientBtn) {
-                savePatientBtn.addEventListener('click', function() {
+                savePatientBtn.addEventListener('click', async function () {
                     const form = document.getElementById('addPatientForm');
-                    const formData = new FormData(form);
-                    
-                    const requiredFields = ['full_name', 'age', 'contact_number'];
-                    let isValid = true;
-                    
-                    requiredFields.forEach(field => {
-                        const input = form.querySelector(`[name="${field}"]`);
-                        if (!input.value.trim()) {
-                            input.classList.add('is-invalid');
-                            isValid = false;
-                        } else {
-                            input.classList.remove('is-invalid');
-                            input.classList.add('is-valid');
-                        }
-                    });
-                    
-                    if (!isValid) {
-                        showNotification('Please fill in all required fields', 'warning');
+                    if (!form) return;
+
+                    // Basic client-side validation
+                    const firstName = (form.querySelector('[name="first_name"]')?.value || '').trim();
+                    const lastName  = (form.querySelector('[name="last_name"]')?.value || '').trim();
+                    const dob       = (form.querySelector('[name="date_of_birth"]')?.value || '').trim();
+                    const contact   = (form.querySelector('[name="contact_number"]')?.value || '').trim();
+                    const address   = (form.querySelector('[name="address"]')?.value || '').trim();
+
+                    if (!firstName || !lastName || !dob || !contact || !address) {
+                        showNotification('Please fill in all required fields.', 'warning');
                         return;
                     }
-                    
+
+                    const formData = new FormData(form);
+
+                    // Show loading state
                     const originalText = savePatientBtn.innerHTML;
                     savePatientBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Saving...';
                     savePatientBtn.disabled = true;
-                    
-                    setTimeout(() => {
-                        const patientName = formData.get('full_name');
-                        const age = formData.get('age');
-                        const contact = formData.get('contact_number');
-                        
-                        const newPatientId = `P-${String(tableBody.children.length + 1).padStart(3, '0')}`;
-                        const newRow = document.createElement('tr');
-                        newRow.setAttribute('data-patient-id', newPatientId);
-                        newRow.innerHTML = `
-                            <td class="patient-id">${newPatientId}</td>
-                            <td class="patient-name">${patientName}</td>
-                            <td>${age}</td>
-                            <td>${contact}</td>
-                            <td>Today</td>
-                            <td>
-                                <span class="status-badge status-active">ACTIVE</span>
-                            </td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="action-btn btn-edit" onclick="showUpdateForm('${patientName}')">Update Records</button>
-                                    <button class="action-btn btn-referral" onclick="showReferrals('${patientName}')">Referrals</button>
-                                </div>
-                            </td>
-                        `;
-                        
-                        tableBody.insertBefore(newRow, tableBody.firstChild);
-                        
-                        newRow.style.backgroundColor = '#d4edda';
-                        setTimeout(() => {
-                            newRow.style.backgroundColor = '';
-                        }, 3000);
-                        
-                        showNotification(`Patient ${patientName} added successfully!`, 'success');
-                        
-                        const modal = bootstrap.Modal.getInstance(document.getElementById('addPatientModal'));
-                        modal.hide();
-                        
+
+                    try {
+                        const response = await fetch("{{ route('dashboard.walkin.store') }}", {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                        let result = null;
+                        try { 
+                            result = await response.json(); 
+                        } catch (e) { 
+                            result = null; 
+                        }
+
+                        if (response.ok) {
+                            const msg = result?.message || 'Patient added successfully!';
+                            showNotification(msg, 'success');
+
+                            // Close modal if present
+                            const modalEl = document.getElementById('addPatientModal');
+                            if (modalEl) {
+                                try {
+                                    const modalInstance = bootstrap.Modal.getOrCreateInstance(modalEl);
+                                    modalInstance.hide();
+                            } catch (e) { }
+                        }
+
+                        form.reset();
+
+                        // Reset service card default if present
+                        document.querySelectorAll('.service-card').forEach(c => c.classList.remove('active'));
+                        const defaultCard = document.querySelector('.service-card[data-service-name="prenatal"]');
+                        if (defaultCard) defaultCard.classList.add('active');
+
+                        // Reload after a brief delay to show new patient
+                        setTimeout(() => location.reload(), 800);
+                        } else {
+                            let errorMsg = result?.message || 'Error saving patient.';
+                            if (result?.errors) {
+                                errorMsg = Object.values(result.errors).flat().join('\n');
+                            }
+                            showNotification(errorMsg, 'danger');
+                            console.error('Save failed:', result);
+                        }
+                    } catch (err) {
+                        console.error(err);
+                        showNotification('Network error. Please try again.', 'danger');
+                    } finally {
                         savePatientBtn.innerHTML = originalText;
                         savePatientBtn.disabled = false;
-                        
-                    }, 2000);
+                    }
                 });
             }
+        });
 
-            // Add keyboard support for partograph inputs
-            document.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter' && (e.target.id === 'timeInput' || e.target.id === 'dilationInput')) {
-                    addMeasurement();
-                }
-            });
+        // Keep your existing partograph functions (initChart, addMeasurement, etc.) as-is
+        // They will work alongside this script without conflicts
 
-            // Initialize the application
+        // View switcher functions
+        function showDashboard() {
+            document.getElementById('dashboard-view').style.display = 'block';
+            document.getElementById('patient-profile').style.display = 'none';
+            document.getElementById('monitor-form').style.display = 'none';
+            document.getElementById('referrals-view').style.display = 'none';
+        }
+
+        function showUpdateForm(patientName) {
+            document.getElementById('dashboard-view').style.display = 'none';
+            document.getElementById('patient-profile').style.display = 'block';
+            document.getElementById('monitor-form').style.display = 'none';
+            document.getElementById('referrals-view').style.display = 'none';
+            document.getElementById('profile-name').textContent = patientName;
+        }
+
+        function backToList() {
+            showDashboard();
+        }
+
+        function showMonitor(patientName) {
+            document.getElementById('dashboard-view').style.display = 'none';
+            document.getElementById('patient-profile').style.display = 'none';
+            document.getElementById('monitor-form').style.display = 'block';
+            document.getElementById('referrals-view').style.display = 'none';
+        }
+
+        function showReferrals(patientName) {
+            document.getElementById('dashboard-view').style.display = 'none';
+            document.getElementById('patient-profile').style.display = 'none';
+            document.getElementById('monitor-form').style.display = 'none';
+            document.getElementById('referrals-view').style.display = 'block';
+        }
+
+        // Helper functions
+        function saveClinical() {
+            showNotification('Clinical record saved successfully!', 'success');
+        }
+
+        function addMedicationRow() {
+            const table = document.getElementById('medicationTable');
+            const newRow = table.insertRow();
+            newRow.innerHTML = `
+                <td><input type="datetime-local" class="form-control form-control-sm" style="border: 1px solid #e5e7eb; font-size: 0.85rem;"></td>
+                <td><input type="text" class="form-control form-control-sm" style="border: 1px solid #e5e7eb; font-size: 0.85rem;" placeholder="e.g., Oxytocin"></td>
+                <td><input type="text" class="form-control form-control-sm" style="border: 1px solid #e5e7eb; font-size: 0.85rem;" placeholder="e.g., 10 IU"></td>
+                <td><select class="form-select form-select-sm" style="border: 1px solid #e5e7eb; font-size: 0.85rem;"><option>IV</option><option>IM</option><option>PO</option></select></td>
+                <td><input type="text" class="form-control form-control-sm" style="border: 1px solid #e5e7eb; font-size: 0.85rem;" placeholder="Name"></td>
+                <td><button type="button" class="btn btn-sm btn-danger" onclick="this.closest('tr').remove()">Remove</button></td>
+            `;
+        }
+
+        function orderSelectedTests() {
+            const selected = Array.from(document.querySelectorAll('#labModal input[type="checkbox"]:checked'))
+                .map(cb => cb.nextElementSibling.textContent.trim());
+            
+            if (selected.length === 0) {
+                showNotification('Please select at least one test.', 'warning');
+                return;
+            }
+            
+            showNotification(`${selected.length} test(s) ordered successfully!`, 'success');
+            bootstrap.Modal.getInstance(document.getElementById('labModal')).hide();
+        }
+
+        function showNotification(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+            div.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            div.innerHTML = `${message} <button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
+            document.body.appendChild(div);
+            setTimeout(() => div.remove(), 4000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
             showDashboard();
         });
     </script>

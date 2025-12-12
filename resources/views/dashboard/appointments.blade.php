@@ -643,7 +643,7 @@
                 </li>
                 <li>
                     <a class="dropdown-item" href="{{ route('dashboard.settings') }}">
-                        <i class="fas fa-cog me-2"></i>
+                        <i class="fas fa-cogs me-2"></i>
                         Account Settings
                     </a>
                 </li>

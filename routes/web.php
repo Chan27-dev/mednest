@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PatientController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\WalkInPatientController;
 
-// User routes (your pages now inside resources/views/user/)
 Route::prefix('user')->group(function () {
     Route::get('/about', function () {
         return view('user.about');
@@ -35,7 +36,13 @@ Route::get('/', function () {
 // -------------------------------------------------------------
 Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
-    Route::get('/patients', [DashboardController::class, 'patients'])->name('patients');
+
+    // Corrected routes for patient management
+    Route::get('/patients', [PatientController::class, 'index'])->name('patients');
+    Route::post('/patients', [PatientController::class, 'store'])->name('patients.store');
+    // Route specifically for the walk-in patient modal
+    Route::post('/walk-in-patient', [WalkInPatientController::class, 'store'])->name('walkin.store');
+
     Route::get('/appointments', [DashboardController::class, 'appointments'])->name('appointments');
     Route::get('/labor', [DashboardController::class, 'labor'])->name('labor');
     Route::get('/billing', [DashboardController::class, 'billing'])->name('billing');
@@ -55,7 +62,6 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
 
     // Profile routes
     Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
-    Route::get('/account-settings', [DashboardController::class, 'accountSettings'])->name('account.settings');
     Route::get('/notifications', [DashboardController::class, 'notificationsPage'])->name('notifications');
 });
 
@@ -92,14 +98,15 @@ Route::prefix('billing')->name('billing.')->group(function () {
 });
 
 // -------------------------------------------------------------
-// Authentication Routes (Demo)
+// Authentication Routes
 // -------------------------------------------------------------
 Route::post('/logout', [DashboardController::class, 'logout'])->name('logout');
 
-Route::get('/login', function() {
-    return redirect()->route('dashboard.index')->with('message', 'Demo: Login page - redirected to dashboard');
-})->name('login');
-
+// Apply the 'guest' middleware to redirect authenticated users away from the login page.
+Route::middleware('guest')->group(function () {
+    Route::get('adminLogin', [DashboardController::class, 'loginCreate'])->name('login');
+    Route::post('adminLogin', [DashboardController::class, 'loginPost']);
+});
 // -------------------------------------------------------------
 // API Routes
 // -------------------------------------------------------------
@@ -115,13 +122,15 @@ Route::prefix('api')->name('api.')->group(function () {
     });
 
     Route::prefix('staff')->name('staff.')->group(function () {
-        Route::get('/search', [DashboardController::class, 'searchStaff'])->name('search');
-        Route::get('/stats', [DashboardController::class, 'getStaffStats'])->name('stats');
-        Route::post('/quick-status-update', [DashboardController::class, 'quickStatusUpdate'])->name('quick.status.update');
-        Route::get('/on-duty', [DashboardController::class, 'getOnDutyStaff'])->name('on.duty');
-        Route::get('/departments', [DashboardController::class, 'getDepartments'])->name('departments');
-        Route::get('/schedule/{id}', [DashboardController::class, 'getStaffSchedule'])->name('schedule');
-        Route::post('/bulk-update', [DashboardController::class, 'bulkUpdateStatus'])->name('bulk.update');
+        Route::get('/search', [DashboardController::class, 'staffSearchMembers'])->name('search');
+        Route::get('/stats', [DashboardController::class, 'staffGetStats'])->name('stats');
+        Route::post('/quick-status-update', [DashboardController::class, 'staffQuickStatusUpdate'])->name('quick.status.update');
+        Route::get('/on-duty', [DashboardController::class, 'staffGetOnDuty'])->name('on.duty');
+        // The getDepartments method is missing, you may need to create it in DashboardController
+        // Route::get('/departments', [DashboardController::class, 'getDepartments'])->name('departments');
+        Route::get('/schedule/{id}', [DashboardController::class, 'staffGetSchedule'])->name('schedule');
+        // The bulkUpdateStatus method is missing, you may need to create it in DashboardController
+        // Route::post('/bulk-update', [DashboardController::class, 'bulkUpdateStatus'])->name('bulk.update');
     });
 });
 
@@ -136,7 +145,6 @@ Route::fallback(function () {
 Route::prefix('admin')->name('admin.')->group(function () {
     // Main admin dashboard
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
     // Patient records route
     Route::get('/patient-records', [AdminController::class, 'patients'])->name('patients');
@@ -243,3 +251,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         })->name('show');
     });
 });
+
+// Placeholder for password reset to make the link work
+Route::get('/forgot-password', function () {
+    return 'This is the forgot password page. It needs to be implemented.';
+})->name('password.request');

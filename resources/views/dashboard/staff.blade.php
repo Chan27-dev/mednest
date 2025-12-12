@@ -742,7 +742,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.account.settings') }}">
+                    <a class="dropdown-item" href="{{ route('dashboard.settings') }}">
                         <i class="fas fa-cog me-2"></i>
                         Account Settings
                     </a>

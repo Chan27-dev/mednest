@@ -491,6 +491,24 @@
         padding: 1rem 1.25rem;
     }
 
+    /* Ensure select uses same font/size/padding as inputs */
+    .form-select.form-select-lg.border-0.bg-light,
+    #blood_type {
+        font-family: inherit;
+        font-size: 1rem; /* matches .form-control-lg */
+        padding: 1rem 1.25rem;
+        line-height: 1.2;
+        height: calc(1.5em + 2rem); /* approximate .form-control-lg height */
+        border-radius: 10px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: linear-gradient(45deg, transparent 50%, transparent 50%), linear-gradient(135deg, transparent 50%, transparent 50%), linear-gradient(to right, rgba(0,0,0,0.06), rgba(0,0,0,0.06));
+        background-position: calc(100% - 1.25rem) calc(1rem + 0.2rem), calc(100% - 0.95rem) calc(1rem + 0.2rem), 100% 0;
+        background-size: 8px 8px, 8px 8px, 1px 100%;
+        background-repeat: no-repeat;
+    }
+
     /* Service Cards */
     .service-card {
         background: white;
@@ -883,7 +901,7 @@
     <div class="top-header">
         <div class="search-box">
             <i class="fas fa-search search-icon"></i>
-            <input type="text" class="form-control" placeholder="Search across all branches...">
+            <input type="text" class="form-control" id="mainSearch" name="main_search" placeholder="Search across all branches...">
         </div>
         <div class="admin-profile dropdown">
             <div class="admin-profile-trigger" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer; display: flex; align-items: center; gap: 10px;">
@@ -920,10 +938,13 @@
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                    <a class="dropdown-item text-danger" href="#" data-action="logout">
-                        <i class="fas fa-sign-out-alt me-2"></i>
-                        Logout
-                    </a>
+                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                        @csrf
+                        <button type="submit" class="dropdown-item text-danger w-100 text-start" style="border: none; background: none;">
+                            <i class="fas fa-sign-out-alt me-2"></i>
+                            Logout
+                        </button>
+                    </form>
                 </li>
             </ul>
         </div>
@@ -1087,7 +1108,7 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <select class="form-select form-select-lg" id="branchFilter">
+                        <select class="form-select form-select-lg" id="branchFilter" name="branch_filter">
                             <option value="">All Branches</option>
                             <option value="sinag">Sinag Branch</option>
                             <option value="bill">Bill Dayandog</option>
@@ -1095,7 +1116,7 @@
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <select class="form-select form-select-lg" id="statusFilter">
+                        <select class="form-select form-select-lg" id="statusFilter" name="status_filter">
                             <option value="">All Status</option>
                             <option value="scheduled">Scheduled</option>
                             <option value="completed">Completed</option>
@@ -1184,38 +1205,53 @@
                     </div>
 
                     <div class="row g-3 mb-4">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="first_name" class="form-label fw-semibold">First Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control form-control-lg border-0 bg-light" id="first_name" name="first_name" required>
+                            <input type="text" class="form-control form-control-lg border-0 bg-light" id="first_name" name="first_name" required autocomplete="given-name">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="last_name" class="form-label fw-semibold">Last Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control form-control-lg border-0 bg-light" id="last_name" name="last_name" required>
+                            <input type="text" class="form-control form-control-lg border-0 bg-light" id="last_name" name="last_name" required autocomplete="family-name">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="blood_type" class="form-label fw-semibold">Blood Type</label>
+                            <select id="blood_type" name="blood_type" class="form-select form-select-lg border-0 bg-light">
+                                <option value="">Select Blood Type</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                                <option value="Unknown">Unknown</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="row g-3 mb-4">
                         <div class="col-md-6">
                             <label for="date_of_birth" class="form-label fw-semibold">Date of Birth <span class="text-danger">*</span></label>
-                            <input type="date" class="form-control form-control-lg border-0 bg-light" id="date_of_birth" name="date_of_birth" required>
+                            <input type="date" class="form-control form-control-lg border-0 bg-light" id="date_of_birth" name="date_of_birth" required autocomplete="bday">
                         </div>
                         <div class="col-md-6">
                             <label for="contact_number" class="form-label fw-semibold">Contact Number <span class="text-danger">*</span></label>
-                            <input type="tel" class="form-control form-control-lg border-0 bg-light" id="contact_number" name="contact_number" required>
+                            <input type="tel" class="form-control form-control-lg border-0 bg-light" id="contact_number" name="contact_number" required autocomplete="tel">
                         </div>
                     </div>
 
                     <div class="row g-3 mb-4">
                         <div class="col-md-12">
                             <label for="address" class="form-label fw-semibold">Address <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control form-control-lg border-0 bg-light" id="address" name="address" placeholder="Street, Barangay, City/Province" required>
+                            <input type="text" class="form-control form-control-lg border-0 bg-light" id="address" name="address" placeholder="Street, Barangay, City/Province" required autocomplete="street-address">
                         </div>
                     </div>
 
                     <div class="row g-3 mb-4">
                         <div class="col-md-6">
                             <label for="email" class="form-label fw-semibold">Email (Optional)</label>
-                            <input type="email" class="form-control form-control-lg border-0 bg-light" id="email" name="email">
+                            <input type="email" class="form-control form-control-lg border-0 bg-light" id="email" name="email" autocomplete="email">
                         </div>
                     </div>
 
@@ -1226,18 +1262,18 @@
 
                     <div class="mb-4">
                         <textarea class="form-control border-0 bg-light" id="medicalHistory" name="medical_history" rows="4" 
-                                  placeholder="Any relevant medical history, allergies, or current medications"></textarea>
+                                  placeholder="Any relevant medical history, allergies, or current medications" autocomplete="off"></textarea>
                     </div>
 
                     <!-- Emergency Contact Section -->
                     <div class="row g-3 mb-4">
                         <div class="col-md-6">
                             <label for="emergencyContactName" class="form-label fw-semibold">Emergency Contact Name</label>
-                            <input type="text" class="form-control form-control-lg border-0 bg-light" id="emergencyContactName" name="emergency_contact_name">
+                            <input type="text" class="form-control form-control-lg border-0 bg-light" id="emergencyContactName" name="emergency_contact_name" autocomplete="off">
                         </div>
                         <div class="col-md-6">
                             <label for="emergencyContactNumber" class="form-label fw-semibold">Emergency Contact Number</label>
-                            <input type="tel" class="form-control form-control-lg border-0 bg-light" id="emergencyContactNumber" name="emergency_contact_number">
+                            <input type="tel" class="form-control form-control-lg border-0 bg-light" id="emergencyContactNumber" name="emergency_contact_number" autocomplete="off">
                         </div>
                     </div>
 
@@ -1248,7 +1284,7 @@
 
                     <div class="row g-3 mb-4">
                         <div class="col-md-4">
-                            <div class="service-card active" data-service="prenatal" data-price="FREE">
+                            <div class="service-card active" data-service-id="1" data-service-name="prenatal" data-price="FREE">
                                 <div class="service-header">
                                     <h6 class="fw-bold mb-1">Pre-natal Check Up</h6>
                                     <small class="text-muted">Regular monitoring during pregnancy</small>
@@ -1257,7 +1293,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="service-card" data-service="consultation" data-price="₱1,500">
+                            <div class="service-card" data-service-id="2" data-service-name="consultation" data-price="₱1,500">
                                 <div class="service-header">
                                     <h6 class="fw-bold mb-1">General Consultation</h6>
                                     <small class="text-muted">Medical consultation & advice</small>
@@ -1266,7 +1302,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="service-card" data-service="ultrasound" data-price="₱2,500">
+                            <div class="service-card" data-service-id="3" data-service-name="ultrasound" data-price="₱2,500">
                                 <div class="service-header">
                                     <h6 class="fw-bold mb-1">Ultrasound Imaging</h6>
                                     <small class="text-muted">Imaging & monitoring</small>
@@ -1277,8 +1313,8 @@
                     </div>
 
                     <div class="row g-3 mb-4">
-                        <div class="col-md-6">
-                            <div class="service-card" data-service="immunization" data-price="₱800">
+                        <div class="col-md-4">
+                            <div class="service-card" data-service-id="4" data-service-name="immunization" data-price="₱800">
                                 <div class="service-header">
                                     <h6 class="fw-bold mb-1">Immunization</h6>
                                     <small class="text-muted">Vaccination programs</small>
@@ -1286,8 +1322,8 @@
                                 <div class="service-price text-primary fw-bold mt-2">₱800</div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="service-card" data-service="family-planning" data-price="₱1,200">
+                        <div class="col-md-4">
+                            <div class="service-card" data-service-id="5" data-service-name="family-planning" data-price="₱1,200">
                                 <div class="service-header">
                                     <h6 class="fw-bold mb-1">Family Planning</h6>
                                     <small class="text-muted">Comprehensive planning services</small>
@@ -1295,10 +1331,19 @@
                                 <div class="service-price text-primary fw-bold mt-2">₱1,200</div>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="service-card" data-service-id="6" data-service-name="laboratory" data-price="₱500">
+                                <div class="service-header">
+                                    <h6 class="fw-bold mb-1">Laboratory</h6>
+                                    <small class="text-muted">Diagnostic lab tests</small>
+                                </div>
+                                <div class="service-price text-primary fw-bold mt-2">₱500</div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Preferred Date Section -->
-                    <input type="hidden" id="selectedService" name="selected_service" value="prenatal">
+                    <input type="hidden" id="selectedServiceId" name="service_id" value="1">
                     <input type="hidden" id="servicePrice" name="service_price" value="FREE">
                 </form>
             </div>
@@ -1308,8 +1353,26 @@
                 <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">
                     <i class="fas fa-times me-2"></i>Cancel
                 </button>
-                <button type="button" class="btn btn-primary px-4" id="confirmAppointmentBtn">
-                    <i class="fas fa-check me-2"></i>Confirm Appointment
+                <button type="button" class="btn btn-primary px-4" id="confirmAppointmentBtn" onclick="handlePatientFormSubmit()">
+                    <i class="fas fa-check me-2"></i>Add Patient
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Confirmation Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 text-center">
+            <div class="modal-body p-5">
+                <div class="mb-4">
+                    <i class="fas fa-check-circle fa-5x text-success"></i>
+                </div>
+                <h5 class="modal-title fw-bold mb-3" id="successModalLabel">Success!</h5>
+                <p class="text-muted" id="successModalMessage">The new patient has been successfully added to the system.</p>
+                <button type="button" class="btn btn-primary mt-3 px-5" data-bs-dismiss="modal" onclick="window.location.reload()">
+                    OK
                 </button>
             </div>
         </div>
@@ -1324,6 +1387,16 @@
 
 @section('extra-js')
 <script>
+    // Show notification helper function - moved to global scope
+    function showNotification(message, type = 'info') {
+        const div = document.createElement('div');
+        div.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+        div.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+        div.innerHTML = `${message} <button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
+        document.body.appendChild(div);
+        setTimeout(() => div.remove(), 5000);
+    }
+
     // Additional dashboard-specific JavaScript
     document.addEventListener('DOMContentLoaded', function() {
         // Mobile sidebar toggle
@@ -1365,69 +1438,6 @@
             });
         });
 
-        // Service card selection
-        const serviceCards = document.querySelectorAll('.service-card');
-        serviceCards.forEach(card => {
-            card.addEventListener('click', function() {
-                serviceCards.forEach(c => c.classList.remove('active'));
-                this.classList.add('active');
-                
-                const service = this.getAttribute('data-service');
-                const price = this.getAttribute('data-price');
-                
-                document.getElementById('selectedService').value = service;
-                document.getElementById('servicePrice').value = price;
-            });
-        });
-
-        // Handle Form Submission
-        const confirmBtn = document.getElementById('confirmAppointmentBtn');
-        if (confirmBtn) {
-            confirmBtn.addEventListener('click', function() {
-                const form = document.getElementById('addPatientForm');
-                const formData = new FormData(form);
-                
-                // Validate required fields
-                const requiredFields = ['first_name', 'last_name', 'date_of_birth', 'contact_number', 'address'];
-                let isValid = true;
-                
-                requiredFields.forEach(field => {
-                    const input = form.querySelector(`[name="${field}"]`);
-                    if (!input.value.trim()) {
-                        input.classList.add('is-invalid');
-                        isValid = false;
-                    } else {
-                        input.classList.remove('is-invalid');
-                    }
-                });
-                
-                if (!isValid) {
-                    alert('Please fill in all required fields');
-                    return;
-                }
-                
-                // Show loading state
-                const originalText = confirmBtn.innerHTML;
-                confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
-                confirmBtn.disabled = true;
-                
-                // Simulate API call
-                setTimeout(() => {
-                    alert('Appointment scheduled successfully!');
-                    
-                    // Reset form and close modal
-                    form.reset();
-                    serviceCards[0].classList.add('active');
-                    const modal = bootstrap.Modal.getInstance(document.getElementById('addPatientModal'));
-                    if (modal) modal.hide();
-                    
-                    // Reset button
-                    confirmBtn.innerHTML = originalText;
-                    confirmBtn.disabled = false;
-                }, 2000);
-            });
-        }
-
         // Auto-format phone number
         const phoneInputs = document.querySelectorAll('input[type="tel"]');
         phoneInputs.forEach(input => {
@@ -1439,15 +1449,90 @@
                 e.target.value = value;
             });
         });
+    });
 
-        // Logout functionality
-        document.querySelectorAll('[data-action="logout"]').forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (confirm('Are you sure you want to logout?')) {
-                    window.location.href = '/logout';
+    // Patient form handler
+    document.addEventListener('DOMContentLoaded', function () {
+        const confirmBtn = document.getElementById('confirmAppointmentBtn');
+        const form = document.getElementById('addPatientForm');
+
+        // Service card selection
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('click', function () {
+                document.querySelectorAll('.service-card').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+
+                const serviceName = this.getAttribute('data-service-name');
+                const priceText = this.querySelector('.service-price').textContent.trim();
+
+                document.getElementById('selectedServiceId').value = serviceName;
+
+                // Clean price: "₱1,500" → 1500, "FREE" → 0
+                let price = priceText === 'FREE' ? 0 : parseInt(priceText.replace(/[^0-9]/g, '')) || 0;
+                document.getElementById('servicePrice').value = price;
+            });
+        });
+
+        // Submit handler
+        confirmBtn.addEventListener('click', async function () {
+            const formData = new FormData(form);
+
+            // REQUIRED: Remove fields that don't exist in patients table
+            formData.delete('service_id');
+            formData.delete('service_price');
+
+            // Validate required fields
+            const required = ['first_name', 'last_name', 'date_of_birth', 'contact_number', 'address'];
+            let valid = true;
+            required.forEach(field => {
+                if (!formData.get(field)?.trim()) {
+                    valid = false;
+                    form.querySelector(`[name="${field}"]`).classList.add('is-invalid');
+                } else {
+                    form.querySelector(`[name="${field}"]`).classList.remove('is-invalid');
                 }
             });
+
+            if (!valid) {
+                showNotification('Please fill all required fields.', 'danger');
+                return;
+            }
+
+            confirmBtn.disabled = true;
+            confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+            try {
+                const response = await fetch("{{ route('dashboard.walkin.store') }}", {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json'
+                    }
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showNotification('Patient added successfully!', 'success');
+                    bootstrap.Modal.getInstance(document.getElementById('addPatientModal')).hide();
+                    form.reset();
+                    document.querySelector('.service-card[data-service-name="prenatal"]').classList.add('active');
+                    setTimeout(() => location.reload(), 1000);
+                } else {
+                    let msg = result.message || 'Error saving patient';
+                    if (result.errors) {
+                        msg = Object.values(result.errors).flat().join('<br>');
+                    }
+                    showNotification(msg, 'danger');
+                }
+            } catch (err) {
+                console.error(err);
+                showNotification('Network error. Please try again.', 'danger');
+            } finally {
+                confirmBtn.disabled = false;
+                confirmBtn.innerHTML = '<i class="fas fa-check me-2"></i>Add Patient';
+            }
         });
     });
 </script>

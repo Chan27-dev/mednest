@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Patient\Patient;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -61,81 +64,9 @@ class DashboardController extends Controller
 
     public function patients()
     {
-        // Demo data for patients page
-        $patients = [
-            [
-                'id' => 'P - 001',
-                'name' => 'Maria Santos',
-                'age' => 31,
-                'contact' => '0917-123-4567',
-                'last_visit' => 'May 26, 2025',
-                'status' => 'Active',
-                'actions' => ['View', 'Edit']
-            ],
-            [
-                'id' => 'P - 002',
-                'name' => 'Ana Cruz',
-                'age' => 35,
-                'contact' => '0918-765-4321',
-                'last_visit' => 'May 24, 2025',
-                'status' => 'In Labor',
-                'actions' => ['View', 'Monitor']
-            ],
-            [
-                'id' => 'P - 003',
-                'name' => 'Lisa Tan',
-                'age' => 28,
-                'contact' => '0919-456-7890',
-                'last_visit' => 'May 23, 2025',
-                'status' => 'Scheduled',
-                'actions' => ['View', 'Edit']
-            ],
-            [
-                'id' => 'P - 004',
-                'name' => 'Carmen Lopez',
-                'age' => 25,
-                'contact' => '0917-234-5678',
-                'last_visit' => 'May 20, 2025',
-                'status' => 'Active',
-                'actions' => ['View', 'Edit']
-            ],
-            [
-                'id' => 'P - 005',
-                'name' => 'Grace Villanueva',
-                'age' => 33,
-                'contact' => '0920-567-8901',
-                'last_visit' => 'May 18, 2025',
-                'status' => 'Completed',
-                'actions' => ['View', 'Archive']
-            ],
-            [
-                'id' => 'P - 006',
-                'name' => 'Jennifer Reyes',
-                'age' => 29,
-                'contact' => '0921-345-6789',
-                'last_visit' => 'May 15, 2025',
-                'status' => 'Active',
-                'actions' => ['View', 'Edit']
-            ],
-            [
-                'id' => 'P - 007',
-                'name' => 'Sarah Johnson',
-                'age' => 27,
-                'contact' => '0922-456-7890',
-                'last_visit' => 'May 12, 2025',
-                'status' => 'Scheduled',
-                'actions' => ['View', 'Edit']
-            ],
-            [
-                'id' => 'P - 008',
-                'name' => 'Michelle Davis',
-                'age' => 32,
-                'contact' => '0923-567-8901',
-                'last_visit' => 'May 10, 2025',
-                'status' => 'Active',
-                'actions' => ['View', 'Edit']
-            ]
-        ];
+        // Fetch paginated patient records from the database, ordering by the latest.
+        // You can adjust the number of items per page as needed.
+        $patients = Patient::latest()->paginate(10);
 
         return view('dashboard.patients', compact('patients'));
     }
@@ -553,33 +484,6 @@ class DashboardController extends Controller
         return view('billing.reports', compact('reportData', 'type', 'startDate', 'endDate'));
     }
 
-    /**
-     * Generate report data for billing
-     */
-    private function generateBillingReportData(string $type, string $startDate, string $endDate): array
-    {
-        // Sample report data - replace with actual database queries
-        return [
-            'summary' => [
-                'total_revenue' => 125400,
-                'total_invoices' => 156,
-                'paid_invoices' => 133,
-                'pending_invoices' => 18,
-                'overdue_invoices' => 5
-            ],
-            'chart_data' => [
-                'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-                'revenue' => [85000, 92000, 78000, 105000, 125400],
-                'invoices' => [120, 135, 118, 142, 156]
-            ],
-            'top_services' => [
-                ['name' => 'Consultation', 'count' => 89, 'revenue' => 133500],
-                ['name' => 'Pre-natal Check Up', 'count' => 45, 'revenue' => 90000],
-                ['name' => 'Ultrasound', 'count' => 22, 'revenue' => 55000]
-            ]
-        ];
-    }
-
     // =========================
     // STAFF METHODS
     // =========================
@@ -642,239 +546,6 @@ class DashboardController extends Controller
         ];
 
         return view('dashboard.staff', compact('staffRecords', 'stats'));
-    }
-
-    /**
-     * Show the form for creating a new staff member
-     */
-    public function staffCreate(): View
-    {
-        // Get departments for dropdown
-        $departments = [
-            ['id' => 'labor-delivery', 'name' => 'Labor & Delivery'],
-            ['id' => 'maternity', 'name' => 'Maternity'],
-            ['id' => 'prenatal', 'name' => 'Prenatal Care'],
-            ['id' => 'gynecology', 'name' => 'Gynecology'],
-            ['id' => 'pediatrics', 'name' => 'Pediatrics'],
-            ['id' => 'pharmacy', 'name' => 'Pharmacy']
-        ];
-
-        // Get designations for dropdown
-        $designations = [
-            ['id' => 'obstetrician', 'name' => 'Obstetrician'],
-            ['id' => 'gynecologist', 'name' => 'Gynecologist'],
-            ['id' => 'nurse', 'name' => 'Registered Nurse'],
-            ['id' => 'midwife', 'name' => 'Licensed Midwife'],
-            ['id' => 'assistant', 'name' => 'Medical Assistant']
-        ];
-
-        return view('staff.create', compact('departments', 'designations'));
-    }
-
-    /**
-     * Store a newly created staff member
-     */
-    public function staffStore(Request $request): RedirectResponse
-    {
-        // Validate the request
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'designation' => 'required|string|max:255',
-            'department' => 'required|string|max:255',
-            'contact' => 'required|string|max:20',
-            'qr_gyn' => 'required|string|max:10',
-            'status' => 'required|in:On Duty,Off Duty',
-            'email' => 'nullable|email|max:255',
-            'hire_date' => 'required|date',
-            'salary' => 'nullable|numeric|min:0',
-            'notes' => 'nullable|string|max:1000'
-        ]);
-
-        // Generate staff ID
-        $staffId = 'ST-' . str_pad(rand(100, 999), 3, '0', STR_PAD_LEFT);
-
-        // Here you would typically save to database
-        // Example:
-        /*
-        $staff = new Staff();
-        $staff->staff_id = $staffId;
-        $staff->name = $validated['name'];
-        $staff->designation = $validated['designation'];
-        $staff->department = $validated['department'];
-        $staff->contact = $validated['contact'];
-        $staff->qr_gyn = $validated['qr_gyn'];
-        $staff->status = $validated['status'];
-        $staff->email = $validated['email'];
-        $staff->hire_date = $validated['hire_date'];
-        $staff->salary = $validated['salary'];
-        $staff->notes = $validated['notes'];
-        $staff->save();
-        */
-
-        return redirect()->route('dashboard.staff')
-            ->with('message', 'Staff member "' . $validated['name'] . '" added successfully with ID: ' . $staffId);
-    }
-
-    /**
-     * Display staff member details
-     */
-    public function staffShow(string $staffId): View
-    {
-        // Sample staff data - replace with actual database query
-        $staff = [
-            'id' => $staffId,
-            'staff_id' => 'ST-001',
-            'name' => 'Dr. Michelle Garcia',
-            'designation' => 'Obstetrician',
-            'department' => 'Labor & Delivery',
-            'email' => 'michelle.garcia@mednest.com',
-            'contact' => '0917-123-4567',
-            'hire_date' => '2023-01-15',
-            'status' => 'On Duty',
-            'salary' => 85000.00,
-            'emergency_contact' => '0918-987-6543',
-            'address' => '123 Medical Drive, Tabaco City',
-            'last_visit' => 'Oct 23, 2024'
-        ];
-
-        // Sample activity log
-        $activities = [
-            [
-                'date' => '2024-10-23',
-                'time' => '08:00 AM',
-                'activity' => 'Clock In',
-                'location' => 'Labor & Delivery Department'
-            ],
-            [
-                'date' => '2024-10-23',
-                'time' => '10:30 AM',
-                'activity' => 'Patient Consultation',
-                'location' => 'Room 101'
-            ],
-            [
-                'date' => '2024-10-23',
-                'time' => '02:15 PM',
-                'activity' => 'Emergency Response',
-                'location' => 'Emergency Ward'
-            ]
-        ];
-
-        return view('staff.show', compact('staff', 'activities'));
-    }
-
-    /**
-     * Show the form for editing a staff member
-     */
-    public function staffEdit(string $staffId): View
-    {
-        // Sample staff data - replace with actual database query
-        $staff = [
-            'id' => $staffId,
-            'staff_id' => 'ST-001',
-            'name' => 'Dr. Michelle Garcia',
-            'designation' => 'Obstetrician',
-            'department' => 'Labor & Delivery',
-            'email' => 'michelle.garcia@mednest.com',
-            'contact' => '0917-123-4567',
-            'qr_gyn' => 'OB-GYN',
-            'status' => 'On Duty',
-            'hire_date' => '2023-01-15',
-            'salary' => 85000.00,
-            'notes' => 'Senior staff member, excellent performance record'
-        ];
-
-        // Get departments for dropdown
-        $departments = [
-            ['id' => 'labor-delivery', 'name' => 'Labor & Delivery'],
-            ['id' => 'maternity', 'name' => 'Maternity'],
-            ['id' => 'prenatal', 'name' => 'Prenatal Care'],
-            ['id' => 'gynecology', 'name' => 'Gynecology']
-        ];
-
-        // Get designations for dropdown
-        $designations = [
-            ['id' => 'obstetrician', 'name' => 'Obstetrician'],
-            ['id' => 'gynecologist', 'name' => 'Gynecologist'],
-            ['id' => 'nurse', 'name' => 'Registered Nurse'],
-            ['id' => 'midwife', 'name' => 'Licensed Midwife']
-        ];
-
-        return view('staff.edit', compact('staff', 'departments', 'designations'));
-    }
-
-    /**
-     * Update the specified staff member
-     */
-    public function staffUpdate(Request $request, string $staffId): RedirectResponse
-    {
-        // Validate the request
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'designation' => 'required|string|max:255',
-            'department' => 'required|string|max:255',
-            'contact' => 'required|string|max:20',
-            'qr_gyn' => 'required|string|max:10',
-            'status' => 'required|in:On Duty,Off Duty',
-            'email' => 'nullable|email|max:255',
-            'salary' => 'nullable|numeric|min:0',
-            'notes' => 'nullable|string|max:1000'
-        ]);
-
-        // Here you would typically update the database
-        // Example:
-        /*
-        $staff = Staff::findOrFail($staffId);
-        $staff->name = $validated['name'];
-        $staff->designation = $validated['designation'];
-        $staff->department = $validated['department'];
-        $staff->contact = $validated['contact'];
-        $staff->qr_gyn = $validated['qr_gyn'];
-        $staff->status = $validated['status'];
-        $staff->email = $validated['email'];
-        $staff->salary = $validated['salary'];
-        $staff->notes = $validated['notes'];
-        $staff->save();
-        */
-
-        return redirect()->route('dashboard.staff')
-            ->with('message', 'Staff member "' . $validated['name'] . '" updated successfully');
-    }
-
-    /**
-     * Remove the specified staff member
-     */
-    public function staffDelete(string $staffId): RedirectResponse
-    {
-        // Here you would typically delete from database
-        // Example:
-        /*
-        $staff = Staff::findOrFail($staffId);
-        $staffName = $staff->name;
-        $staff->delete();
-        */
-
-        return redirect()->route('dashboard.staff')
-            ->with('message', 'Staff member removed successfully');
-    }
-
-    /**
-     * Toggle staff member status
-     */
-    public function staffToggleStatus(Request $request, string $staffId): RedirectResponse
-    {
-        $newStatus = $request->get('status', 'Off Duty');
-        
-        // Here you would update the staff status in database
-        // Example:
-        /*
-        Staff::where('id', $staffId)->update([
-            'status' => $newStatus,
-            'last_status_change' => now()
-        ]);
-        */
-
-        return redirect()->route('dashboard.staff')
-            ->with('message', 'Staff status updated to: ' . $newStatus);
     }
 
     /**
@@ -1243,39 +914,6 @@ class DashboardController extends Controller
         return view('dashboard.notifications', compact('notifications'));
     }
 
-    public function logout(Request $request)
-    {
-        // In a real app, you would handle authentication here
-        // Auth::logout();
-        // $request->session()->invalidate();
-        // $request->session()->regenerateToken();
-
-        return redirect()->route('login')->with('success', 'You have been successfully logged out.');
-    }
-
-    public function loginPost(Request $request)
-    {
-        // Validate the login request
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:6',
-        ]);
-
-        // Demo login logic (replace with real authentication)
-        if ($request->email === 'admin@mednest.com' && $request->password === 'password123') {
-            // In a real app, you would authenticate the user here
-            // Auth::attempt($credentials)
-            
-            // For demo, just redirect to dashboard
-            return redirect()->route('dashboard.index')->with('success', 'Welcome back to MedNest!');
-        }
-
-        // Authentication failed
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->withInput($request->only('email'));
-    }
-
     public function notifications()
     {
         $notifications = [
@@ -1346,4 +984,82 @@ class DashboardController extends Controller
 
     return view('dashboard.settings', compact('settingsData'));
 }
+
+/**
+ * Generate report data for billing
+ */
+private function generateBillingReportData(string $type, string $startDate, string $endDate): array
+{
+    // Sample report data - replace with actual database queries
+    return [
+        'summary' => [
+            'total_revenue' => 125400,
+            'total_invoices' => 156,
+            'paid_invoices' => 133,
+            'pending_invoices' => 18,
+            'overdue_invoices' => 5
+        ],
+        'chart_data' => [
+            'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+            'revenue' => [85000, 92000, 78000, 105000, 125400],
+            'invoices' => [120, 135, 118, 142, 156]
+        ],
+        'top_services' => [
+            ['name' => 'Consultation', 'count' => 89, 'revenue' => 133500],
+            ['name' => 'Pre-natal Check Up', 'count' => 45, 'revenue' => 90000],
+            ['name' => 'Ultrasound', 'count' => 22, 'revenue' => 55000]
+        ]
+    ];
+}
+
+    /**
+     * Display the login view.
+     */
+    public function loginCreate(): View
+    {
+        return view('adminLogin');
+    }
+
+    /**
+     * Handle an incoming authentication request.
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function loginPost(Request $request): RedirectResponse
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            $user = Auth::user();
+
+            // Expanded role-based redirection for owner and admin
+            if ($user->hasRole('owner') || $user->hasRole('admin')) {
+                return redirect()->intended(route('admin.dashboard'));
+            }
+            
+            // Default redirect for clerks and other authenticated users
+            return redirect()->intended(route('dashboard.index'));
+        }
+
+        throw ValidationException::withMessages([
+            'email' => __('auth.failed'),
+        ]);
+    }
+
+    /**
+     * Destroy an authenticated session.
+     */
+    public function logout(Request $request): RedirectResponse
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login')->with('status', 'You have been successfully logged out.');
+    }
 }

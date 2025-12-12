@@ -277,14 +277,15 @@
         <p>Please login or register to book your appointment</p>
       </div>
       <div class="login-body">
-        <form>
+        <form method="POST" action="{{ route('login') }}">
+          @csrf
           <label for="email">Email Address</label>
           <input type="email" id="email" name="email" required>
 
           <label for="password">Password</label>
           <input type="password" id="password" name="password" required>
 
-          <button type="submit" class="login-btn">Login</button>
+          <button type="submit" class="login-btn" style="margin-top: 1rem;">Login</button>
         </form>
         <div class="register-link">
           Don’t have an account? <a href="#">Register here</a>

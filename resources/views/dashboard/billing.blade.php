@@ -770,7 +770,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('dashboard.patients') ? 'active' : '' }}" href="{{ route('dashboard.patients') }}">
-                    <i class="fas fa-user-plus"></i>
+                    <i class="fas fa-users"></i>
                     Patients Record
                 </a>
             </li>
@@ -832,7 +832,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('dashboard.account.settings') }}">
+                    <a class="dropdown-item" href="{{ route('dashboard.settings') }}">
                         <i class="fas fa-cog me-2"></i>
                         Account Settings
                     </a>
