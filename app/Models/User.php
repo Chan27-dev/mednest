@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\Auth\Role;
+use App\Models\Patient\Patient;
 
 class User extends Authenticatable
 {
@@ -21,6 +22,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'name',
         'email',
         'password',
     ];
@@ -54,6 +56,14 @@ class User extends Authenticatable
     public function staff(): HasOne
     {
         return $this->hasOne(Staff::class);
+    }
+
+    /**
+     * Get the patient profile associated with the user.
+     */
+    public function patient(): HasOne
+    {
+        return $this->hasOne(Patient::class);
     }
 
     /**

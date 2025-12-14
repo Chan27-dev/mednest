@@ -58,6 +58,13 @@
       color: #7B0707;
       font-weight: 600;
     }
+    
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
     .phone-btn {
       display: flex;
       align-items: center;
@@ -68,8 +75,33 @@
       border-radius: 30px;
       text-decoration: none;
       font-weight: 600;
-      font-size: 16px;
+      font-size: 15px;
       white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+    
+    .phone-btn:hover {
+      background: #5f0505;
+      transform: translateY(-2px);
+    }
+    
+    /* Register/Login Button in Navbar */
+    .register-nav-btn {
+      background: linear-gradient(90deg, #AF1732 0%, #B7233D 30%, #D44C64 100%);
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(175, 23, 50, 0.3);
+    }
+    
+    .register-nav-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(175, 23, 50, 0.4);
     }
 
     /* Hamburger */
@@ -134,7 +166,15 @@
       font-size: 18px;
       font-weight: 600;
       text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(175, 23, 50, 0.3);
     }
+    
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(175, 23, 50, 0.4);
+    }
+    
     .btn-outline {
       background: #fff;
       color: #7B0707;
@@ -144,6 +184,48 @@
       font-size: 18px;
       font-weight: 600;
       text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-outline:hover {
+      background: #7B0707;
+      color: #fff;
+      transform: translateY(-3px);
+    }
+    
+    /* Special styling for Register Now button */
+    .btn-register {
+      background: linear-gradient(135deg, #D44C64 0%, #AF1732 100%);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(212, 76, 100, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-register::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn-register:hover::before {
+      left: 100%;
+    }
+    
+    .btn-register:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(212, 76, 100, 0.5);
     }
 
     /* WHAT WE PROVIDE SECTION */
@@ -195,10 +277,10 @@
     color: #fff;
     padding: 20px;
     text-align: justify;
-    flex-grow: 1; /
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* aligns content top */
+    justify-content: flex-start;
     }
     .card-content h3 {
       margin: 0;
@@ -257,271 +339,322 @@
     .benefit-card p {
     color: #373C36;
     margin: 0;
-    line-height: 1.5;
     }
 
-    /* TESTIMONIAL */
+    /* IMAGE CONTAINER */
+    .image-container {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    flex-shrink: 0;
+    }
+
+    .doctors-image {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    }
+
+    .doctors-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    }
+
+    .shape {
+    position: absolute;
+    background: linear-gradient(135deg, #D44C64, #AF1732);
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0.4;
+    }
+
+    .shape-1 {
+    width: 150px;
+    height: 150px;
+    top: -30px;
+    left: -30px;
+    }
+
+    .shape-2 {
+    width: 100px;
+    height: 100px;
+    bottom: -20px;
+    right: -20px;
+    }
+
+    .shape-3 {
+    width: 80px;
+    height: 80px;
+    top: 50%;
+    left: -40px;
+    transform: translateY(-50%);
+    }
+
+    /* TESTIMONIAL SECTION */
     .testimonial {
-      background: rgba(237, 104, 104, 0.33);
-      border-radius: 0 200px 200px 200px;
-      padding: 60px 20px 120px;
-      margin: 60px auto;
+    background: linear-gradient(135deg, #D44C64, #AF1732);
+    padding: 80px 40px;
+    color: white;
     }
+
     .testimonial-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 60px;
     }
+
     .testimonial-text {
-      flex: 1;
-      text-align: center;
+    flex: 1;
+    padding-right: 40px;
+    }
+
+    .testimonial-text h2 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    }
+
+    .quote-icon {
+    font-size: 80px;
+    line-height: 0.5;
+    margin-bottom: 15px;
+    color: rgba(255,255,255,0.6);
+    }
+
+    .feedback {
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    font-style: italic;
+    }
+
+    .author {
+    font-size: 16px;
+    font-weight: 600;
+    text-align: right;
     }
 
     .image-box {
-      background: #ED6868;
-      border-radius: 100px 100px 0 100px;
-      padding: 12px;
-      position: relative;
-      height: 400px;
-      width: 300px;
-      overflow: hidden;
+    width: 400px;
+    height: 450px;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     }
+
     .image-box img {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 250px;
-      object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
     }
 
-    /* DOCTORS */
+    /* DOCTORS SECTION */
     .doctors {
-      text-align: center;
-      padding: 80px 20px;
-    }
-    .doctor-card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      width: 250px; 
-      text-align: center;
-      transition: transform 0.3s ease;
-      display: flex;               
-      flex-direction: column;      
-      justify-content: space-between; 
-      height: 200px;               
+    text-align: center;
+    padding: 60px 40px;
+    background: #f9f9f9;
     }
 
-    .doctor-card:hover {
-      transform: translateY(-8px);
+    .doctors h2 {
+    font-size: 48px;
+    font-weight: 700;
+    color: #7B0707;
+    margin-bottom: 10px;
     }
 
-    .doctor-photo img {
-      width: 150px; 
-      height: 150px;
-      object-fit: cover;
-      border-radius: 50%;
-      margin-bottom: 15px;
+    .subtitle {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 50px;
     }
 
     .doctors-container {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      flex-wrap: nowrap; 
-      gap: 30px;
-      overflow-x: auto;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
     }
 
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      .hamburger {
-        display: block;
-      }
-      .nav-center {
-        position: static;
-        transform: none;
-        width: 100%;
-      }
-      nav {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        background-color: #fff;
-        border-top: 1px solid #eee;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        z-index: 99;
-      }
-
-      nav.show {
-        display: flex;
-      }
-
-      nav a {
-        text-align: center;
-        padding: 10px;
-        border-top: 1px solid #eee;
-      }
-      header {
-        justify-content: space-between;
-        position: relative;
-      }
-      .nav-right {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .phone-btn {
-        font-size: 14px;
-        padding: 8px 12px;
-      }
-
-      .hero {
-        height: auto;
-        padding: 60px 0;
-      }
-      .hero-content {
-        padding: 0 20px;
-        text-align: center;
-        align-items: center;
-      }
-      .hero-content h1 {
-        font-size: 38px;
-      }
-      .hero-content p {
-        font-size: 16px;
-      }
-      .why-choose-us {
-        padding: 40px 20px;
-        flex-direction: column;
-      }
-      .testimonial {
-        border-radius: 50px;
-      }
-        .doctors-container {
-        flex-wrap: wrap; 
-        justify-content: center;
-      }
+    .doctor-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    width: 250px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: 0.3s;
     }
 
-    @media (max-width: 480px) {
-      .hero-content h1 {
-        font-size: 32px;
-      }
-      .btn-primary, .btn-outline {
-        font-size: 14px;
-        padding: 10px 20px;
-      }
-      .what-we-provide h2 {
-        font-size: 36px;
-      }
-      .content h2 {
-        font-size: 28px;
-      }
+    .doctor-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
     }
+
+    .doctor-photo {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #D44C64;
+    }
+
+    .doctor-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
+
+    .doctor-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #373C36;
+    margin-bottom: 8px;
+    }
+
+    .doctor-card p {
+    font-size: 14px;
+    color: #7B0707;
+    font-weight: 500;
+    }
+
+    /* FOOTER */
     .footer {
-       background-color: #e88092;
-       color: #fff;
-       padding: 25px 20px 15px;
+    background: #2C2828;
+    color: white;
+    padding: 40px 80px 20px;
     }
 
     .footer-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        flex-wrap: wrap;
-        max-width: 1100px;
-        margin: 0 auto;
-        gap: 40px;
-        text-align: left;
-        }
-
-    .footer-section {
-        flex: 1 1 300px;
-        min-width: 220px;
-        }
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    }
 
     .footer-section h3 {
-      font-size: 16px;
-      margin-bottom: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #D44C64;
     }
 
     .footer-section ul {
     list-style: none;
     padding: 0;
-    margin: 0;
     }
 
     .footer-section ul li {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     }
 
-    .footer-section a {
-    color: #fff;
+    .footer-section ul li a {
+    color: white;
     text-decoration: none;
-    font-size: 14px;
     transition: 0.3s;
     }
 
-    .footer-section a:hover {
-    text-decoration: underline;
-    color: #ffe0e6;
+    .footer-section ul li a:hover {
+    color: #D44C64;
     }
 
     .footer-section p {
+    margin: 8px 0;
     font-size: 14px;
-    margin: 6px 0;
-    line-height: 1.5;
     }
 
     .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 20px;
     text-align: center;
-    margin-top: 25px;
-    font-size: 13px;
-    opacity: 0.9;
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
     }
 
-    .benefits-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+    .hero-content {
+      padding: 0 40px;
     }
-    /* Responsive fix for small screens */
+    .why-choose-us {
+      flex-direction: column-reverse;
+      padding: 40px;
+    }
+    .image-container {
+      width: 100%;
+      max-width: 400px;
+      height: 400px;
+    }
+    .testimonial-container {
+      flex-direction: column;
+      text-align: center;
+    }
+    .testimonial-text {
+      padding-right: 0;
+    }
+    .author {
+      text-align: center;
+    }
+    .image-box {
+      width: 100%;
+      max-width: 350px;
+      height: 400px;
+    }
+    }
+
     @media (max-width: 768px) {
-    .benefits-grid {
-        flex-direction: column;
-        align-items: center;
-        padding: 0 15px;
+    header {
+      padding: 12px 20px;
     }
 
-    .benefit-card {
-        width: 100%;
-        max-width: 395px; 
-    }
+    .logo-text {
+      font-size: 20px;
     }
 
-    @media (max-width: 768px) {
+    .logo-container img {
+      height: 28px;
+      width: 28px;
+    }
+
+    .nav-right {
+      gap: 8px;
+    }
+
+    .phone-btn, .register-nav-btn {
+      font-size: 13px;
+      padding: 6px 12px;
+    }
+
     .footer-container {
       flex-direction: column;
-      align-items: center; 
-      text-align: center; 
-      gap: 20px; 
+      align-items: center;
+      text-align: center;
+      gap: 20px;
+    }
+
+    .footer {
+      padding: 30px 20px 20px;
     }
 
     .footer-section {
       margin-bottom: 10px;
-      flex: none; 
-      width: 100%; 
-      max-width: 400px; 
+      flex: none;
+      width: 100%;
+      max-width: 400px;
     }
 
     .footer-section ul {
@@ -536,13 +669,118 @@
     .services-grid {
         display: flex;
         justify-content: center;
-        gap: 40px;
+        gap: 20px;
         flex-wrap: wrap;
         align-items: stretch;
     }
+
+    .card {
+      width: 100%;
+      max-width: 350px;
+    }
+
+    .what-we-provide h2 {
+      font-size: 36px;
+      padding: 0 20px;
+    }
+
+    .what-we-provide p {
+      padding: 0 20px;
+    }
+
       nav a.active {
-        border-bottom: 2px solid #7B0707; /* the underline */
+        border-bottom: 2px solid #7B0707;
         color: #7B0707;
+    }
+
+    .hamburger {
+      display: block;
+    }
+
+    nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      flex-direction: column;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      gap: 15px;
+    }
+
+    nav.show {
+      display: flex;
+    }
+
+    .hero {
+      height: auto;
+      min-height: 500px;
+    }
+
+    .hero-content {
+      padding: 40px 20px;
+      text-align: center;
+      max-width: 100%;
+    }
+
+    .hero-content h1 {
+      font-size: 28px;
+      line-height: 1.3;
+    }
+
+    .hero-content p {
+      font-size: 16px;
+    }
+
+    .hero-buttons {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn-primary, .btn-outline, .btn-register {
+      width: 100%;
+      text-align: center;
+      padding: 12px 24px;
+      font-size: 16px;
+    }
+
+    .why-choose-us {
+      padding: 40px 20px;
+    }
+
+    .content h2 {
+      font-size: 28px;
+      text-align: center;
+    }
+
+    .content p {
+      text-align: center;
+    }
+
+    .benefit-card {
+      margin-bottom: 15px;
+    }
+
+    .doctors h2 {
+      font-size: 36px;
+    }
+
+    .doctors-container {
+      gap: 25px;
+    }
+
+    .testimonial {
+      padding: 50px 20px;
+    }
+
+    .testimonial-text h2 {
+      font-size: 36px;
+    }
+
+    .quote-icon {
+      font-size: 60px;
     }
     }
   </style>
@@ -565,6 +803,11 @@
 
     <div class="nav-right">
         <a href="tel:+639123456789" class="phone-btn">+6391-2345-6789</a>
+        @guest
+            <a href="{{ route('register') }}" class="register-nav-btn">Get Started</a>
+        @else
+            <a href="{{ route('user.dashboard') }}" class="register-nav-btn">Dashboard</a>
+        @endguest
         <div class="hamburger" id="hamburger">☰</div>
     </div>
     </header>
@@ -581,8 +824,14 @@
                 Streamlined records, scheduling, monitoring, and billing — so you can stress less and care more.
             </p>
             <div class="hero-buttons">
-                <a href="{{url('/user/appointment') }}" class="btn-primary">Book Appointment</a>
-                <a href="{{url('/user/about') }}" class="btn-outline">Learn More</a>
+                @guest
+                    <a href="{{ route('register') }}" class="btn-register">Register Now</a>
+                    <a href="{{ route('login') }}" class="btn-primary">Already Have Account? Login</a>
+                @else
+                    <a href="{{ route('user.appointment') }}" class="btn-primary">Book Appointment</a>
+                    <a href="{{ route('user.dashboard') }}" class="btn-register">Go to Dashboard</a>
+                @endguest
+                <a href="{{ url('/user/about') }}" class="btn-outline">Learn More</a>
             </div>
         </div>
     </section>
@@ -691,7 +940,7 @@
     <!-- OUR DOCTORS AND SPECIALISTS SECTION -->
     <section class="doctors">
         <h2>Our Doctors and Specialists</h2>
-        <p class="subtitle">Meet the dedicated professionals committed to providing you with quality care and espertise.</p>
+        <p class="subtitle">Meet the dedicated professionals committed to providing you with quality care and expertise.</p>
 
         <div class="doctors-container">
             <div class="doctor-card">
@@ -727,7 +976,6 @@
             </div>
         </div>
     </section>
-</body>
 <!-- ===== FOOTER ===== -->
 <footer class="footer">
   <div class="footer-container">
@@ -745,7 +993,7 @@
       <h3>Contact</h3>
       <p>📍 Purok 1 Brgy. 3 Del Rosario, Sto. Domingo Albay 4508</p>
       <p>📞 +63 912-345-678</p>
-      <p>📧 <a href="mailto:delrosario.maternity@gmail.com" style="color: inherit; text-decoration: none;">delrosario.maternity@gmail.com</a></p>
+      <p>📧 mednest@clinic.com</p>
     </div>
 
     <div class="footer-section">
@@ -764,9 +1012,11 @@
   </div>
 </footer>
 
-    <script>
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('nav-links');
-        hamburger.addEventListener('click', () => navLinks.classList.toggle('show'));
-    </script>
+<script>
+const hamburger = document.getElementById('hamburger');
+const nav = document.getElementById('nav-links');
+hamburger.addEventListener('click', () => nav.classList.toggle('show'));
+</script>
+
+</body>
 </html>

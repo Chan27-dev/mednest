@@ -154,7 +154,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: calc(100vh - 80px);
+      min-height: calc(100vh - 80px);
       background: #f9f9f9;
       padding: 20px;
     }
@@ -209,6 +209,26 @@
       outline: none;
       border-color: #B7233D;
       box-shadow: 0 0 0 3px rgba(183, 35, 61, 0.2);
+    }
+
+    .error-message {
+      background: #fee;
+      border: 1px solid #fcc;
+      color: #c33;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      font-size: 13px;
+    }
+
+    .success-message {
+      background: #efe;
+      border: 1px solid #cfc;
+      color: #3c3;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      font-size: 13px;
     }
 
     .login-btn {
@@ -277,18 +297,39 @@
         <p>Please login or register to book your appointment</p>
       </div>
       <div class="login-body">
-        <form method="POST" action="{{ route('login') }}">
+        @if ($errors->any())
+          <div class="error-message">
+            @foreach ($errors->all() as $error)
+              {{ $error }}
+            @endforeach
+          </div>
+        @endif
+
+        @if (session('success'))
+          <div class="success-message">
+            {{ session('success') }}
+          </div>
+        @endif
+
+        @if (session('error'))
+          <div class="error-message">
+            {{ session('error') }}
+          </div>
+        @endif
+
+        <form method="POST" action="{{ route('login.post') }}">
           @csrf
           <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" required>
+          <input type="email" id="email" name="email" value="{{ old('email') }}" required>
 
           <label for="password">Password</label>
           <input type="password" id="password" name="password" required>
 
-          <button type="submit" class="login-btn" style="margin-top: 1rem;">Login</button>
+          <button type="submit" class="login-btn">Login</button>
         </form>
+
         <div class="register-link">
-            Don’t have an account? <a href="{{ route('user.terms') }}">Register here</a>
+          Don't have an account? <a href="{{ route('register') }}">Register here</a>
         </div>
       </div>
     </div>

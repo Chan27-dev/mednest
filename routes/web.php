@@ -7,8 +7,17 @@ use App\Http\Controllers\BillingController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\WalkInPatientController;
+use App\Models\User;
+use App\Models\Patient\Patient;
+use App\Models\Clinic\Branch;
+use App\Models\Billing\Service;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 Route::prefix('user')->group(function () {
+    // Public pages
     Route::get('/about', function () {
         return view('user.about');
     })->name('user.about');
@@ -17,13 +26,86 @@ Route::prefix('user')->group(function () {
         return view('user.services');
     })->name('user.services');
 
-    Route::get('/appointment', function () {
-        return view('user.appointment');
-    })->name('user.appointment');
-
     Route::get('/landing_page', function () {
         return view('user.landing_page');
     })->name('user.landing_page');
+
+    // Pages that require authentication
+    Route::get('/dashboard', function () {
+        $patient = Patient::where('user_id', Auth::id())->first();
+        return view('user.dashboard', compact('patient'));
+    })->middleware('auth')->name('user.dashboard');
+
+    Route::get('/appointment', function () {
+        $branches = Branch::all();
+        $services = Service::all();
+        return view('user.appointment', compact('branches', 'services'));
+    })->middleware('auth')->name('user.appointment');
+
+    Route::get('/lab-results', function () {
+        $patient = Patient::where('user_id', Auth::id())->first();
+        $pregnancy = null;
+        $checkupsWithLabs = collect();
+        return view('user.my_lab_results', compact('patient', 'pregnancy', 'checkupsWithLabs'));
+    })->middleware('auth')->name('user.lab_results');
+
+    // Appointment confirmation page (public or protected depending on flow)
+    Route::get('/confirmation', function () {
+        return view('user.confirmation');
+    })->name('user.confirmation');
+
+    Route::get('/profile', function () {
+        $user = Auth::user();
+        $patient = Patient::where('user_id', $user->id)->first();
+        
+        $weeksPregnant = 0;
+        $monthsUntilDue = 0;
+        
+        if ($patient && $patient->lmp) {
+            $weeksPregnant = \Carbon\Carbon::parse($patient->lmp)->diffInWeeks(now());
+            $monthsUntilDue = now()->diffInMonths(\Carbon\Carbon::parse($patient->lmp)->addDays(280), false);
+        }
+        
+        $appointments = []; // Placeholder for appointments
+        
+        return view('user.profile', compact('user', 'patient', 'weeksPregnant', 'monthsUntilDue', 'appointments'));
+    })->middleware('auth')->name('user.profile');
+
+    Route::get('/profile/edit', function () {
+        $user = Auth::user();
+        return view('user.profile_edit', compact('user'));
+    })->middleware('auth')->name('user.profile.edit');
+
+    Route::post('/profile/update', function (Request $request) {
+        $user = Auth::user();
+        $patient = Patient::where('user_id', $user->id)->first();
+
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'date_of_birth' => 'required|date',
+            'phone' => 'required|string',
+            'address' => 'required|string',
+            'civil_status' => 'required|string',
+            'lmp' => 'required|date',
+        ]);
+
+        $data = $request->except(['_token']);
+
+        if ($patient) {
+            $patient->update($data);
+        } else {
+            $data['user_id'] = $user->id;
+            $data['email'] = $user->email;
+            Patient::create($data);
+        }
+
+        return redirect()->route('user.profile')->with('success', 'Profile updated successfully!');
+    })->middleware('auth')->name('user.profile.update');
+
+    Route::post('/appointment', function () {
+        return redirect()->back()->with('success', 'Appointment booked successfully!');
+    })->middleware('auth')->name('user.appointment.store');
 });
 
 // ✅ Default route (optional – can point to user landing page)
@@ -103,9 +185,71 @@ Route::post('/logout', [DashboardController::class, 'logout'])->name('logout');
 
 // Apply the 'guest' middleware to redirect authenticated users away from the login page.
 Route::middleware('guest')->group(function () {
-    Route::get('adminLogin', [DashboardController::class, 'loginCreate'])->name('login');
-    Route::post('adminLogin', [DashboardController::class, 'loginPost']);
+    Route::get('adminLogin', [DashboardController::class, 'loginCreate'])->name('admin.login');
+    Route::post('adminLogin', [DashboardController::class, 'loginPost'])->name('admin.login.post');
+
+    // Public user login routes (used by `auth` middleware redirect)
+    Route::get('login', function () {
+        return view('login');
+    })->name('login');
+
+    Route::post('login', [DashboardController::class, 'loginPost'])->name('login.post');
+
 });
+
+    // Registration page (GET) and handler (POST)
+    Route::get('register', function () {
+        return view('register');
+    })->name('register');
+
+    Route::post('register', function (Request $request) {
+        $data = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'date_of_birth' => 'required|date',
+            'phone' => 'required|string|max:50',
+            'address' => 'required|string|max:255',
+            'civil_status' => 'required|string|max:50',
+            'occupation' => 'nullable|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        // Create user
+        $user = User::create([
+            'name' => $data['first_name'] . ' ' . $data['last_name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Create patient record and link to user
+        Patient::create([
+            'user_id' => $user->id,
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'date_of_birth' => $data['date_of_birth'],
+            'phone' => $data['phone'],
+            'address' => $data['address'],
+            'civil_status' => $data['civil_status'],
+            'occupation' => $data['occupation'] ?? null,
+            'email' => $data['email'],
+        ]);
+
+        // Assign 'patient' role dynamically
+        // Ensure you have a Role model or use DB table lookups
+        $patientRole = DB::table('roles')->where('name', 'patient')->first();
+        DB::table('role_user')->insert([
+            'user_id' => $user->id,
+            'role_id' => $patientRole ? $patientRole->id : 3, // Fallback to 3 if not found
+        ]);
+
+        // Log the user in
+        Auth::login($user);
+
+        return redirect()->route('user.dashboard')->with('success', 'Account created and logged in.');
+    })->name('register.post');
 // -------------------------------------------------------------
 // API Routes
 // -------------------------------------------------------------

@@ -298,27 +298,37 @@
 
     <div class="summary-row">
       <label>Patient Name</label>
-      <input type="text" value="Patient" readonly>
+      <input type="text" value="{{ $appointment->patient->full_name }}" readonly>
     </div>
 
     <div class="summary-row">
       <label>Contact Number</label>
-      <input type="text" value="+63 924567678" readonly>
+      <input type="text" value="{{ $appointment->patient->phone ?? 'N/A' }}" readonly>
     </div>
 
     <div class="summary-row">
       <label>Appointment Date</label>
-      <input type="text" value="Wednesday, May 28, 2025" readonly>
+      <input type="text" value="{{ $appointment->start_time->format('l, F d, Y') }}" readonly>
     </div>
 
     <div class="summary-row">
       <label>Selected Time</label>
-      <input type="text" value="8:00 AM" readonly>
+      <input type="text" value="{{ $appointment->start_time->format('h:i A') }} - {{ $appointment->end_time->format('h:i A') }}" readonly>
     </div>
 
     <div class="summary-row">
       <label>Service Type</label>
-      <input type="text" value="Pre-natal Check Up (FREE)" readonly>
+      <input type="text" value="{{ $appointment->service->name }}" readonly>
+    </div>
+
+    <div class="summary-row">
+      <label>Branch</label>
+      <input type="text" value="{{ $appointment->branch->name }}" readonly>
+    </div>
+
+    <div class="summary-row">
+      <label>Assigned Doctor</label>
+      <input type="text" value="{{ $appointment->staff->full_name ?? 'To be assigned' }}" readonly>
     </div>
 
     <div class="next-steps">

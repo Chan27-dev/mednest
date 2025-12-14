@@ -369,9 +369,9 @@
 
   <!-- ===== HERO SECTION ===== -->
   <section class="about-hero">
-    <h1>We’re with you at every stage of your journey to motherhood.</h1>
-    <p>At MedNest, we provide comprehensive care and support — from your very first check-up to your baby’s first steps. Your health and comfort are our priority.</p>
-    <a href="{{ url('/contact') }}" class="about-btn">Book a Consultation</a>
+    <h1>We're with you at every stage of your journey to motherhood.</h1>
+    <p>At MedNest, we provide comprehensive care and support — from your very first check-up to your baby's first steps. Your health and comfort are our priority.</p>
+    <a href="{{ route('user.appointment') }}" class="about-btn">Book a Consultation</a>
   </section>
 
   <!-- ===== SERVICES SECTION ===== -->

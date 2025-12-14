@@ -34,10 +34,15 @@ class Patient extends Model
         'phone',
         'email',
         'address',
+        'civil_status',
+        'occupation',
         'blood_type',
         'emergency_contact_name',
         'emergency_contact_phone',
         'medical_history',
+        'lmp',
+        'gp',
+        'tt_status',
     ];
 
     /**

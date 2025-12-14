@@ -1,3 +1,4 @@
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,7 +98,7 @@
       font-size: 28px;
       cursor: pointer;
       color: #7B0707;
-      z-index: 1100; /* make sure it's on top */
+      z-index: 1100;
     }
 
     /* MOBILE MENU */
@@ -123,7 +124,7 @@
         position: absolute;
         top: 100%;
         left: 0;
-        z-index: 1050; /* make sure it overlays content */
+        z-index: 1050;
       }
 
       nav.show {
@@ -183,6 +184,31 @@
       padding: 20px 24px;
     }
 
+    .error-message {
+      background: #fee;
+      border: 1px solid #fcc;
+      color: #c33;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      font-size: 13px;
+    }
+
+    .error-message ul {
+      margin: 5px 0 0;
+      padding-left: 20px;
+    }
+
+    .success-message {
+      background: #efe;
+      border: 1px solid #cfc;
+      color: #3c3;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      font-size: 13px;
+    }
+
     .register-body label {
       display: block;
       font-size: 13px;
@@ -209,6 +235,10 @@
       box-shadow: 0 0 0 2px rgba(183, 35, 61, 0.2);
     }
 
+    .register-body input.error {
+      border-color: #c33;
+    }
+
     .register-btn {
       width: 100%;
       height: 42px; 
@@ -219,6 +249,7 @@
       font-size: 14px;
       cursor: pointer;
       transition: 0.3s;
+      font-weight: 600;
     }
 
     .register-btn:hover {
@@ -235,6 +266,10 @@
       color: #B7233D;
       text-decoration: none;
       font-weight: bold;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -270,24 +305,67 @@
         <p>Please register to book your appointment</p>
       </div>
       <div class="register-body">
-        <form>
-          <label for="name">Full Name</label>
-          <input type="text" id="name" name="name" required>
+        @if ($errors->any())
+          <div class="error-message">
+            <ul>
+              @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          </div>
+        @endif
 
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" required>
+        @if (session('success'))
+          <div class="success-message">
+            {{ session('success') }}
+          </div>
+        @endif
+
+        <form method="POST" action="{{ route('register.post') }}">
+          @csrf
+
+          <!-- Personal Information -->
+          <label for="first_name">First Name</label>
+          <input type="text" id="first_name" name="first_name" value="{{ old('first_name') }}" class="@error('first_name') error @enderror" required>
+
+          <label for="last_name">Last Name</label>
+          <input type="text" id="last_name" name="last_name" value="{{ old('last_name') }}" class="@error('last_name') error @enderror" required>
+
+          <label for="date_of_birth">Date of Birth</label>
+          <input type="date" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth') }}" max="{{ date('Y-m-d') }}" class="@error('date_of_birth') error @enderror" required>
 
           <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" name="phone" required>
+          <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" class="@error('phone') error @enderror" placeholder="+639123456789" required>
+
+          <label for="address">Complete Address</label>
+          <input type="text" id="address" name="address" value="{{ old('address') }}" class="@error('address') error @enderror" placeholder="Include barangay, city, province" required>
+
+          <label for="civil_status">Civil Status</label>
+          <select id="civil_status" name="civil_status" class="@error('civil_status') error @enderror" required style="width: 100%; height: 38px; padding: 0 10px; border: 1px solid #ccc; border-radius: 6px; margin-bottom: 12px; font-family: 'Poppins', sans-serif; font-size: 13px;">
+            <option value="">Select status</option>
+            <option value="Single" {{ old('civil_status') == 'Single' ? 'selected' : '' }}>Single</option>
+            <option value="Married" {{ old('civil_status') == 'Married' ? 'selected' : '' }}>Married</option>
+            <option value="Widowed" {{ old('civil_status') == 'Widowed' ? 'selected' : '' }}>Widowed</option>
+            <option value="Separated" {{ old('civil_status') == 'Separated' ? 'selected' : '' }}>Separated</option>
+            <option value="Divorced" {{ old('civil_status') == 'Divorced' ? 'selected' : '' }}>Divorced</option>
+          </select>
+
+          <label for="occupation">Occupation (optional)</label>
+          <input type="text" id="occupation" name="occupation" value="{{ old('occupation') }}" class="@error('occupation') error @enderror" placeholder="e.g., Teacher, Housewife">
+
+          <!-- Account Credentials -->
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" value="{{ old('email') }}" class="@error('email') error @enderror" required>
 
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" required>
+          <input type="password" id="password" name="password" class="@error('password') error @enderror" required>
 
-          <label for="confirm-password">Confirm Password</label>
-          <input type="password" id="confirm-password" name="confirm-password" required>
+          <label for="password_confirmation">Confirm Password</label>
+          <input type="password" id="password_confirmation" name="password_confirmation" required>
 
           <button type="submit" class="register-btn">Register</button>
         </form>
+
         <div class="register-link">
           Already have an account? <a href="{{ route('login') }}">Login here</a>
         </div>

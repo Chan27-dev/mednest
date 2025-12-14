@@ -21,17 +21,16 @@
       align-items: center;
       padding: 16px 40px;
       background: #fff;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      position: relative;
-      z-index: 100;
-      flex-wrap: wrap;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
     .logo-container {
       display: flex;
       align-items: center;
       gap: 8px;
-      position: static;
     }
 
     .logo-container img {
@@ -47,15 +46,6 @@
     .logo-text .med { color: #000; }
     .logo-text .nest { color: #7B0707; }
 
-    .nav-center {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
     nav {
       display: flex;
       gap: 40px;
@@ -65,7 +55,9 @@
     nav a {
       text-decoration: none;
       color: #373C36;
-      transition: color 0.3s ease, border-bottom 0.3s ease;
+      font-weight: 500;
+      transition: color 0.3s;
+      padding-bottom: 4px;
     }
 
     nav a.active {
@@ -99,11 +91,123 @@
       background: #5a0505;
     }
 
+    /* User Profile Dropdown */
+    .user-dropdown {
+      position: relative;
+    }
+
+    .user-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #7B0707;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      border: none;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .user-btn:hover {
+      background: #5f0505;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 1000;
+      overflow: hidden;
+    }
+
+    .user-dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-menu a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      color: #2C2828;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .dropdown-menu a:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-menu a:hover {
+      background: #ffeef0;
+      color: #7B0707;
+    }
+
+    .dropdown-menu a i {
+      font-size: 16px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .dropdown-menu .logout-btn {
+      color: #C62828;
+    }
+
+    .dropdown-menu .logout-btn:hover {
+      background: #FFEBEE;
+      color: #C62828;
+    }
+
+    .register-nav-btn {
+      background: linear-gradient(90deg, #AF1732 0%, #B7233D 30%, #D44C64 100%);
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(175, 23, 50, 0.3);
+    }
+
+    .register-nav-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(175, 23, 50, 0.4);
+    }
+
+    /* Hamburger Menu */
     .hamburger {
       display: none;
-      font-size: 28px;
+      flex-direction: column;
+      gap: 4px;
       cursor: pointer;
-      color: #7B0707;
+      padding: 5px;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: #7B0707;
+      border-radius: 2px;
+      transition: 0.3s;
     }
 
     /* ===== HERO SECTION ===== */
@@ -364,24 +468,34 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
+      header {
+        flex-wrap: wrap;
+        padding: 12px 20px;
+      }
+
+      .logo-text {
+        font-size: 20px;
+      }
+
+      .logo-container img {
+        height: 28px;
+        width: 28px;
+      }
+
       .hamburger {
-        display: block;
+        display: flex;
+        order: 3;
       }
-      .nav-center {
-        position: static;
-        transform: none;
-        width: 100%;
-      }
+
       nav {
         display: none;
-        flex-direction: column;
         width: 100%;
-        background-color: #fff;
-        border-top: 1px solid #eee;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        z-index: 99;
+        order: 4;
+        flex-direction: column;
+        gap: 10px;
+        padding-top: 15px;
+        border-top: 1px solid #f0f0f0;
+        margin-top: 15px;
       }
 
       nav.show {
@@ -389,23 +503,22 @@
       }
 
       nav a {
+        padding: 8px 0;
         text-align: center;
-        padding: 10px;
-        border-top: 1px solid #eee;
       }
-      header {
-        justify-content: space-between;
-        position: relative;
-      }
-      .nav-right {
-        display: flex;
-        align-items: center;
-        gap: 10px;
+
+      .user-dropdown {
+        display: none;
       }
 
       .phone-btn {
-        font-size: 14px;
-        padding: 8px 12px;
+        font-size: 13px;
+        padding: 6px 12px;
+      }
+
+      .register-nav-btn {
+        font-size: 13px;
+        padding: 6px 12px;
       }
 
     .footer-container {
@@ -438,22 +551,65 @@
   <!-- ===== NAVBAR ===== -->
   <header>
     <div class="logo-container">
-      <img src="{{ asset('images/mednest-logo.png') }}" alt="MedNest Logo" />
-      <span class="logo-text"><span class="med">Med</span><span class="nest">Nest</span></span>
+      <a href="{{ Auth::check() ? route('user.dashboard') : route('user.landing_page') }}" style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
+        <img src="{{ asset('images/mednest-logo.png') }}" alt="MedNest Logo" />
+        <span class="logo-text"><span class="med">Med</span><span class="nest">Nest</span></span>
+      </a>
     </div>
 
-    <div class="nav-center">
-      <nav id="nav-links">
+    <nav id="nav-links">
+      @auth
+        <a href="{{ route('user.dashboard') }}" class="{{ request()->routeIs('user.dashboard') ? 'active' : '' }}">Dashboard</a>
+        <a href="{{ route('user.appointment') }}" class="{{ request()->routeIs('user.appointment') ? 'active' : '' }}">Book Appointment</a>
+        <a href="{{ route('user.lab_results') }}" class="{{ request()->routeIs('user.lab_results') ? 'active' : '' }}">My Lab Results</a>
+        <a href="{{ route('user.profile') }}" class="{{ request()->routeIs('user.profile') ? 'active' : '' }}">My Profile</a>
+        <a href="{{ route('user.about') }}" class="{{ request()->routeIs('user.about') ? 'active' : '' }}">About Us</a>
+      @else
         <a href="{{ route('user.landing_page') }}" class="{{ request()->is('/') || request()->routeIs('user.landing_page') ? 'active' : '' }}">Home</a>
         <a href="{{ route('user.services') }}" class="{{ request()->routeIs('user.services') ? 'active' : '' }}">Services</a>
         <a href="{{ route('user.about') }}" class="{{ request()->routeIs('user.about') ? 'active' : '' }}">About Us</a>
         <a href="{{ route('user.appointment') }}" class="{{ request()->routeIs('user.appointment') ? 'active' : '' }}">Appointment</a>
-      </nav>
-    </div>
+      @endauth
+    </nav>
 
-    <div class="nav-right">
+    @auth
+      <div class="user-dropdown">
+        <div class="user-btn">
+          <div style="width: 24px; height: 24px; background: #fff; color: #7B0707; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px;">
+            {{ strtoupper(substr(Auth::user()->name ?? 'U', 0, 1)) }}
+          </div>
+          <span>{{ Str::of(Auth::user()->name ?? 'User')->explode(' ')->first() }}</span>
+          <i class="fas fa-chevron-down" style="font-size: 10px; margin-left: -4px;"></i>
+        </div>
+        <div class="dropdown-menu">
+          <a href="{{ route('user.profile') }}">
+            <i class="fas fa-user"></i>
+            <span>My Profile</span>
+          </a>
+          <a href="{{ route('user.lab_results') }}">
+            <i class="fas fa-flask"></i>
+            <span>My Lab Results</span>
+          </a>
+          <a href="{{ route('logout') }}" class="logout-btn"
+             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Log Out</span>
+          </a>
+        </div>
+      </div>
+
+      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+      </form>
+    @else
       <a href="tel:+639123456789" class="phone-btn">+6391-2345-6789</a>
-      <div class="hamburger" id="hamburger">☰</div>
+      <a href="{{ route('register') }}" class="register-nav-btn">Get Started</a>
+    @endauth
+
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
   </header>
 
