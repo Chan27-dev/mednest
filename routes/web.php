@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\WalkInPatientController;
 use App\Models\User;
@@ -15,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 Route::prefix('user')->group(function () {
     // Public pages
@@ -36,11 +38,7 @@ Route::prefix('user')->group(function () {
         return view('user.dashboard', compact('patient'));
     })->middleware('auth')->name('user.dashboard');
 
-    Route::get('/appointment', function () {
-        $branches = Branch::all();
-        $services = Service::all();
-        return view('user.appointment', compact('branches', 'services'));
-    })->middleware('auth')->name('user.appointment');
+    Route::get('/appointment', [AppointmentController::class, 'create'])->middleware('auth')->name('user.appointment');
 
     Route::get('/lab-results', function () {
         $patient = Patient::where('user_id', Auth::id())->first();
@@ -50,9 +48,7 @@ Route::prefix('user')->group(function () {
     })->middleware('auth')->name('user.lab_results');
 
     // Appointment confirmation page (public or protected depending on flow)
-    Route::get('/confirmation', function () {
-        return view('user.confirmation');
-    })->name('user.confirmation');
+    Route::get('/confirmation/{id}', [AppointmentController::class, 'confirmation'])->name('user.confirmation');
 
     Route::get('/profile', function () {
         $user = Auth::user();
@@ -103,9 +99,7 @@ Route::prefix('user')->group(function () {
         return redirect()->route('user.profile')->with('success', 'Profile updated successfully!');
     })->middleware('auth')->name('user.profile.update');
 
-    Route::post('/appointment', function () {
-        return redirect()->back()->with('success', 'Appointment booked successfully!');
-    })->middleware('auth')->name('user.appointment.store');
+    Route::post('/appointment', [AppointmentController::class, 'store'])->middleware('auth')->name('user.appointment.store');
 });
 
 // ✅ Default route (optional – can point to user landing page)
@@ -126,6 +120,7 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::post('/walk-in-patient', [WalkInPatientController::class, 'store'])->name('walkin.store');
 
     Route::get('/appointments', [DashboardController::class, 'appointments'])->name('appointments');
+    Route::post('/appointments', [AppointmentController::class, 'store'])->name('appointments.store');
     Route::get('/labor', [DashboardController::class, 'labor'])->name('labor');
     Route::get('/billing', [DashboardController::class, 'billing'])->name('billing');
 
@@ -195,8 +190,6 @@ Route::middleware('guest')->group(function () {
 
     Route::post('login', [DashboardController::class, 'loginPost'])->name('login.post');
 
-});
-
     // Registration page (GET) and handler (POST)
     Route::get('register', function () {
         return view('register');
@@ -209,7 +202,7 @@ Route::middleware('guest')->group(function () {
             'date_of_birth' => 'required|date',
             'phone' => 'required|string|max:50',
             'address' => 'required|string|max:255',
-            'civil_status' => 'required|string|max:50',
+            'civil_status' => ['required', 'string', Rule::in(['Single', 'Married', 'Widowed', 'Separated', 'Live-in'])],
             'occupation' => 'nullable|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed|min:6',
@@ -239,10 +232,15 @@ Route::middleware('guest')->group(function () {
 
         // Assign 'patient' role dynamically
         // Ensure you have a Role model or use DB table lookups
-        $patientRole = DB::table('roles')->where('name', 'patient')->first();
+        $roleId = DB::table('roles')->where('name', 'patient')->value('id');
+        
+        if (!$roleId) {
+            $roleId = DB::table('roles')->insertGetId(['name' => 'patient', 'display_name' => 'Patient']);
+        }
+
         DB::table('role_user')->insert([
             'user_id' => $user->id,
-            'role_id' => $patientRole ? $patientRole->id : 3, // Fallback to 3 if not found
+            'role_id' => $roleId,
         ]);
 
         // Log the user in
@@ -250,6 +248,7 @@ Route::middleware('guest')->group(function () {
 
         return redirect()->route('user.dashboard')->with('success', 'Account created and logged in.');
     })->name('register.post');
+});
 // -------------------------------------------------------------
 // API Routes
 // -------------------------------------------------------------

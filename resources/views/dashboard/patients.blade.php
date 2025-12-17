@@ -1232,6 +1232,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('dashboard.labor') ? 'active' : '' }}" href="{{ route('dashboard.labor') }}">
+                    <i class="fas fa-heartbeat"></i>
+                    Labor Monitoring
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard.billing') }}">
                     <i class="fas fa-file-invoice-dollar"></i>
                     Billing System
@@ -1734,6 +1740,24 @@
                             <div class="col-md-6">
                                 <label for="contact_number" class="form-label fw-semibold">Contact Number <span class="text-danger">*</span></label>
                                 <input type="tel" class="form-control form-control-lg border-0 bg-light" id="contact_number" name="contact_number" required>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label for="civil_status" class="form-label fw-semibold">Civil Status</label>
+                                <select class="form-select form-select-lg border-0 bg-light" id="civil_status" name="civil_status">
+                                    <option value="">Select Status</option>
+                                    <option value="Single">Single</option>
+                                    <option value="Married">Married</option>
+                                    <option value="Widowed">Widowed</option>
+                                    <option value="Separated">Separated</option>
+                                    <option value="Live-in">Live-in</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="occupation" class="form-label fw-semibold">Occupation</label>
+                                <input type="text" class="form-control form-control-lg border-0 bg-light" id="occupation" name="occupation" placeholder="e.g. Teacher">
                             </div>
                         </div>
 

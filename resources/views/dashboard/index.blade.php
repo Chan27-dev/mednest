@@ -492,8 +492,7 @@
     }
 
     /* Ensure select uses same font/size/padding as inputs */
-    .form-select.form-select-lg.border-0.bg-light,
-    #blood_type {
+    .form-select.form-select-lg.border-0.bg-light {
         font-family: inherit;
         font-size: 1rem; /* matches .form-control-lg */
         padding: 1rem 1.25rem;
@@ -874,6 +873,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('dashboard.labor') ? 'active' : '' }}" href="{{ route('dashboard.labor') }}">
+                    <i class="fas fa-heartbeat"></i>
+                    Labor Monitoring
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard.billing') }}">
                     <i class="fas fa-file-invoice-dollar"></i>
                     Billing System
@@ -1081,86 +1086,68 @@
 
 <!-- Schedule Appointment Modal -->
 <div class="modal fade" id="scheduleAppointmentModal" tabindex="-1" aria-labelledby="scheduleAppointmentModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content border-0">
             <!-- Modal Header -->
             <div class="modal-header border-0" style="background: linear-gradient(135deg, var(--primary-color), #ff6b9d); color: white;">
                 <h5 class="modal-title fw-bold" id="scheduleAppointmentModalLabel">
-                    <i class="fas fa-calendar-check me-2"></i>Schedule Appointment
+                    <i class="fas fa-calendar-check me-2"></i>Schedule New Appointment
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <!-- Modal Body -->
             <div class="modal-body p-4">
-                <!-- Search and Filter Section -->
-                <div class="row g-3 mb-4">
-                    <div class="col-md-6">
-                        <div class="search-wrapper">
-                            <i class="fas fa-search search-icon-modal"></i>
-                            <input type="text" class="form-control form-control-lg ps-5" id="patientSearch" placeholder="Search patients by name...">
+                <form id="scheduleAppointmentForm" action="{{ route('dashboard.appointments.store') }}" method="POST">
+                    @csrf
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <label for="appointment_patient_id" class="form-label fw-semibold">Patient <span class="text-danger">*</span></label>
+                            <select class="form-select form-select-lg bg-light border-0" id="appointment_patient_id" name="patient_id" required>
+                                <option value="">Search and select a patient...</option>
+                                {{-- Assuming $data['patients'] is passed to the view or loaded via AJAX --}}
+                                @foreach($data['patients'] ?? [] as $patient)
+                                    <option value="{{ $patient->id }}">{{ $patient->first_name }} {{ $patient->last_name }} (ID: {{ $patient->id }})</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="appointment_branch_id" class="form-label fw-semibold">Branch <span class="text-danger">*</span></label>
+                            <select class="form-select form-select-lg bg-light border-0" id="appointment_branch_id" name="branch_id" required>
+                                <option value="">Select Branch</option>
+                                {{-- Assuming $data['branches'] is passed to the view --}}
+                                @foreach($data['branches'] ?? [] as $branch)
+                                    <option value="{{ $branch->id }}">{{ $branch->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="appointment_service_id" class="form-label fw-semibold">Service <span class="text-danger">*</span></label>
+                            <select class="form-select form-select-lg bg-light border-0" id="appointment_service_id" name="service_id" required>
+                                <option value="">Select Service</option>
+                                {{-- Assuming $data['services'] is passed to the view --}}
+                                @foreach($data['services'] ?? [] as $service)
+                                    <option value="{{ $service->id }}">{{ $service->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="appointment_staff_id" class="form-label fw-semibold">Assigned Staff <span class="text-danger">*</span></label>
+                            <select class="form-select form-select-lg bg-light border-0" id="appointment_staff_id" name="staff_id" required>
+                                <option value="">Select Staff (based on branch)</option>
+                                {{-- Staff will be loaded via JS based on branch selection --}}
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="appointment_start_time" class="form-label fw-semibold">Appointment Date & Time <span class="text-danger">*</span></label>
+                            <input type="datetime-local" class="form-control form-control-lg bg-light border-0" id="appointment_start_time" name="start_time" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="appointment_notes" class="form-label fw-semibold">Notes (Optional)</label>
+                            <textarea class="form-control bg-light border-0" id="appointment_notes" name="notes" rows="3" placeholder="Any special instructions or notes..."></textarea>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <select class="form-select form-select-lg" id="branchFilter" name="branch_filter">
-                            <option value="">All Branches</option>
-                            <option value="sinag">Sinag Branch</option>
-                            <option value="bill">Bill Dayandog</option>
-                            <option value="anthony">Anthony Branch</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <select class="form-select form-select-lg" id="statusFilter" name="status_filter">
-                            <option value="">All Status</option>
-                            <option value="scheduled">Scheduled</option>
-                            <option value="completed">Completed</option>
-                            <option value="cancelled">Cancelled</option>
-                            <option value="pending">Pending</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Appointments Table -->
-                <div class="table-responsive">
-                    <table class="table table-hover appointment-table">
-                        <thead class="table-header">
-                            <tr>
-                                <th>Patient Name</th>
-                                <th>Age</th>
-                                <th>Appointment Date</th>
-                                <th>Time</th>
-                                <th>Service Type</th>
-                                <th>Assigned Doctor</th>
-                                <th>Branch</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="appointmentsTableBody">
-                            <!-- Appointment rows will be populated here -->
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Pagination -->
-                <div class="d-flex justify-content-between align-items-center mt-4">
-                    <div class="text-muted">
-                        Showing <span id="currentRange">1-10</span> of <span id="totalAppointments">25</span> appointments
-                    </div>
-                    <nav aria-label="Appointments pagination">
-                        <ul class="pagination pagination-sm mb-0">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1">Previous</a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+                </form>
             </div>
 
             <!-- Modal Footer -->
@@ -1168,8 +1155,8 @@
                 <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">
                     <i class="fas fa-times me-2"></i>Close
                 </button>
-                <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#addPatientModal" data-bs-dismiss="modal">
-                    <i class="fas fa-plus me-2"></i>Add New Appointment
+                <button type="button" class="btn btn-primary px-4" id="saveAppointmentBtn">
+                    <i class="fas fa-save me-2"></i>Save Appointment
                 </button>
             </div>
         </div>
@@ -1199,28 +1186,13 @@
                     </div>
 
                     <div class="row g-3 mb-4">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label for="first_name" class="form-label fw-semibold">First Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-lg border-0 bg-light" id="first_name" name="first_name" required autocomplete="given-name">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label for="last_name" class="form-label fw-semibold">Last Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-lg border-0 bg-light" id="last_name" name="last_name" required autocomplete="family-name">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="blood_type" class="form-label fw-semibold">Blood Type</label>
-                            <select id="blood_type" name="blood_type" class="form-select form-select-lg border-0 bg-light">
-                                <option value="">Select Blood Type</option>
-                                <option value="A+">A+</option>
-                                <option value="A-">A-</option>
-                                <option value="B+">B+</option>
-                                <option value="B-">B-</option>
-                                <option value="AB+">AB+</option>
-                                <option value="AB-">AB-</option>
-                                <option value="O+">O+</option>
-                                <option value="O-">O-</option>
-                                <option value="Unknown">Unknown</option>
-                            </select>
                         </div>
                     </div>
 
@@ -1232,6 +1204,24 @@
                         <div class="col-md-6">
                             <label for="contact_number" class="form-label fw-semibold">Contact Number <span class="text-danger">*</span></label>
                             <input type="tel" class="form-control form-control-lg border-0 bg-light" id="contact_number" name="contact_number" required autocomplete="tel">
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label for="civil_status" class="form-label fw-semibold">Civil Status</label>
+                            <select class="form-select form-select-lg border-0 bg-light" id="civil_status" name="civil_status">
+                                <option value="">Select Status</option>
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                                <option value="Widowed">Widowed</option>
+                                <option value="Separated">Separated</option>
+                                <option value="Live-in">Live-in</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="occupation" class="form-label fw-semibold">Occupation</label>
+                            <input type="text" class="form-control form-control-lg border-0 bg-light" id="occupation" name="occupation" placeholder="e.g. Teacher">
                         </div>
                     </div>
 
@@ -1528,6 +1518,68 @@
                 confirmBtn.innerHTML = '<i class="fas fa-check me-2"></i>Add Patient';
             }
         });
+
+        // Schedule Appointment form handler
+        const saveAppointmentBtn = document.getElementById('saveAppointmentBtn');
+        if (saveAppointmentBtn) {
+            saveAppointmentBtn.addEventListener('click', async function () {
+                const form = document.getElementById('scheduleAppointmentForm');
+                if (!form) return;
+
+                const formData = new FormData(form);
+                const requiredFields = ['patient_id', 'branch_id', 'service_id', 'staff_id', 'start_time'];
+                let isValid = true;
+
+                requiredFields.forEach(field => {
+                    if (!formData.get(field)) {
+                        isValid = false;
+                        const input = form.querySelector(`[name="${field}"]`);
+                        if (input) input.classList.add('is-invalid');
+                    } else {
+                        const input = form.querySelector(`[name="${field}"]`);
+                        if (input) input.classList.remove('is-invalid');
+                    }
+                });
+
+                if (!isValid) {
+                    showNotification('Please fill in all required fields.', 'danger');
+                    return;
+                }
+
+                const originalText = saveAppointmentBtn.innerHTML;
+                saveAppointmentBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Saving...';
+                saveAppointmentBtn.disabled = true;
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' }
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        showNotification(result.message || 'Appointment scheduled successfully!', 'success');
+                        bootstrap.Modal.getInstance(document.getElementById('scheduleAppointmentModal')).hide();
+                        form.reset();
+                        setTimeout(() => location.reload(), 1000);
+                    } else {
+                        let errorMsg = result.message || 'Error scheduling appointment.';
+                        if (result.errors) {
+                            errorMsg = Object.values(result.errors).flat().join('<br>');
+                        }
+                        showNotification(errorMsg, 'danger');
+                    }
+                } catch (err) {
+                    console.error(err);
+                    showNotification('A network error occurred. Please try again.', 'danger');
+                } finally {
+                    saveAppointmentBtn.innerHTML = originalText;
+                    saveAppointmentBtn.disabled = false;
+                }
+            });
+        }
     });
 </script>
 @endsection

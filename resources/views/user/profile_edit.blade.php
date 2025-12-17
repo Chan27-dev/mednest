@@ -558,7 +558,7 @@
               <option value="Married" {{ old('civil_status', $user->patient->civil_status ?? '') == 'Married' ? 'selected' : '' }}>Married</option>
               <option value="Widowed" {{ old('civil_status', $user->patient->civil_status ?? '') == 'Widowed' ? 'selected' : '' }}>Widowed</option>
               <option value="Separated" {{ old('civil_status', $user->patient->civil_status ?? '') == 'Separated' ? 'selected' : '' }}>Separated</option>
-              <option value="Divorced" {{ old('civil_status', $user->patient->civil_status ?? '') == 'Divorced' ? 'selected' : '' }}>Divorced</option>
+              <option value="Live-in" {{ old('civil_status', $user->patient->civil_status ?? '') == 'Live-in' ? 'selected' : '' }}>Live-in</option>
             </select>
           </div>
 

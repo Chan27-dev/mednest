@@ -551,6 +551,7 @@
           <input
             type="text"
             id="patient_name"
+            name="patient_name"
             value="{{ Auth::user()->patient ? Auth::user()->patient->first_name . ' ' . Auth::user()->patient->last_name : Auth::user()->name }}"
             readonly
             style="background: #ffffff; cursor: not-allowed; color: #333;"
@@ -562,6 +563,7 @@
           <input
             type="text"
             id="patient_phone"
+            name="patient_phone"
             value="{{ Auth::user()->patient->phone ?? 'N/A' }}"
             readonly
             style="background: #ffffff; cursor: not-allowed; color: #333;"
@@ -573,6 +575,7 @@
           <input
             type="text"
             id="patient_email"
+            name="patient_email"
           value="{{ optional(optional(Auth::user())->patient)->email ?? optional(Auth::user())->email ?? 'N/A' }}"
             readonly
             style="background: #ffffff; cursor: not-allowed; color: #333;"
@@ -584,7 +587,7 @@
           <select id="branch" name="branch" required>
             <option value="">Choose your preferred branch</option>
             @foreach($branches as $branch)
-              <option value="{{ $branch->name }}" {{ old('branch') == $branch->name ? 'selected' : '' }}>
+              <option value="{{ $branch->id }}" {{ old('branch') == $branch->id ? 'selected' : '' }}>
                 {{ $branch->name }} – {{ $branch->address_line_1 }}, {{ $branch->city }}
               </option>
             @endforeach
@@ -608,7 +611,7 @@
           <select id="appointment_type" name="appointment_type" required>
             <option value="">Select a service</option>
             @foreach($services as $service)
-              <option value="{{ $service->name }}" {{ old('appointment_type') == $service->name ? 'selected' : '' }}>
+              <option value="{{ $service->id }}" {{ old('appointment_type') == $service->id ? 'selected' : '' }}>
                 {{ $service->name }} @if($service->price > 0) - ₱{{ number_format($service->price, 0) }} @endif
               </option>
             @endforeach

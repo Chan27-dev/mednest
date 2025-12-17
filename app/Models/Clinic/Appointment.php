@@ -2,17 +2,6 @@
 
 namespace App\Models\Clinic;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Appointment extends Model
-{
-    //
-}
-
-/*
-// app/Models/Clinic/Appointment.php
-namespace App\Models\Clinic;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -64,4 +53,3 @@ class Appointment extends Model
         return $this->belongsTo(\App\Models\Billing\Order::class);
     }
 }
-*/

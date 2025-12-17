@@ -692,6 +692,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('dashboard.labor') ? 'active' : '' }}" href="{{ route('dashboard.labor') }}">
+                    <i class="fas fa-heartbeat"></i>
+                    Labor Monitoring
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard.billing') }}">
                     <i class="fas fa-file-invoice-dollar"></i>
                     Billing System
